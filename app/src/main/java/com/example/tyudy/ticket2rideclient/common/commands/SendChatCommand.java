@@ -24,8 +24,6 @@ public class SendChatCommand extends Command implements iCommand, Serializable {
         data = d;
     }
 
-    public DataTransferObject getData() { return data; }
-
     @Override
     public DataTransferObject execute() {
         try {

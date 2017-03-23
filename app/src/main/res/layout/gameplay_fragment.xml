@@ -33,12 +33,16 @@
 
 
 
-            <Button
-                android:id="@+id/test_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <ImageButton
+                android:id="@+id/decks_button"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:scaleType="fitCenter"
+                android:layout_margin="10dp"
                 android:layout_gravity="bottom|left"
-                android:text="Swap Test"/>
+                android:backgroundTint="@color/white"
+                android:src="@drawable/card_deck"/>
 
             <ImageButton
                 android:id="@+id/dest_cards_button"
@@ -46,7 +50,6 @@
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
                 android:layout_margin="10dp"
-                android:layout_toLeftOf="@id/test_button"
                 android:layout_gravity="bottom|right"
                 android:backgroundTint="?attr/colorAccent"
                 android:src="@drawable/dest_cards_icon"/>

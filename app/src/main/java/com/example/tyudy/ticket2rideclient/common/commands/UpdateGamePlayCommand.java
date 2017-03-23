@@ -19,8 +19,6 @@ public class UpdateGamePlayCommand extends Command implements iCommand, Serializ
         data = d;
     }
 
-    public DataTransferObject getData() { return data; }
-
     @Override
     public DataTransferObject execute() {
         // Tell the MethodsFacade to update the model accordingly

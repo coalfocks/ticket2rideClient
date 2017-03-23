@@ -22,8 +22,6 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
         data = d;
     }
 
-    public DataTransferObject getData() { return data; }
-
     @Override
     public DataTransferObject execute() {
         try {
