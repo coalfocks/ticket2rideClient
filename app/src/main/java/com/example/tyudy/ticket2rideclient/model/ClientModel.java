@@ -1,12 +1,16 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.model.states.IState;
+import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
+import com.example.tyudy.ticket2rideclient.model.states.myturnstates.PickSecond;
 
 import java.util.ArrayList;
 
@@ -28,6 +32,7 @@ public class ClientModel implements iObservable {
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
+    private IState currentState;
 
 
     private ClientModel(){
@@ -39,6 +44,7 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
+        currentState = new PreGameState();
         initCitiesAndPaths();
     }
 
@@ -483,5 +489,98 @@ public class ClientModel implements iObservable {
         return null;
     }
 
+    // CAN DO METHODS -----------------------------
+    // All these methods assume that it's the current player's turn.
 
+    /**
+     * The can-do method for claiming a path.
+     * @param path The path to be claimed.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canClaimPath(Path path) {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.claimPath() == currentState)
+            return false;
+
+        for (Path p : allPaths)
+        {
+            if (p.getName().equals(path.getName()))
+            {
+                // Can't claim a path if the path already has
+                // an owner (even if the owner is the current
+                // player)
+                if (p.hasOwner())
+                    return false;
+
+                return true;
+            }
+        }
+
+        // Should only get to this point if for some reason the path doesn't exist
+        return false;
+    }
+
+    /**
+     * The can-do method for picking a face-up train card.
+     * @param card The picked card.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canPickTrainCard(TrainCard card) {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.pickCard() == currentState)
+            return false;
+
+        // Can't pick a face-up wild card on the second pick
+        if (currentState.getClass() == PickSecond.class
+                && card.getColor() == ColorENUM.WILD)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * The can-do method for drawing a face-down train card.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canDrawTrainCard() {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.drawCard() == currentState)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * The can-do method for drawing destination cards.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canDrawDestCard() {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.drawDest() == currentState)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * The can-do method for returning a destination card.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canReturnDestCard() {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.returnCard() == currentState)
+            return false;
+
+        return true;
+    }
 }
