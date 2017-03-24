@@ -600,7 +600,7 @@ public class ClientModel implements iObservable {
 
     /**
      * The can-do method for scoring points.
-     * @return True if it's a valid call, false otherwise.
+     * @return True if it's a valid call, false otherwise.`
      */
     public boolean canScorePoints() {
 
