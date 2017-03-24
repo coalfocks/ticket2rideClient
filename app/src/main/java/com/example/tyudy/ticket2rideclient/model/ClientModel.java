@@ -583,4 +583,32 @@ public class ClientModel implements iObservable {
 
         return true;
     }
+
+    /**
+     * The can-do method for ending a player's turn.
+     * @return True if it's a valid action, false otherwise.
+     */
+    public boolean canEndTurn() {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.endTurn() == currentState)
+            return false;
+
+        return true;
+    }
+
+    /**
+     * The can-do method for scoring points.
+     * @return True if it's a valid call, false otherwise.
+     */
+    public boolean canScorePoints() {
+
+        // If the current state returns itself, it's
+        // not a valid action.
+        if (currentState.scorePoints() == currentState)
+            return false;
+
+        return true;
+    }
 }
