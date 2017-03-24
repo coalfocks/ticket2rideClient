@@ -129,15 +129,8 @@ public class MethodsFacade {
     public void getCommands(int index) {
         DataTransferObject dto = new DataTransferObject();
         dto.setCommand(("getCommands"));
-        ArrayList<Integer> indexAndGame = new ArrayList<>();
-        indexAndGame.add(index);
-        indexAndGame.add(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
-        try
-        {
-            dto.setData(Serializer.serialize(indexAndGame));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setData(String.valueOf(index) + "," + String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
         ServerProxy.SINGLETON.getCommands(dto);
     }
 
