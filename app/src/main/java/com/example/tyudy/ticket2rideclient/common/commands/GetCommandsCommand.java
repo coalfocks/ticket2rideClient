@@ -1,11 +1,14 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
 
     @Override
     public void setData(DataTransferObject d) {
+        super.setData(d);
         data = d;
     }
 
@@ -30,6 +34,10 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
                 //TODO: only execute if pertaining to current user
                 // dont execute startgame if game already started
                 //
+                if (c.getClass() == StartGameCommand.class &&
+                        ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+                    continue;
+                }
                 c.execute();
             }
             Poller.getInstance().incIndex(commands.size());

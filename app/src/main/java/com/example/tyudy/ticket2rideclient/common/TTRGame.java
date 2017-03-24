@@ -136,8 +136,8 @@ public class TTRGame implements Serializable
     }
 
     // dealTrainCard used by the server
-    public TrainCard dealTrainCard(int playerID){
-        return null;
+    public void dealTrainCard(int playerID){
+        return;
     }
 
     public void dealTrainCard(User u){

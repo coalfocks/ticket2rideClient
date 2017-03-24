@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient;
 
+import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -71,6 +72,8 @@ public class Poller  implements Runnable
 
     public int getQueueIndex() { return this.queueIndex; }
 
+    public void setQueueIndex(int i) { this.queueIndex = i; }
+
     /**
      * Poll method, called every [amount of time] by ClientCommunicator
      */
@@ -86,8 +89,9 @@ public class Poller  implements Runnable
                 ClientModel.SINGLETON.getCurrentTTRGame() == null)) {
             MethodsFacade.SINGLETON.getGameList();
         }
-        if (ClientModel.SINGLETON.getCurrentTTRGame() != null  &&
-            MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class) {
+        if ((ClientModel.SINGLETON.getCurrentTTRGame() != null)  &&
+            (MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class ||
+            MethodsFacade.SINGLETON.getContext().getClass() == GameBoardActivity.class)) {
             MethodsFacade.SINGLETON.getCommands(queueIndex);
         }
     }

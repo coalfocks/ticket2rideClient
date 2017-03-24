@@ -16,6 +16,7 @@ public class UpdateGamePlayCommand extends Command implements iCommand, Serializ
 
     @Override
     public void setData(DataTransferObject d) {
+        super.setData(d);
         data = d;
     }
 
