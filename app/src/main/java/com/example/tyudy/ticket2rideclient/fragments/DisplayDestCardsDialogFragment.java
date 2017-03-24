@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.presenters.DisplayDestinationCardsPresenter;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
     private Activity gameBoardActivity;
     private ListView allCardsView;
     private DisplayCardsAdapter adapter;
+    private DisplayDestinationCardsPresenter mDisplayDestinationCardsPresenter;
 
     public DisplayDestCardsDialogFragment(){
         destinationCards = new ArrayList<>();
@@ -48,6 +51,12 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        // Add this instance of the class the this classes presenter
+        mDisplayDestinationCardsPresenter = PresenterHolder.SINGLETON.getDisplayDestinationCardsPresenter();
+        mDisplayDestinationCardsPresenter.setDisplayDestCardsDialogFragment(this);
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(gameBoardActivity);
         View v = gameBoardActivity.getLayoutInflater().inflate(R.layout.scroll_view, null);
 
