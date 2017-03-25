@@ -15,5 +15,13 @@
     <string name="ok">OK</string>
     <string name="placeholder">IM A PLACEHLODER TETXS</string>
     <string name="completed">Completed</string>
-
+    <string name="train_card_deck_title">Draw Train Card</string>
+    <string name="dest_card_deck_title">Draw Destination Cards</string>
+    <string name="deck_width_in_dialog">100dp</string>
+    <string name="deck_height_in_dialog">100dp</string>
+    <string name="train_card_height">70dp</string>
+    <string name="train_card_selection_title">Click A Train Card To Pick It Up</string>
+    <string name="deck_dialog_train_card_left_padding">4dp</string>
+    <string name="deck_dialog_train_card_right_padding">4dp</string>
+    <string name="decks_dialog_title">Decks</string>
 </resources>

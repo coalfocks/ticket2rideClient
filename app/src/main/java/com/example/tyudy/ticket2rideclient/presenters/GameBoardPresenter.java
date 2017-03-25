@@ -29,4 +29,8 @@ public class GameBoardPresenter {
     public void showDestCards(){
         PresenterHolder.SINGLETON.getDisplayDestinationCardsPresenter().showDialog(mGameBoardFragment.getActivity());
     }
+
+    public void showDecks(){
+        PresenterHolder.SINGLETON.getDecksDialogPresenter().showDialog(mGameBoardFragment.getActivity());
+    }
 }

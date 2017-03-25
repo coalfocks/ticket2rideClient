@@ -112,12 +112,7 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
         mDecksButton = (ImageButton) v.findViewById(R.id.decks_button);
-        mDecksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
 
 //        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
@@ -157,6 +152,13 @@ public class GameBoardFragment extends Fragment implements iObserver
 //            }
 //        });
 
+
+        mDecksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGameBoardPresenter.showDecks();
+            }
+        });
 
 
         mDestCardsButton.setOnClickListener(new View.OnClickListener() {

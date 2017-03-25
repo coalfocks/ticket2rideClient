@@ -28,4 +28,5 @@ public class DisplayDestinationCardsPresenter {
         mDisplayDestCardsDialogFragment.setGameBoardActivity(gameBoardActivity);
         mDisplayDestCardsDialogFragment.show(gameBoardActivity.getFragmentManager(), "Cards");
     }
+
 }
