@@ -96,9 +96,9 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             DestinationCard card = getItem(position);
 
             if (card != null) {
-//                String src = "From:   " + card.getDestination().getSource().getCityName();
-//                String dst = "To:     " + card.getDestination().getDest().getCityName();
-//                String pts = "Points: " + card.getPointValue();
+                String src = "From:   " + card.getDestination().getSource();
+                String dst = "To:     " + card.getDestination().getDest();
+                String pts = "Points: " + String.valueOf(card.getPointValue());
 
                 LayoutInflater mInflater = (LayoutInflater) mContext
                         .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -122,9 +122,10 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                 } else
                     holder = (ViewHolder) convertView.getTag();
 
-                holder.source.setText("FROM: DEST 1");//src);
-                holder.dest.setText("TO: DEST 2");//dst);
-                holder.points.setText("30");//pts);
+
+                holder.source.setText(src);
+                holder.dest.setText(dst);
+                holder.points.setText(pts);
 //                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
 //                    holder.checkBox.setChecked(true);
 //                else
@@ -132,13 +133,11 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                 if(holder.returnBox.isChecked())
                     ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
                 holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                                        @Override
-                                                                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                                                                               holder.returnBox.setChecked(true);
-                                                                        }
-                                                            }
-                );
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                           holder.returnBox.setChecked(true);
+                    }
+                });
             }
 
             return convertView;

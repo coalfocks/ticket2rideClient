@@ -41,10 +41,16 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
 
     }
 
-    public void onLogin(){
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        ft.replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
+    public void onLogin(User u){
+        if (u.getInGame() == 0) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.addToBackStack(null);
+            ft.replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
+        }
+        else {
+            Intent i = new Intent(this, GameLobbyActivity.class);
+            startActivity(i);
+        }
     }
 
     public void onLoginAndGame(int inProgress) {
