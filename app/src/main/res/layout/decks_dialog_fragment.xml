@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--Row for deck images-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--Train cards deck and title holder-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/train_card_deck_title"
+                android:textColor="@color/white"
+                android:background="@color/black"
+                android:gravity="center"/>
+
+            <ImageButton
+                android:id="@+id/train_card_deck"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/card_deck"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <!--Destination cards deck and title holder-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dest_card_deck_title"
+                android:textColor="@color/white"
+                android:background="@color/black"
+                android:gravity="center"/>
+
+            <ImageButton
+                android:id="@+id/dest_cards_deck"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:background="@null"
+                android:src="@drawable/card_deck"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <!--Row for face up card images and title-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/train_card_selection_title"
+                android:textColor="@color/white"
+                android:background="@color/black"
+                />
+
+            <!--Container for cards-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/face_up_card_1"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@drawable/blue_train_card"/>
+
+                <ImageButton
+                    android:id="@+id/face_up_card_2"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@drawable/red_train_card"/>
+
+                <ImageButton
+                    android:id="@+id/face_up_card_3"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@drawable/orange_train_card"/>
+
+                <ImageButton
+                    android:id="@+id/face_up_card_4"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@drawable/black_train_card"/>
+
+                <ImageButton
+                    android:id="@+id/face_up_card_5"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:scaleType="fitCenter"
+                    android:background="@null"
+                    android:src="@drawable/green_train_card"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/exit_decks_dialog_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:text="Exit"/>
+
+</LinearLayout>
