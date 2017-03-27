@@ -221,4 +221,9 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setCurrentUser(new User());
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
+
+    public void changeTurn(int nextPlayerID){
+        ClientModel.SINGLETON.changeTurn(nextPlayerID);
+        ClientModel.SINGLETON.getCurrentTTRGame().setmTurnIndex(nextPlayerID);
+    }
 }

@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.model.states.IState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
+import com.example.tyudy.ticket2rideclient.model.states.myturnstates.NoAction;
 import com.example.tyudy.ticket2rideclient.model.states.myturnstates.PickSecond;
 
 import java.util.ArrayList;
@@ -487,6 +488,11 @@ public class ClientModel implements iObservable {
             }
         }
         return null;
+    }
+
+    public void changeTurn(int nextPlayerID){
+        if (nextPlayerID == currentUser.getPlayerID())
+            currentState = new NoAction(); // Set the state to the NoAction state for player
     }
 
     // CAN DO METHODS -----------------------------
