@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
@@ -37,7 +38,8 @@ public class DecksDialogPresenter  {
 
     public void destDeckClicked(){
         //IMPLEMENT ME!!
-        PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
+//        PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
+        MethodsFacade.SINGLETON.drawDestCard();
     }
 
     public void trainDeckClicked(){

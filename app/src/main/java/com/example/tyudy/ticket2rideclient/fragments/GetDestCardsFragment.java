@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.DialogFragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.presenters.GetDestCardsPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
+
+import java.util.ArrayList;
 
 /**
  * Created by colefox on 3/26/17.
@@ -67,6 +72,7 @@ public class GetDestCardsFragment extends DialogFragment
         mCard3Pts = (TextView) view.findViewById(R.id.card3_pts);
 
         mExitButton = (Button) view.findViewById(R.id.exit_decks_dialog_button);
+        mExitButton.setText("Send Back Selected");
 
         getDialog().setTitle(R.string.decks_dialog_title);
 
@@ -81,23 +87,60 @@ public class GetDestCardsFragment extends DialogFragment
         mCard1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetDestCardsPresenter.cardClicked(1);
+                mGetDestCardsPresenter.cardClicked(0);
             }
         });
 
         mCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetDestCardsPresenter.cardClicked(2);
+                mGetDestCardsPresenter.cardClicked(1);
             }
         });
 
         mCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetDestCardsPresenter.cardClicked(3);
+                mGetDestCardsPresenter.cardClicked(2);
             }
         });
+
+        ArrayList<DestinationCard> cards = mGetDestCardsPresenter.getmDestCards();
+        mCard1Source.setText(cards.get(0).getDestination().getSource());
+        mCard1Dest.setText(cards.get(0).getDestination().getDest());
+        mCard1Pts.setText(String.valueOf(cards.get(0).getPointValue()));
+        mCard2Source.setText(cards.get(1).getDestination().getSource());
+        mCard2Dest.setText(cards.get(1).getDestination().getDest());
+        mCard2Pts.setText(String.valueOf(cards.get(1).getPointValue()));
+        mCard3Source.setText(cards.get(2).getDestination().getSource());
+        mCard3Dest.setText(cards.get(2).getDestination().getDest());
+        mCard3Pts.setText(String.valueOf(cards.get(2).getPointValue()));
     }
 
+    public void selectCard(int card, boolean select) {
+        switch (card) {
+            case(0):
+                if (!select) {
+                    mCard1.setBackgroundColor(Color.LTGRAY);
+                }
+                else {
+                    mCard1.setBackgroundColor(Color.DKGRAY);
+                }
+                break;
+            case(1):
+                if (!select) {
+                    mCard2.setBackgroundColor(Color.LTGRAY);
+                }
+                else {
+                    mCard2.setBackgroundColor(Color.DKGRAY);
+                }                break;
+            case(2):
+                if (!select) {
+                    mCard3.setBackgroundColor(Color.LTGRAY);
+                }
+                else {
+                    mCard3.setBackgroundColor(Color.DKGRAY);
+                }                break;
+        }
+    }
 }
