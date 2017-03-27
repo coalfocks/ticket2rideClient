@@ -34,3 +34,8 @@ public class GameBoardPresenter {
         PresenterHolder.SINGLETON.getDecksDialogPresenter().showDialog(mGameBoardFragment.getActivity());
     }
 }
+
+//TODO: return card commands
+//TODO: populate dialog with dest cards
+//TODO: show dialog when button pushed
+//Todo: tap dest card to remove

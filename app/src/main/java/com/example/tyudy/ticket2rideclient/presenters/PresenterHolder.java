@@ -19,6 +19,7 @@ public class PresenterHolder {
     private ChatPresenter mChatPresenter;
     private DisplayDestinationCardsPresenter mDisplayDestinationCardsPresenter;
     private DecksDialogPresenter mDecksDialogPresenter;
+    private GetDestCardsPresenter mGetDestCardsPresenter;
 
     private PresenterHolder(){
         mLoginPresenter = new LoginPresenter();
@@ -29,6 +30,7 @@ public class PresenterHolder {
         mChatPresenter = new ChatPresenter();
         mDisplayDestinationCardsPresenter = new DisplayDestinationCardsPresenter();
         mDecksDialogPresenter = new DecksDialogPresenter();
+        mGetDestCardsPresenter = new GetDestCardsPresenter();
     }
 
     /*
@@ -66,5 +68,7 @@ public class PresenterHolder {
     public DecksDialogPresenter getDecksDialogPresenter(){
         return mDecksDialogPresenter;
     }
+
+    public GetDestCardsPresenter getDestCardsPresenter() { return  mGetDestCardsPresenter; }
 
 }

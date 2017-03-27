@@ -37,6 +37,7 @@ public class DecksDialogPresenter  {
 
     public void destDeckClicked(){
         //IMPLEMENT ME!!
+        PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
     }
 
     public void trainDeckClicked(){
