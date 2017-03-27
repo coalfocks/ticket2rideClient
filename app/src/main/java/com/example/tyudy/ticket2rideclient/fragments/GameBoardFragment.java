@@ -17,12 +17,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.common.commands.NextTurnCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -31,6 +35,7 @@ import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 import com.example.tyudy.ticket2rideclient.views.MapView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -115,7 +120,15 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDecksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NextTurnCommand command = new NextTurnCommand();
+                DataTransferObject dto = new DataTransferObject();
+                dto.setPlayerID(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
 
+                try {
+                    ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
