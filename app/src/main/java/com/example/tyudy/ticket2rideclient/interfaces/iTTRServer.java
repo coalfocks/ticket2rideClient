@@ -31,4 +31,6 @@ public interface iTTRServer
     DataTransferObject claimPath(DataTransferObject data);
 
     DataTransferObject getCommands(DataTransferObject data);
+
+    DataTransferObject drawDestCard(DataTransferObject data);
 }

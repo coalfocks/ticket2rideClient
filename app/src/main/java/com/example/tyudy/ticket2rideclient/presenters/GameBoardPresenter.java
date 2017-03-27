@@ -27,12 +27,15 @@ public class GameBoardPresenter {
      * his/her destination cards
      */
     public void showDestCards(){
+        PresenterHolder.SINGLETON.getDisplayDestinationCardsPresenter().showDialog(mGameBoardFragment.getActivity());
+    }
 
-        User user = ClientModel.SINGLETON.getCurrentUser();
-        mDialogFragment = new DisplayDestCardsDialogFragment();
-        mDialogFragment.setCardList(user.getDestCards());
-        mDialogFragment.setGameBoardActivity(mGameBoardFragment.getActivity());
-        mDialogFragment.show(mGameBoardFragment.getActivity().getFragmentManager(), "Cards");
-      
+    public void showDecks(){
+        PresenterHolder.SINGLETON.getDecksDialogPresenter().showDialog(mGameBoardFragment.getActivity());
     }
 }
+
+//TODO: return card commands
+//TODO: populate dialog with dest cards
+//TODO: show dialog when button pushed
+//Todo: tap dest card to remove

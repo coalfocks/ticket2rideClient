@@ -129,15 +129,8 @@ public class MethodsFacade {
     public void getCommands(int index) {
         DataTransferObject dto = new DataTransferObject();
         dto.setCommand(("getCommands"));
-        ArrayList<Integer> indexAndGame = new ArrayList<>();
-        indexAndGame.add(index);
-        indexAndGame.add(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
-        try
-        {
-            dto.setData(Serializer.serialize(indexAndGame));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setData(String.valueOf(index) + "," + String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
         ServerProxy.SINGLETON.getCommands(dto);
     }
 
@@ -222,8 +215,16 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
 
-    public void changeTurn(int nextPlayerID){
+    public void changeTurn(int nextPlayerID) {
         ClientModel.SINGLETON.changeTurn(nextPlayerID);
         ClientModel.SINGLETON.getCurrentTTRGame().setmTurnIndex(nextPlayerID);
+    }
+
+    public void drawDestCard() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("drawDestCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.drawDestCard(dto);
     }
 }

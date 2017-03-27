@@ -171,6 +171,13 @@ public class GameBoardFragment extends Fragment implements iObserver
 //        });
 
 
+        mDecksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGameBoardPresenter.showDecks();
+            }
+        });
+
 
         mDestCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override

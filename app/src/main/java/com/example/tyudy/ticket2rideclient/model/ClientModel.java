@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -34,6 +35,7 @@ public class ClientModel implements iObservable {
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
     private IState currentState;
+    private ArrayList<DestinationCard> mNewDestCards;
 
 
     private ClientModel(){
@@ -46,6 +48,7 @@ public class ClientModel implements iObservable {
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
         currentState = new PreGameState();
+        mNewDestCards = new ArrayList<>();
         initCitiesAndPaths();
     }
 
