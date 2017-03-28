@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class ClaimRouteDialogPresenter {
     ClaimRouteDialogFragment mClaimRouteDialogFragment;
+    City mSelectedCity;
 
     public ClaimRouteDialogPresenter(){
 
@@ -28,10 +29,9 @@ public class ClaimRouteDialogPresenter {
     }
 
     public void showDialog(Activity gameBoardActivity, City selectedCity){
+        mSelectedCity = selectedCity;
         mClaimRouteDialogFragment = new ClaimRouteDialogFragment();
         mClaimRouteDialogFragment.show(gameBoardActivity.getFragmentManager(), "decks_dialog_fragment");
-//        setTitleText(selectedCity.getCityName());
-//        setContentsText(selectedCity);
     }
 
     public void exitButtonClicked(){
@@ -53,28 +53,28 @@ public class ClaimRouteDialogPresenter {
 
     /**
      * Set all the contents for the dialog popup base off of the city that was clicked
-     * @param city - the city that the user clicked on on the map
      */
-    private void setContentsText(City city){
-        ArrayList<City> connectedCities = city.getConnectedCityAsArray();
+    public void setContentsText(){
+        setTitleText(mSelectedCity.getCityName());
+        ArrayList<City> connectedCities = mSelectedCity.getConnectedCityAsArray();
         int routesIndex; // Used to access different elements in the gui
 
         for (int i = 0; i < connectedCities.size(); i++){
             routesIndex = i+1; // The elements that this accesses start at 1 not 0.
             City currentConnectedCity = connectedCities.get(i);
-            Path path = ClientModel.SINGLETON.getPathByCities(city, currentConnectedCity);
+            Path path = ClientModel.SINGLETON.getPathByCities(mSelectedCity, currentConnectedCity);
 
             // Set each part of the list element
             getRouteTitleByIndex(routesIndex).setText(currentConnectedCity.getCityName());
             getColorHolderByIndex(routesIndex).setBackgroundColor(GraphicsUtils.getRealColorFromEnum(path.getPathColor()));
-            getRouteLengthByIndex(routesIndex).setText(path.getPoints());
+           // getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getPoints()));
         }
     }
 
 
     /**
      * I know switch statements are ugly and non-scalable but
-     * better than messing around with adapters
+     * better than messing around with adapters for time sake
      */
     private TextView getColorHolderByIndex(int index){
         switch(index){
@@ -90,6 +90,8 @@ public class ClaimRouteDialogPresenter {
                 return mClaimRouteDialogFragment.getColorHolder5();
             case 6:
                 return mClaimRouteDialogFragment.getColorHolder6();
+            case 7:
+                return mClaimRouteDialogFragment.getColorHolder7();
             default:
                 return null;
         }
@@ -113,6 +115,8 @@ public class ClaimRouteDialogPresenter {
                 return mClaimRouteDialogFragment.getDestinationRoute5();
             case 6:
                 return mClaimRouteDialogFragment.getDestinationRoute6();
+            case 7:
+                return mClaimRouteDialogFragment.getDestinationRoute7();
             default:
                 return null;
         }
@@ -136,6 +140,8 @@ public class ClaimRouteDialogPresenter {
                 return mClaimRouteDialogFragment.getRouteLength5();
             case 6:
                 return mClaimRouteDialogFragment.getRouteLength6();
+            case 7:
+                return mClaimRouteDialogFragment.getRouteLength7();
             default:
                 return null;
         }

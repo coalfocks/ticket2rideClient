@@ -38,6 +38,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
     LinearLayout mRouteContainer4;
     LinearLayout mRouteContainer5;
     LinearLayout mRouteContainer6;
+    LinearLayout mRouteContainer7;
 
     TextView mDestinationRoute1;
     TextView mDestinationRoute2;
@@ -45,6 +46,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
     TextView mDestinationRoute4;
     TextView mDestinationRoute5;
     TextView mDestinationRoute6;
+    TextView mDestinationRoute7;
 
     TextView mColorHolder1;
     TextView mColorHolder2;
@@ -52,6 +54,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
     TextView mColorHolder4;
     TextView mColorHolder5;
     TextView mColorHolder6;
+    TextView mColorHolder7;
 
     TextView mRouteLength1;
     TextView mRouteLength2;
@@ -59,6 +62,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
     TextView mRouteLength4;
     TextView mRouteLength5;
     TextView mRouteLength6;
+    TextView mRouteLength7;
 
     Button mExitButton;
     Button mConfirmButton;
@@ -86,6 +90,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         mRouteContainer4 = (LinearLayout) view.findViewById(R.id.route_item_4);
         mRouteContainer5 = (LinearLayout) view.findViewById(R.id.route_item_5);
         mRouteContainer6 = (LinearLayout) view.findViewById(R.id.route_item_6);
+        mRouteContainer7 = (LinearLayout) view.findViewById(R.id.route_item_7);
 
         mDestinationRoute1 = (TextView) view.findViewById(R.id.route_item_1_name);
         mDestinationRoute2 = (TextView) view.findViewById(R.id.route_item_2_name);
@@ -93,6 +98,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         mDestinationRoute4 = (TextView) view.findViewById(R.id.route_item_4_name);
         mDestinationRoute5 = (TextView) view.findViewById(R.id.route_item_5_name);
         mDestinationRoute6 = (TextView) view.findViewById(R.id.route_item_6_name);
+        mDestinationRoute7 = (TextView) view.findViewById(R.id.route_item_7_name);
 
         mColorHolder1 = (TextView) view.findViewById(R.id.route_color_1);
         mColorHolder2 = (TextView) view.findViewById(R.id.route_color_2);
@@ -100,17 +106,20 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         mColorHolder4 = (TextView) view.findViewById(R.id.route_color_4);
         mColorHolder5 = (TextView) view.findViewById(R.id.route_color_5);
         mColorHolder6 = (TextView) view.findViewById(R.id.route_color_6);
+        mColorHolder7 = (TextView) view.findViewById(R.id.route_color_7);
 
         mRouteLength1 = (TextView) view.findViewById(R.id.route_item_1_length);
         mRouteLength2 = (TextView) view.findViewById(R.id.route_item_2_length);
         mRouteLength3 = (TextView) view.findViewById(R.id.route_item_3_length);
         mRouteLength4 = (TextView) view.findViewById(R.id.route_item_4_length);
         mRouteLength5 = (TextView) view.findViewById(R.id.route_item_5_length);
-        mRouteLength6 = (TextView) view.findViewById(R.id.route_item_6_length);
+        mRouteLength7 = (TextView) view.findViewById(R.id.route_item_7_length);
 
         mExitButton = (Button) view.findViewById(R.id.exit_claim_route_dialog);
         mConfirmButton = (Button) view.findViewById(R.id.claim_route_button);
 
+        // Set the contents of the whole popup
+        mClaimRouteDialogPresenter.setContentsText();
 
         //LISTENERS_---------------------------------------------------------------
 
@@ -160,6 +169,10 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         return mDestinationRoute6;
     }
 
+    public TextView getDestinationRoute7() {
+        return mDestinationRoute7;
+    }
+
     public TextView getColorHolder1() {
         return mColorHolder1;
     }
@@ -180,8 +193,10 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         return mColorHolder5;
     }
 
-    public TextView getColorHolder6() {
-        return mColorHolder6;
+    public TextView getColorHolder6() { return mColorHolder6; }
+
+    public TextView getColorHolder7() {
+        return mColorHolder7;
     }
 
     public TextView getRouteLength1() {
@@ -206,6 +221,10 @@ public class ClaimRouteDialogFragment extends DialogFragment {
 
     public TextView getRouteLength6() {
         return mRouteLength6;
+    }
+
+    public TextView getRouteLength7() {
+        return mRouteLength7;
     }
 
 
