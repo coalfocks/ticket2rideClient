@@ -23,6 +23,10 @@ public class ResetIndexCommand extends Command implements iCommand, Serializable
         return null;
     }
 
+    public DataTransferObject getData(){
+        return data;
+    }
+
 
     public void setData(DataTransferObject d)
     {

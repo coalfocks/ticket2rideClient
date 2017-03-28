@@ -37,4 +37,8 @@ public class SendChatCommand extends Command implements iCommand, Serializable {
 
         return null;
     }
+
+    public DataTransferObject getData(){
+        return data;
+    }
 }
