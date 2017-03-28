@@ -39,8 +39,4 @@ public class InitializeGameCommand extends Command implements iCommand, Serializ
         }
         return null;
     }
-
-    public DataTransferObject getData(){
-        return data;
-    }
 }

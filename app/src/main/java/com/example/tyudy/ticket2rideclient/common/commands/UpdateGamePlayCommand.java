@@ -25,8 +25,4 @@ public class UpdateGamePlayCommand extends Command implements iCommand, Serializ
         // Tell the MethodsFacade to update the model accordingly
         return null;
     }
-
-    public DataTransferObject getData(){
-        return data;
-    }
 }

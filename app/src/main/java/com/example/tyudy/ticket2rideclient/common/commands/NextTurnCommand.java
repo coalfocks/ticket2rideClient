@@ -29,8 +29,4 @@ public class NextTurnCommand extends Command implements iCommand, Serializable {
     {
         this.data = d;
     }
-
-    public DataTransferObject getData(){
-        return data;
-    }
 }

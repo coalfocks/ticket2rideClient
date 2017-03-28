@@ -46,8 +46,4 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
         }
         return null;
     }
-
-    public DataTransferObject getData(){
-        return data;
-    }
 }

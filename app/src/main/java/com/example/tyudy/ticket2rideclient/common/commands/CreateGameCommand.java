@@ -72,8 +72,4 @@ private DataTransferObject data;
     {
         this.data = d;
     }
-
-    public DataTransferObject getData(){
-        return data;
-    }
 }

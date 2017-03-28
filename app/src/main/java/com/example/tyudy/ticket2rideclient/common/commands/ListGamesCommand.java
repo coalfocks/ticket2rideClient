@@ -51,7 +51,4 @@ public class ListGamesCommand extends Command implements iCommand, Serializable
         this.data = d;
     }
 
-    public DataTransferObject getData(){
-        return data;
-    }
 }
