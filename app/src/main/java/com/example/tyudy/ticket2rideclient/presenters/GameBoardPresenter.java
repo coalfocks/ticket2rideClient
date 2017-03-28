@@ -17,8 +17,6 @@ import com.example.tyudy.ticket2rideclient.views.MapView;
 
 public class GameBoardPresenter {
 
-    private final float CITY_TOUCH_TOLERANCE = .015f;     // Distacne that the touch can be off from the exact city location
-
     private GameBoardFragment mGameBoardFragment;
 
     public GameBoardPresenter(){

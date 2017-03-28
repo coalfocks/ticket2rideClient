@@ -113,6 +113,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         mRouteLength3 = (TextView) view.findViewById(R.id.route_item_3_length);
         mRouteLength4 = (TextView) view.findViewById(R.id.route_item_4_length);
         mRouteLength5 = (TextView) view.findViewById(R.id.route_item_5_length);
+        mRouteLength6 = (TextView) view.findViewById(R.id.route_item_6_length);
         mRouteLength7 = (TextView) view.findViewById(R.id.route_item_7_length);
 
         mExitButton = (Button) view.findViewById(R.id.exit_claim_route_dialog);

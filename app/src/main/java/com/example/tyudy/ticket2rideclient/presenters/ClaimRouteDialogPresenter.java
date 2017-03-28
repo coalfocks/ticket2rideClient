@@ -56,6 +56,7 @@ public class ClaimRouteDialogPresenter {
      */
     public void setContentsText(){
         setTitleText(mSelectedCity.getCityName());
+        eraseCurrentContents();
         ArrayList<City> connectedCities = mSelectedCity.getConnectedCityAsArray();
         int routesIndex; // Used to access different elements in the gui
 
@@ -67,7 +68,20 @@ public class ClaimRouteDialogPresenter {
             // Set each part of the list element
             getRouteTitleByIndex(routesIndex).setText(currentConnectedCity.getCityName());
             getColorHolderByIndex(routesIndex).setBackgroundColor(GraphicsUtils.getRealColorFromEnum(path.getPathColor()));
-           // getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getPoints()));
+            getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getPoints()));
+        }
+    }
+
+    /**
+     * Erase the placeholder variables in the popup.
+     * If we have only 2 connections for a city we dont want to see 5 other place holder list elements.
+     */
+    private void eraseCurrentContents(){
+        final int MAX_CITY_CONNECTIONS = 7;
+        for (int i = 1; i <= MAX_CITY_CONNECTIONS; i++) {
+            getRouteTitleByIndex(i).setText("");
+            getColorHolderByIndex(i).setText("");
+            getRouteLengthByIndex(i).setText("");
         }
     }
 
@@ -144,6 +158,7 @@ public class ClaimRouteDialogPresenter {
                 return mClaimRouteDialogFragment.getRouteLength7();
             default:
                 return null;
+
         }
     }
 }

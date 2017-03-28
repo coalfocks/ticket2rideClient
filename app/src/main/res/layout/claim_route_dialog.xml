@@ -28,7 +28,7 @@
             android:id="@+id/route_item_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -58,7 +58,7 @@
             android:id="@+id/route_item_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -87,7 +87,7 @@
         <LinearLayout
             android:id="@+id/route_item_3"
             android:layout_width="match_parent"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -116,7 +116,7 @@
             android:id="@+id/route_item_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -144,7 +144,7 @@
             android:id="@+id/route_item_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -172,7 +172,7 @@
             android:id="@+id/route_item_6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -200,7 +200,7 @@
             android:id="@+id/route_item_7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -233,14 +233,14 @@
         <Button
             android:id="@+id/exit_claim_route_dialog"
             android:text="@string/exit_claim_route_button"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <Button
             android:id="@+id/claim_route_button"
             android:text="@string/confirm_claim_route_button"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 

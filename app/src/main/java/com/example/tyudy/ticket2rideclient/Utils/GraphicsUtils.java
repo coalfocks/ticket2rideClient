@@ -43,6 +43,8 @@ public final class GraphicsUtils {
                 return Color.BLUE;
             case RED:
                 return Color.RED;
+            case COLORLESS:
+                return Color.GRAY;
             default:
                 return 0;
         }

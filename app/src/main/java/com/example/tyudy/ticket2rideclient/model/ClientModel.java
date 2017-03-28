@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import android.graphics.Color;
+
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
@@ -200,7 +202,7 @@ public class ClientModel implements iObservable {
         // Create All Cities
         City Atlanta = new City("Atlanta", .707f, .477f);
         City Boston = new City("Boston", .8941f, .1722f);
-        City Calgary = new City("Calgary", 2314f, .0146f);
+        City Calgary = new City("Calgary", .2314f, .0260f);
         City Charleston = new City("Charleston", .7838f, .4861f);
         City Chicago = new City("Chicago", .6402f, .2787f);
         City Dallas = new City("Dallas", .4589f, .5306f);
@@ -208,8 +210,8 @@ public class ClientModel implements iObservable {
         City Duluth = new City("Duluth", .5084f, .1796f);
         City El_Paso = new City("El Paso", .3108f, .5416f);
         City Helena = new City("Helena", .2917f, .1398f);
-        City Houston = new City("Houston", .4814f, 5898f);
-        City Kansas_City = new City("Kansas City", .5747f, .3454f);
+        City Houston = new City("Houston", .4814f, .5898f);
+        City Kansas_City = new City("Kansas City", .4760f, .3476f);
         City Las_Vegas = new City("Las Vegas", .1616f, .3935f);
         City Little_Rock = new City("Little Rock", .5619f, .4666f);
         City Los_Angeles = new City("Los Angeles", .0822f, .4269f);
@@ -302,7 +304,10 @@ public class ClientModel implements iObservable {
         Path Helena_to_Omaha = new Path(ColorENUM.RED, 5, Helena, Omaha, "Helena_to_Omaha");
         Path KansasCity_to_Omaha = new Path(ColorENUM.COLORLESS, 1, Kansas_City, Omaha, "KansasCity_to_Omaha");
         Path KansasCity_to_OklahomaCity = new Path(ColorENUM.COLORLESS, 2, Kansas_City, Oklahoma_City, "KansasCity_to_OklahomaCity");
+        Path LasVegas_to_LosAngeles = new Path(ColorENUM.COLORLESS, 2, Las_Vegas, Los_Angeles, "LasVegas_to_LosAngeles");
         Path LasVegas_to_SaltLake = new Path(ColorENUM.ORANGE, 3, Las_Vegas, Salt_Lake, "LasVegas_to_SaltLake");
+        Path LosAngeles_to_SanFrancisco = new Path(ColorENUM.YELLOW, 3, Los_Angeles, San_Francisco, "LosAngeles_to_SanFrancisco");
+        Path LosAngeles_to_Phoenix = new Path(ColorENUM.COLORLESS, 3, Los_Angeles, Las_Vegas, "LosAngeles_to_Phoenix");
         Path OklahomaCity_to_SantaFe = new Path(ColorENUM.BLUE, 3, Oklahoma_City, Santa_Fe, "OklahomaCity_to_SantaFe");
         Path Phoenix_to_SantaFe = new Path(ColorENUM.COLORLESS, 3, Phoenix, Santa_Fe, "Phoenix_to_SantaFe");
         Path Portland_to_Seattle = new Path(ColorENUM.COLORLESS, 1, Portland, Seattle, "Portland_to_Seattle");
@@ -360,6 +365,7 @@ public class ClientModel implements iObservable {
         allPaths.add(Dallas_to_ElPaso);
         allPaths.add(Dallas_to_OklahomaCity);
         allPaths.add(Dallas_to_Houston);
+        allPaths.add(Denver_to_Phoenix);
         allPaths.add(Denver_to_SaltLake);
         allPaths.add(Denver_to_OklahomaCity);
         allPaths.add(Denver_to_KansasCity);
@@ -379,7 +385,10 @@ public class ClientModel implements iObservable {
         allPaths.add(Helena_to_Omaha);
         allPaths.add(KansasCity_to_Omaha);
         allPaths.add(KansasCity_to_OklahomaCity);
+        allPaths.add(LasVegas_to_LosAngeles);
         allPaths.add(LasVegas_to_SaltLake);
+        allPaths.add(LosAngeles_to_SanFrancisco);
+        allPaths.add(LosAngeles_to_Phoenix);
         allPaths.add(OklahomaCity_to_SantaFe);
         allPaths.add(Phoenix_to_SantaFe);
         allPaths.add(Portland_to_Seattle);
