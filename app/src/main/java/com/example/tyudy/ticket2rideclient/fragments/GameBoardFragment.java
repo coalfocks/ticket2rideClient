@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
@@ -117,20 +118,6 @@ public class GameBoardFragment extends Fragment implements iObserver
         mDestCardsButton = (ImageButton) v.findViewById(R.id.dest_cards_button);
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
         mDecksButton = (ImageButton) v.findViewById(R.id.decks_button);
-        mDecksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NextTurnCommand command = new NextTurnCommand();
-                DataTransferObject dto = new DataTransferObject();
-                dto.setPlayerID(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
-
-                try {
-                    ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
 
 //        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
@@ -170,7 +157,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //            }
 //        });
 
-
         mDecksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +169,6 @@ public class GameBoardFragment extends Fragment implements iObserver
             @Override
             public void onClick(View view) {
                 mGameBoardPresenter.showDestCards();
-
             }
         });
 

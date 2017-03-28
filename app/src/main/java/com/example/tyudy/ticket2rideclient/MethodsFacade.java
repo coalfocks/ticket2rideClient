@@ -151,7 +151,7 @@ public class MethodsFacade {
     }
 
     public boolean checkPassword(String pass){
-        if(pass == null || pass == ""){
+        if(pass == null || pass.equals("")){
             return false;
         }
         if(pass.length() > 10 || pass.length() < 2){
@@ -217,7 +217,7 @@ public class MethodsFacade {
 
     public void changeTurn(int nextPlayerID) {
         ClientModel.SINGLETON.changeTurn(nextPlayerID);
-        ClientModel.SINGLETON.getCurrentTTRGame().setmTurnIndex(nextPlayerID);
+        ClientModel.SINGLETON.getCurrentTTRGame().changeTurn();
     }
 
     public void drawDestCard() {

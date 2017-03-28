@@ -31,6 +31,7 @@ public class ClientModel implements iObservable {
     private TreeMap<String, City> mCities;
     private String ipAddress;
     private User currentUser;
+    private int currentPlayerTurnID;
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
@@ -44,6 +45,7 @@ public class ClientModel implements iObservable {
         chatMsgs = new ArrayList<>();
         ipAddress = null;
         currentUser = null;
+        currentPlayerTurnID = 0;
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
@@ -162,6 +164,14 @@ public class ClientModel implements iObservable {
         obsList.remove(observer);
     }
 
+    public int getCurrentPlayerTurnID() {
+        return currentPlayerTurnID;
+    }
+
+    public void setCurrentPlayerTurnID(int currentPlayerTurnID) {
+        this.currentPlayerTurnID = currentPlayerTurnID;
+    }
+
     /**
      * Initialize all cities in the map with a name and location
      */
@@ -229,6 +239,7 @@ public class ClientModel implements iObservable {
         City New_York = new City("New York", .8648f, .2435f);
         City Oklahoma_City = new City("Oklahoma City", .4561f, .4398f);
         City Omaha = new City("Omaha", .4856f, .2744f);
+
         City Phoenix = new City("Phoenix", .1859f, .4755f);
         City Pittsburgh = new City("Pittsburgh", .7712f, .2809f);
         City Portland = new City("Portland", .0512f, .1113f);
@@ -496,6 +507,8 @@ public class ClientModel implements iObservable {
     public void changeTurn(int nextPlayerID){
         if (nextPlayerID == currentUser.getPlayerID())
             currentState = new NoAction(); // Set the state to the NoAction state for player
+
+        setCurrentPlayerTurnID(nextPlayerID);
     }
 
     // CAN DO METHODS -----------------------------

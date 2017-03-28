@@ -1,14 +1,20 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.commands.NextTurnCommand;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
 import com.example.tyudy.ticket2rideclient.fragments.DisplayDestCardsDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +49,20 @@ public class DecksDialogPresenter  {
     }
 
     public void trainDeckClicked(){
-        //IMPLEMENT ME!!
+        //TREVOR'S TEST STUFF
+        NextTurnCommand command = new NextTurnCommand();
+        DataTransferObject dto = new DataTransferObject();
+        int gameID = ClientModel.SINGLETON.getCurrentTTRGame().getGameID();
+
+
+        dto.setData((Integer.toString(gameID)));
+        command.setData(dto);
+
+        try {
+            ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
