@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.model;
 import android.graphics.Color;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -31,6 +32,7 @@ public class ClientModel implements iObservable {
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
+    private ArrayList<DestinationCard> mNewDestCards;
 
 
     private ClientModel(){
@@ -42,6 +44,7 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
+        mNewDestCards = new ArrayList<>();
         initCitiesAndPaths();
     }
 
@@ -554,6 +557,4 @@ public class ClientModel implements iObservable {
         }
         return null;
     }
-
-
 }

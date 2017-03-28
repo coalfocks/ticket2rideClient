@@ -214,4 +214,12 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setCurrentUser(new User());
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
+
+    public void drawDestCard() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("drawDestCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.drawDestCard(dto);
+    }
 }

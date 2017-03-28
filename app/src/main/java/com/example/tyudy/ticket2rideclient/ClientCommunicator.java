@@ -8,6 +8,7 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.InitializeGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
@@ -164,6 +165,11 @@ public class ClientCommunicator {
                        ResetIndexCommand resetIndexCommand = new ResetIndexCommand();
                        resetIndexCommand.setData(responseDTO);
                        resetIndexCommand.execute();
+                       break;
+                   case "drawDestCard" :
+                       GetDestCardsCommand getDestCardsCommand = new GetDestCardsCommand();
+                       getDestCardsCommand.setData(responseDTO);
+                       getDestCardsCommand.execute();
                        break;
 
                    default:
