@@ -124,4 +124,12 @@ public class MapView extends View {
         return 0;
     }
 
+    public float getScreenWidth(){
+        return mScreenWidth;
+    }
+
+    public float getScreenHeight(){
+        return mScreenHeight;
+    }
+
 }

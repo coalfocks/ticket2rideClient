@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/route_dialog_title"
+        android:text="@string/placeholder"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="20dp"/>
+
+    <!--Container for the list of routes-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <!--First routes-->
+        <LinearLayout
+            android:id="@+id/route_item_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/placeholder"
+                android:id="@+id/route_item_1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_1"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@color/blue"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:text="4"
+                android:id="@+id/route_item_1_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!--Second route-->
+        <LinearLayout
+            android:id="@+id/route_item_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/placeholder"
+                android:id="@+id/route_item_2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_2"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@color/blue"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:text="4"
+                android:id="@+id/route_item_2_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!--Third routes (may not be used)-->
+        <LinearLayout
+            android:id="@+id/route_item_3"
+            android:layout_width="match_parent"
+            android:paddingBottom="15dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/route_item_3_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_3"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/route_item_3_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!--Fourth routes (may not be used)-->
+        <LinearLayout
+            android:id="@+id/route_item_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/route_item_4_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_4"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/route_item_4_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!--Fifth routes (may not be used)-->
+        <LinearLayout
+            android:id="@+id/route_item_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/route_item_5_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_5"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/route_item_5_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!--Sixth routes (may not be used)-->
+        <LinearLayout
+            android:id="@+id/route_item_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/route_item_6_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/route_color_6"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:id="@+id/route_item_6_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit_claim_route_dialog"
+            android:text="@string/exit_claim_route_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/claim_route_button"
+            android:text="@string/confirm_claim_route_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

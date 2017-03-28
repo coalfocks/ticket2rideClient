@@ -7,6 +7,7 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -427,11 +428,73 @@ public class ClientModel implements iObservable {
         allPaths.add(Sault_St_Marie_to_Winnipeg);
         allPaths.add(Toronto_to_Sault_St_Marie);
       
-        // Add all of the Paths to the array list of paths
+        // Add each adjacent city to each city
+        initializeCityConnections();
 
 
     }
 
+    /**
+     * Initialize all the cities that are already in allCities with their adjacent cities.
+     * I know this implementation can seem pretty confusing so i commented it all
+     */
+    private void initializeCityConnections(){
+
+        for(City city: allCities){ // Go through all the cities
+            for(Path path: allPaths){ // For each city check every path
+                if(path.containsCity(city)) { // If the current path in the loop contains the city
+                    for (City cityToAdd : path.getCities()) { // iterate through the paths cities (only 2)
+                        if(!cityToAdd.getCityName().equals(city.getCityName())) { // Add the city on the path that isn't the same one
+                            city.addConnectedCity(cityToAdd);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Search for a city with a xScale and yScale within .015 to these ones
+     * @param xScaleClick - x axis value to compare to city scales (probably from a click)
+     * @param yScaleClick - y axis value to compare to city scales (probably from a click)
+     * @return - return the city with scales within .015 of the parameters, else null
+     */
+    public City getCityByScaleValues(float xScaleClick, float yScaleClick){
+
+        float tolerance = .015f;
+
+        for(City city: allCities){
+
+            // city is within .015 of the x param
+            boolean clickIsInXBounds =  xScaleClick >= city.getxPosScale() - tolerance &&
+                                        xScaleClick <= city.getxPosScale() + tolerance;
+
+            // city is within .015 of the y param
+            boolean clickIsInYBounds =  yScaleClick >= city.getyPosScale() - tolerance &&
+                                        yScaleClick <= city.getyPosScale() + tolerance;
+
+            if (clickIsInXBounds && clickIsInYBounds) {
+                return city;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Search for a path that has the two citie at it end points
+     * @param city1 - the first city to search for
+     * @param city2 - the second city to search for
+     * @return the path with the two cities, otherwise null
+     */
+    public Path getPathByCities(City city1, City city2){
+        for (Path path: allPaths){
+            if (path.containsCity(city1) && path.containsCity(city2)) {
+                return path;
+            }
+        }
+        return null;
+    }
 
     /**
      * @param name - name of the city to search
