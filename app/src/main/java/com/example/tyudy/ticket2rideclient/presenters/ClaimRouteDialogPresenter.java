@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Utils.GraphicsUtils;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
@@ -19,30 +21,57 @@ import java.util.ArrayList;
  */
 
 public class ClaimRouteDialogPresenter {
+    Activity mActivity;
     ClaimRouteDialogFragment mClaimRouteDialogFragment;
-    City mSelectedCity;
+    City mClickedCity;    // City that the user clicked on
+    City mSelectedCity;   // City that was selected from the popup
     LinearLayout mSelectedListItem;
 
     public ClaimRouteDialogPresenter(){
+        setToBaseValues();
+    }
+
+    /**
+     * Sets the Presenter to its base state. Needs to be called when dialog goes away
+     */
+    private void setToBaseValues(){
         mSelectedListItem = null;
+        mSelectedCity = null;
     }
 
     public void setClaimRouteDialogFragment(ClaimRouteDialogFragment claimRouteDialogFragment){
         mClaimRouteDialogFragment = claimRouteDialogFragment;
     }
 
-    public void showDialog(Activity gameBoardActivity, City selectedCity){
-        mSelectedCity = selectedCity;
+    public void showDialog(Activity gameBoardActivity, City userClickedCity){
+        mActivity = gameBoardActivity;
+        mClickedCity = userClickedCity;
         mClaimRouteDialogFragment = new ClaimRouteDialogFragment();
         mClaimRouteDialogFragment.show(gameBoardActivity.getFragmentManager(), "decks_dialog_fragment");
     }
 
     public void exitButtonClicked(){
+        setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
     }
 
-    public void confirmButtonClicked(){
-        //IMPLEMENT ME!
+    public void claimButtonClicked(){
+        // TODO: Check if user has enough train cards and trains
+        if (mSelectedCity == null) {
+            Toast.makeText(mActivity, "You must select a city before claiming", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Path chosenPath = ClientModel.SINGLETON.getPathByCities(mClickedCity, mSelectedCity);
+        MethodsFacade.SINGLETON.claimPath(chosenPath);
+
+        // This stuff is done when the command comes back from the server
+//        chosenPath.setOwner(ClientModel.SINGLETON.getCurrentUser());
+//        ClientModel.SINGLETON.notifyObservers();
+
+        setToBaseValues();
+        mClaimRouteDialogFragment.dismiss();
+
     }
 
     public void routeClicked(int index) {
@@ -52,10 +81,15 @@ public class ClaimRouteDialogPresenter {
             return;
         }
 
+        // Cached the city that was previously clicked to unhighlight it later
         LinearLayout oldSelection = mSelectedListItem;
 
         mSelectedListItem = getRouteHolderByIndex(index);
         mSelectedListItem.setBackgroundColor(Color.LTGRAY);
+
+        // Cache the actually city that belongs to the selectedListItem
+        String selectedCityName = getRouteTitleByIndex(index).getText().toString();
+        mSelectedCity = ClientModel.SINGLETON.getCityByName(selectedCityName);
 
         if(oldSelection != null && oldSelection != mSelectedListItem) {   // If a route had previously been selected and the same selected route wasn't re clicked
             oldSelection.setBackgroundColor(0);   // Sets background to transparent
@@ -79,15 +113,15 @@ public class ClaimRouteDialogPresenter {
      * Set all the contents for the dialog popup base off of the city that was clicked
      */
     public void setContentsText(){
-        setTitleText(mSelectedCity.getCityName());
+        setTitleText(mClickedCity.getCityName());
         eraseCurrentContents();
-        ArrayList<City> connectedCities = mSelectedCity.getConnectedCityAsArray();
+        ArrayList<City> connectedCities = mClickedCity.getConnectedCityAsArray();
         int routesIndex; // Used to access different elements in the gui
 
         for (int i = 0; i < connectedCities.size(); i++){
             routesIndex = i+1; // The elements that this accesses start at 1 not 0.
             City currentConnectedCity = connectedCities.get(i);
-            Path path = ClientModel.SINGLETON.getPathByCities(mSelectedCity, currentConnectedCity);
+            Path path = ClientModel.SINGLETON.getPathByCities(mClickedCity, currentConnectedCity);
 
             // Set each part of the list element
             getRouteTitleByIndex(routesIndex).setText(currentConnectedCity.getCityName());

@@ -134,7 +134,7 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClaimRouteDialogPresenter.confirmButtonClicked();
+                mClaimRouteDialogPresenter.claimButtonClicked();
             }
         });
 

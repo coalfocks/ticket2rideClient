@@ -53,14 +53,8 @@ public class MapView extends View {
 
         super.onDraw(canvas);
 
-//        if(mCanvas == null){
-//            mCanvas = canvas;
-//        }
-
         Paint paint = new Paint();
         paint.setStrokeWidth(DRAW_WIDTH);
-
-        // Make this draw from atlanta to Miami
 
 
         for(Path p: mPathsToDraw){

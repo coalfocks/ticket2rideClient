@@ -160,6 +160,11 @@ public class GameBoardFragment extends Fragment implements iObserver
     }
 
 
+    /**
+     * updates left drawer info based on current users in currentTTRGame
+     * updates train cards off of currentUser's trainCards
+     * updates drawn paths based off of the paths in the ClientModel
+     */
     @Override
     public void observe()
     {

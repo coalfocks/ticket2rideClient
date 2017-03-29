@@ -33,6 +33,7 @@ public class ClientModel implements iObservable {
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
     private ArrayList<DestinationCard> mNewDestCards;
+    private PlasticTrainCollection mUsersTrains;
 
 
     private ClientModel(){
@@ -45,6 +46,7 @@ public class ClientModel implements iObservable {
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
         mNewDestCards = new ArrayList<>();
+        mUsersTrains = null;
         initCitiesAndPaths();
     }
 
@@ -535,8 +537,12 @@ public class ClientModel implements iObservable {
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
-    public void claimPath(Path path) {
-        this.getCurrentTTRGame().claimPath(path);
+    /**
+     * claim the path
+     * @param path
+     */
+    public void updateClaimedPath(Path path) {
+        this.getCurrentTTRGame().updateClaimedPath(path);
         notifyObservers();
     }
 
@@ -556,5 +562,9 @@ public class ClientModel implements iObservable {
             }
         }
         return null;
+    }
+
+    public void setUsersTrains(PlasticTrainCollection trains){
+        mUsersTrains = trains;
     }
 }
