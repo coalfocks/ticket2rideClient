@@ -137,10 +137,59 @@ public class ClaimRouteDialogFragment extends DialogFragment {
                 mClaimRouteDialogPresenter.confirmButtonClicked();
             }
         });
+
+        mRouteContainer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(1);
+            }
+        });
+
+        mRouteContainer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(2);
+            }
+        });
+
+        mRouteContainer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(3);
+            }
+        });
+
+        mRouteContainer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(4);
+            }
+        });
+
+        mRouteContainer5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(5);
+            }
+        });
+
+        mRouteContainer6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(6);
+            }
+        });
+
+        mRouteContainer7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClaimRouteDialogPresenter.routeClicked(7);
+            }
+        });
     }
 
 
-    //GETTERS_--------------------------------------------------------------------
+    //GETTERS FOR PRESENTER TO USE--------------------------------------------------------------------
 
     public TextView getDialogTitle() {
         return mDialogTitle;
@@ -228,7 +277,33 @@ public class ClaimRouteDialogFragment extends DialogFragment {
         return mRouteLength7;
     }
 
+    public LinearLayout getRouteContainer1() {
+        return mRouteContainer1;
+    }
 
+    public LinearLayout getRouteContainer2() {
+        return mRouteContainer2;
+    }
+
+    public LinearLayout getRouteContainer3() {
+        return mRouteContainer3;
+    }
+
+    public LinearLayout getRouteContainer4() {
+        return mRouteContainer4;
+    }
+
+    public LinearLayout getRouteContainer5() {
+        return mRouteContainer5;
+    }
+
+    public LinearLayout getRouteContainer6() {
+        return mRouteContainer6;
+    }
+
+    public LinearLayout getRouteContainer7() {
+        return mRouteContainer7;
+    }
 }
 
 

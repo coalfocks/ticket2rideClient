@@ -1,7 +1,9 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.Utils.GraphicsUtils;
@@ -19,9 +21,10 @@ import java.util.ArrayList;
 public class ClaimRouteDialogPresenter {
     ClaimRouteDialogFragment mClaimRouteDialogFragment;
     City mSelectedCity;
+    LinearLayout mSelectedListItem;
 
     public ClaimRouteDialogPresenter(){
-
+        mSelectedListItem = null;
     }
 
     public void setClaimRouteDialogFragment(ClaimRouteDialogFragment claimRouteDialogFragment){
@@ -40,6 +43,27 @@ public class ClaimRouteDialogPresenter {
 
     public void confirmButtonClicked(){
         //IMPLEMENT ME!
+    }
+
+    public void routeClicked(int index) {
+
+        // We shouldn't do anything if a space was clicked that isn't inhabited with info
+        if(getRouteTitleByIndex(index).getText().toString().equals("")){
+            return;
+        }
+
+        LinearLayout oldSelection = mSelectedListItem;
+
+        mSelectedListItem = getRouteHolderByIndex(index);
+        mSelectedListItem.setBackgroundColor(Color.LTGRAY);
+
+        if(oldSelection != null && oldSelection != mSelectedListItem) {   // If a route had previously been selected and the same selected route wasn't re clicked
+            oldSelection.setBackgroundColor(0);   // Sets background to transparent
+        }
+
+
+
+
     }
 
 
@@ -159,6 +183,27 @@ public class ClaimRouteDialogPresenter {
             default:
                 return null;
 
+        }
+    }
+
+    private LinearLayout getRouteHolderByIndex(int index){
+        switch (index) {
+            case 1:
+                return mClaimRouteDialogFragment.getRouteContainer1();
+            case 2:
+                return mClaimRouteDialogFragment.getRouteContainer2();
+            case 3:
+                return mClaimRouteDialogFragment.getRouteContainer3();
+            case 4:
+                return mClaimRouteDialogFragment.getRouteContainer4();
+            case 5:
+                return mClaimRouteDialogFragment.getRouteContainer5();
+            case 6:
+                return mClaimRouteDialogFragment.getRouteContainer6();
+            case 7:
+                return mClaimRouteDialogFragment.getRouteContainer7();
+            default:
+                return null;
         }
     }
 }
