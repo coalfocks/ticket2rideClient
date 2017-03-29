@@ -20,7 +20,15 @@ public class Destination implements Serializable
         return dest;
     }
 
-    @Override
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+    
+   @Override
     public String toString() {
         return "Source: " + source + ", Dest: " + dest;
     }

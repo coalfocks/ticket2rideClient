@@ -35,7 +35,6 @@ public class GameBoardPresenter {
     }
 }
 
-//TODO: return card commands
-//TODO: populate dialog with dest cards
-//TODO: show dialog when button pushed
-//Todo: tap dest card to remove
+//Todo: tap dest card to remove at init
+//TODO: start turn sends updated game model
+//Todo: handle db exceptions gracefully
