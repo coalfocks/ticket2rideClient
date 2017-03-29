@@ -238,4 +238,12 @@ public class MethodsFacade {
         dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
         ServerProxy.SINGLETON.drawTrainCard(dto);
     }
+
+    public void getFaceUpCards() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("faceUps");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.getFaceUpCards(dto);
+    }
 }

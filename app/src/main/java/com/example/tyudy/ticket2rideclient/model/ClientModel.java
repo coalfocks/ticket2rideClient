@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -567,5 +568,13 @@ public class ClientModel implements iObservable {
 
     public void setUsersTrains(PlasticTrainCollection trains){
         mUsersTrains = trains;
+    }
+
+    public void addTrainCard (TrainCard card) {
+        for (User u : mCurrentTTRGame.getUsers()) {
+            if (u.getPlayerID() == currentUser.getPlayerID()) {
+                u.addTrainCard(card);
+            }
+        }
     }
 }

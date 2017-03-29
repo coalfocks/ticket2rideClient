@@ -37,7 +37,7 @@ public class GameBoardPresenter {
     }
 
     public void showDecks(){
-        PresenterHolder.SINGLETON.getDecksDialogPresenter().showDialog(mGameBoardFragment.getActivity());
+        MethodsFacade.SINGLETON.getFaceUpCards();
     }
 
     public void displayRoutesIfCityClicked(MotionEvent event){

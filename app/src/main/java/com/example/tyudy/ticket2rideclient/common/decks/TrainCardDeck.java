@@ -54,4 +54,12 @@ public class TrainCardDeck implements iDeck, Serializable
             return null;
         }
     }
+
+    public FaceUpCards getFaceUpCards() {
+        return faceUpCards;
+    }
+
+    public void setFaceUpCards(FaceUpCards faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
 }

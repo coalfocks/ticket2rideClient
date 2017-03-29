@@ -6,8 +6,10 @@ import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.DrawTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetFaceUpCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
@@ -29,7 +31,6 @@ import java.io.IOException;
 public class ServerProxy implements iTTRServer {
 
     public static final ServerProxy SINGLETON = new ServerProxy();
-    private Gson gson = new Gson();
 
     private ServerProxy(){}
 
@@ -219,9 +220,24 @@ public class ServerProxy implements iTTRServer {
 
     public DataTransferObject drawTrainCard (DataTransferObject data) {
         try {
-
+            DrawTrainCardCommand command = new DrawTrainCardCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
 
+        }
+        return null;
+    }
+
+    public DataTransferObject getFaceUpCards(DataTransferObject data) {
+        try {
+            GetFaceUpCardsCommand command = new GetFaceUpCardsCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

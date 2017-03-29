@@ -73,7 +73,6 @@ public class DecksDialogPresenter  {
     }
 
     public void destDeckClicked() {
-//        PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
         MethodsFacade.SINGLETON.drawDestCard();
     }
 
@@ -86,7 +85,33 @@ public class DecksDialogPresenter  {
      * @param cardNumber - IMPORTANT, this param is not an index, its just the order on the screen from left to right
      */
     public void cardClicked(int cardNumber){
-        //IMPLEMENT ME!!
+        //card to client model
+        //card to server model
+        //replace faceups server
+        //replace faceups model
+        TrainCard card;
+        switch (cardNumber) {
+            case 1 :
+                card = mFaceUpCards.getCard1();
+                break;
+            case 2 :
+                card = mFaceUpCards.getCard2();
+                break;
+            case 3 :
+                card = mFaceUpCards.getCard3();
+                break;
+            case 4 :
+                card = mFaceUpCards.getCard4();
+                break;
+            case 5 :
+                card = mFaceUpCards.getCard5();
+                break;
+            default :
+                card = new TrainCard();
+        }
+
+        ClientModel.SINGLETON.addTrainCard(card);
+
     }
 
     public int getCardImage(TrainCard card) {

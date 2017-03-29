@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.DrawTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetFaceUpCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.InitializeGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
@@ -170,6 +172,16 @@ public class ClientCommunicator {
                        GetDestCardsCommand getDestCardsCommand = new GetDestCardsCommand();
                        getDestCardsCommand.setData(responseDTO);
                        getDestCardsCommand.execute();
+                       break;
+                   case "faceUps" :
+                       GetFaceUpCardsCommand getFaceUpCardsCommand = new GetFaceUpCardsCommand();
+                       getFaceUpCardsCommand.setData(responseDTO);
+                       getFaceUpCardsCommand.execute();
+                       break;
+                   case "drawTrainCard" :
+                       DrawTrainCardCommand drawTrainCardCommand = new DrawTrainCardCommand();
+                       drawTrainCardCommand.setData(responseDTO);
+                       drawTrainCardCommand.execute();
                        break;
 
                    default:
