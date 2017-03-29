@@ -464,7 +464,7 @@ public class ClientModel implements iObservable {
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
     public void claimPath(Path path) {
-        this.getCurrentTTRGame().claimPath(path);
+        this.getCurrentTTRGame().updateClaimedPath(path);
         notifyObservers();
     }
 

@@ -152,7 +152,6 @@ public class MethodsFacade {
         else{
             return true;
         }
-
     }
 
     public void setContext(FragmentActivity jeffery){
@@ -225,6 +224,13 @@ public class MethodsFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void drawTrainCard() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("drawTrainCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.drawTrainCard(dto);
     }
 }

@@ -216,4 +216,13 @@ public class ServerProxy implements iTTRServer {
         }
         return null;
     }
+
+    public DataTransferObject drawTrainCard (DataTransferObject data) {
+        try {
+
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
 }
