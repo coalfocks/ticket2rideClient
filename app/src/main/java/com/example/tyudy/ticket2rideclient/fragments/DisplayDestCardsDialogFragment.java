@@ -96,7 +96,9 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
             TextView dest;
             TextView points;
             CheckBox checkBox;
-            CheckBox returnBox;
+
+            // We shouldn't have the return option when just viewing our current cards (not just drawn)
+            //CheckBox returnBox;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -120,11 +122,12 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                     holder.dest = (TextView) convertView.findViewById(R.id.destCard_dest);
                     holder.points = (TextView) convertView.findViewById(R.id.destCard_points);
                     holder.checkBox = (CheckBox) convertView.findViewById(R.id.completed_dest_checkbox);
-                    holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
 
-//                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-//                        holder.checkBox.setChecked(true);
-//                    else
+                    //holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
+
+                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+                        holder.checkBox.setChecked(true);
+                    else
                         holder.checkBox.setChecked(false);
 
                     convertView.setTag(holder);
@@ -135,18 +138,20 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
                 holder.source.setText(src);
                 holder.dest.setText(dst);
                 holder.points.setText(pts);
-//                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-//                    holder.checkBox.setChecked(true);
-//                else
+
+                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+                    holder.checkBox.setChecked(true);
+                else
                     holder.checkBox.setChecked(false);
-                if(holder.returnBox.isChecked())
-                    ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
-                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                           holder.returnBox.setChecked(true);
-                    }
-                });
+
+//                if(holder.returnBox.isChecked())
+//                    ClientModel.SINGLETON.getCurrentUser().removeDestinationCard(card);
+//                holder.returnBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+//                           holder.returnBox.setChecked(true);
+//                    }
+//                });
             }
 
             return convertView;

@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.common.commands;
 import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
 
@@ -20,5 +21,4 @@ public class ResetIndexCommand extends Command implements iCommand, Serializable
         Poller.getInstance().setQueueIndex(index);
         return null;
     }
-
 }

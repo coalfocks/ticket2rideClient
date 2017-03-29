@@ -27,7 +27,8 @@ public class StartGameCommand extends Command implements iCommand, Serializable
     public DataTransferObject execute()
     {
         FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
-        if(data.getErrorMsg().length()!=0){
+        if(data.getErrorMsg().length() != 0)
+        {
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         else{
@@ -43,11 +44,11 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                System.console().printf(e.getMessage());
             }
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
             ((GameLobbyActivity) jeffery).onStartGame();
         }
         return null;
     }
-
 }

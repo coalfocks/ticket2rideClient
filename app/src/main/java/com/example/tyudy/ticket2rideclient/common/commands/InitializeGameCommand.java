@@ -20,8 +20,11 @@ public class InitializeGameCommand extends Command implements iCommand, Serializ
         try {
             TTRGame game = (TTRGame) Serializer.deserialize(data.getData());
             ClientModel.SINGLETON.setCurrentTTRGame(game);
-            for (User u : game.getUsers()) {
-                if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+
+            for (User u : game.getUsers())
+            {
+                if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID())
+                {
                     ClientModel.SINGLETON.setCurrentUser(u);
                 }
             }
@@ -29,5 +32,9 @@ public class InitializeGameCommand extends Command implements iCommand, Serializ
             e.printStackTrace();
         }
         return null;
+    }
+
+    public DataTransferObject getData(){
+        return data;
     }
 }

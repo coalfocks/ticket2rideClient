@@ -27,7 +27,6 @@ public class User implements Serializable, Comparable<User> {
     private int playerID;
     private int inGame;
     private int points = 0;
-//    private IState currentState;
 
     private ColorENUM color;
 
@@ -47,7 +46,6 @@ public class User implements Serializable, Comparable<User> {
         colorCards = new HashMap<>();
         claimedPaths = new ArrayList<>();
         this.color = BLACK;
-//        currentState = new PreGameState();
     }
 
     public User(String username, String password, int playerID, int inGame)
@@ -56,11 +54,9 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.playerID = playerID;
         this.inGame = inGame;
-//        currentState = new PreGameState();
 
 
         destCards = new ArrayList<>();
-        //claimedPaths = new ArrayList<>();
         colorCards = new HashMap<ColorENUM, TrainCard>();
         TrainCard myCard = new TrainCard();
         myCard.setColor(WHITE);
@@ -256,10 +252,6 @@ public class User implements Serializable, Comparable<User> {
 
         return false;
     }
-
-//    public IState getCurrentState() { return currentState; }
-
-//    public void changeState(IState newState) { currentState = newState; }
 
     public void removeDestinationCard(DestinationCard card) {
         this.destCards.remove(card);

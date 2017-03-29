@@ -30,5 +30,4 @@ public class GetDestCardsCommand extends Command implements iCommand, Serializab
         }
         return null;
     }
-
 }

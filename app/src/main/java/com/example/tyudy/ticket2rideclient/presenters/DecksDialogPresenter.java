@@ -3,16 +3,21 @@ package com.example.tyudy.ticket2rideclient.presenters;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 
+
+import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.commands.NextTurnCommand;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
 import com.example.tyudy.ticket2rideclient.fragments.DisplayDestCardsDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLACK;
@@ -79,6 +84,23 @@ public class DecksDialogPresenter  {
     public void trainDeckClicked() {
         MethodsFacade.SINGLETON.drawTrainCard();
     }
+
+//    public void trainDeckClicked(){
+//        //TREVOR'S TEST STUFF
+//        NextTurnCommand command = new NextTurnCommand();
+//        DataTransferObject dto = new DataTransferObject();
+//        int gameID = ClientModel.SINGLETON.getCurrentTTRGame().getGameID();
+//
+//
+//        dto.setData((Integer.toString(gameID)));
+//        command.setData(dto);
+//
+//        try {
+//            ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * triggered when a card is clicked in the DecksDialogFragment

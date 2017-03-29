@@ -37,5 +37,4 @@ public class RegisterCommand extends Command implements iCommand, Serializable
         }
         return null;
     }
-
 }
