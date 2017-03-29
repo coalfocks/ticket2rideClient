@@ -64,3 +64,4 @@ public class GameBoardPresenter {
 //Todo: tap dest card to remove at init
 //TODO: start turn sends updated game model
 //Todo: handle db exceptions gracefully
+//TODO: initialize train cards correctly-

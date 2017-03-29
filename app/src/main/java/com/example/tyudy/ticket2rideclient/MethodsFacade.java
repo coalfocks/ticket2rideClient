@@ -244,7 +244,7 @@ public class MethodsFacade {
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("selectTrainCard");
         dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) + "," + String.valueOf(cardID));
-        ServerProxy.SINGLETON.drawTrainCard(dto);
+        ServerProxy.SINGLETON.selectTrainCard(dto);
     }
 
     public void getFaceUpCards() {

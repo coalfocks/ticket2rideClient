@@ -15,6 +15,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ReturnDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SelectTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
@@ -222,7 +223,19 @@ public class ServerProxy implements iTTRServer {
             String commandString = Serializer.serialize(command);
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public DataTransferObject selectTrainCard (DataTransferObject data) {
+        try {
+            SelectTrainCardCommand command = new SelectTrainCardCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

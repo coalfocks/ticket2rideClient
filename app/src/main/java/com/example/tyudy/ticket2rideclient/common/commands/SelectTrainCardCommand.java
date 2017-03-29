@@ -17,8 +17,6 @@ import java.io.Serializable;
 
 public class SelectTrainCardCommand extends Command implements iCommand, Serializable {
     public SelectTrainCardCommand(){}
-    private DataTransferObject data;
-
     @Override
     public DataTransferObject execute()
     {
@@ -26,18 +24,12 @@ public class SelectTrainCardCommand extends Command implements iCommand, Seriali
         {
             FaceUpCards fu = (FaceUpCards) Serializer.deserialize(data.getData());
             PresenterHolder.SINGLETON.getDecksDialogPresenter().setmFaceUpCards(fu);
+            PresenterHolder.SINGLETON.getDecksDialogPresenter().exitClicked();
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Selected a card!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    public void setData(DataTransferObject d)
-    {
-        super.setData(d);
-        this.data = d;
     }
 }
