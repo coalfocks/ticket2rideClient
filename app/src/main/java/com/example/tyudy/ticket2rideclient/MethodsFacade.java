@@ -52,7 +52,6 @@ public class MethodsFacade {
      * @return - a User object reflecting the registered user or null if the userName or password was invalid
      */
     public User registerUser(String enteredName, String enteredPassword){
-        // IMPLEMENT ME!
         if(checkPassword(enteredName) && checkPassword(enteredPassword)){
             User user = new User();
             user.setUsername(enteredName);
@@ -90,8 +89,6 @@ public class MethodsFacade {
         dto.setPlayerID(user.getPlayerID());
         dto.setCommand("create");
         ServerProxy.SINGLETON.createGame(dto);
-
-
     }
 
     public void startGame(){
@@ -110,7 +107,6 @@ public class MethodsFacade {
 
 
      public void getGameList() {
-
          DataTransferObject dto = new DataTransferObject();
          dto.setCommand("gameList");
          dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
@@ -142,7 +138,7 @@ public class MethodsFacade {
     }
 
     public boolean checkPassword(String pass){
-        if(pass == null || pass == ""){
+        if(pass == null || pass.equals("")){
             return false;
         }
         if(pass.length() > 10 || pass.length() < 2){
@@ -210,6 +206,13 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
 
+    // Checked can-do before function call
+    public void changeTurn(int nextPlayerID) {
+        ClientModel.SINGLETON.changeTurn(nextPlayerID);
+        ClientModel.SINGLETON.getCurrentTTRGame().changeTurn();
+    }
+
+    // Checked can-do before function call
     public void drawDestCard() {
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());

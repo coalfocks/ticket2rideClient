@@ -92,7 +92,7 @@ public class Poller  implements Runnable
         if ((ClientModel.SINGLETON.getCurrentTTRGame() != null)  &&
             (MethodsFacade.SINGLETON.getContext().getClass() == GameLobbyActivity.class ||
             MethodsFacade.SINGLETON.getContext().getClass() == GameBoardActivity.class)) {
-            MethodsFacade.SINGLETON.getCommands(queueIndex);
+            MethodsFacade.SINGLETON.getCommands(Poller.getInstance().getQueueIndex());
         }
     }
 
