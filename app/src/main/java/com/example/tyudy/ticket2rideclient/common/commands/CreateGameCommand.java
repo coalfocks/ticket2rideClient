@@ -63,4 +63,13 @@ public class CreateGameCommand extends Command implements iCommand, Serializable
         return null;
     }
 
+<<<<<<< HEAD
+=======
+
+    public void setData(DataTransferObject d)
+    {
+        super.setData(d);
+        this.data = d;
+    }
+>>>>>>> origin/do-train-cards
 }

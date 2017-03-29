@@ -126,7 +126,7 @@ public class ClaimRouteDialogPresenter {
             // Set each part of the list element
             getRouteTitleByIndex(routesIndex).setText(currentConnectedCity.getCityName());
             getColorHolderByIndex(routesIndex).setBackgroundColor(GraphicsUtils.getRealColorFromEnum(path.getPathColor()));
-            getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getPoints()));
+            getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getDistance()));
         }
     }
 

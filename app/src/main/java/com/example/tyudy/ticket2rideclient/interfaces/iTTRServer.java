@@ -33,4 +33,6 @@ public interface iTTRServer
     DataTransferObject getCommands(DataTransferObject data);
 
     DataTransferObject drawDestCard(DataTransferObject data);
+
+    DataTransferObject sendBackDestCards(DataTransferObject data);
 }

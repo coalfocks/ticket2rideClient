@@ -41,8 +41,8 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
 
     }
 
-    public void onLogin(User u){
-        if (u.getInGame() == 0) {
+    public void onLogin(int inGame){
+        if (inGame == 0) {
             FragmentTransaction ft = fm.beginTransaction();
             ft.addToBackStack(null);
             ft.replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
@@ -68,6 +68,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
     protected void onResume(){
         super.onResume();
         MethodsFacade.SINGLETON.setContext(this);
+        MethodsFacade.SINGLETON.reset();
     }
 
     @Override

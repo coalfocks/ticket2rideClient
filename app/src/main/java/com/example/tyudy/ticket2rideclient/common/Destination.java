@@ -34,8 +34,8 @@ public class Destination implements Serializable
         this.dest = dest;
     }
 
-    @Override
-    public String toString() {
-        return "Source: " + source + ", Dest: " + dest;
-    }
+//    @Override
+//    public String toString() {
+//        return "Source: " + source + ", Dest: " + dest;
+//    }
 }

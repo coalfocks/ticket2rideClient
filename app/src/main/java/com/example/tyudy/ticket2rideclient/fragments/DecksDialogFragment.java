@@ -52,10 +52,15 @@ public class DecksDialogFragment extends DialogFragment {
         mTrainDeckButton = (ImageButton) view.findViewById(R.id.train_card_deck);
 
         mCardButton1 = (ImageButton) view.findViewById(R.id.face_up_card_1);
+        mCardButton1.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard1()));
         mCardButton2 = (ImageButton) view.findViewById(R.id.face_up_card_2);
+        mCardButton2.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard2()));
         mCardButton3 = (ImageButton) view.findViewById(R.id.face_up_card_3);
+        mCardButton3.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard3()));
         mCardButton4 = (ImageButton) view.findViewById(R.id.face_up_card_4);
+        mCardButton4.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard4()));
         mCardButton5 = (ImageButton) view.findViewById(R.id.face_up_card_5);
+        mCardButton5.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard5()));
 
         mExitButton = (Button) view.findViewById(R.id.exit_decks_dialog_button);
 

@@ -1,10 +1,15 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.fragments.GetDestCardsFragment;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import java.io.Serializable;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +46,46 @@ public class GetDestCardsPresenter
     }
 
     public void exitClicked(){
-        mGetDestCardsFragment.dismiss();
+        ArrayList<DestinationCard> toReturn = new ArrayList<>();
+        ArrayList<DestinationCard> toUpdate = new ArrayList<>();
+
+        if (card1Selected) {
+            toReturn.add(mDestCards.get(0));
+        } else {
+            ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(0));
+            toUpdate.add(mDestCards.get(0));
+        }
+
+        if (card2Selected) {
+            toReturn.add(mDestCards.get(1));
+        } else {
+            ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(1));
+            toUpdate.add(mDestCards.get(1));        }
+
+        if (card3Selected) {
+            toReturn.add(mDestCards.get(2));
+        } else {
+            ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(2));
+            toUpdate.add(mDestCards.get(2));        }
+
+        if (toReturn.size() > 2) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must keep at LEAST one card!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<ArrayList<DestinationCard>> cards = new ArrayList<>();
+        try
+        {
+            cards.add(toReturn);
+            cards.add(toUpdate);
+            MethodsFacade.SINGLETON.sendBackDestCards(cards);
+            card1Selected = false;
+            card2Selected = false;
+            card3Selected = false;
+            mGetDestCardsFragment.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
