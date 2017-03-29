@@ -1,29 +1,16 @@
 package com.example.tyudy.ticket2rideclient;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
-import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
-import com.example.tyudy.ticket2rideclient.common.cards.DestCardTransferObject;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
-import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
-import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tyudy on 2/6/17.
