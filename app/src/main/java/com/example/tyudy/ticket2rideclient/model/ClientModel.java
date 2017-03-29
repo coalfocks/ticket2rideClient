@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import android.graphics.Color;
+
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -8,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class ClientModel implements iObservable {
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
     private ArrayList<DestinationCard> mNewDestCards;
+    private PlasticTrainCollection mUsersTrains;
 
 
     private ClientModel(){
@@ -42,6 +46,7 @@ public class ClientModel implements iObservable {
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
         mNewDestCards = new ArrayList<>();
+        mUsersTrains = null;
         initCitiesAndPaths();
     }
 
@@ -202,7 +207,7 @@ public class ClientModel implements iObservable {
         // Create All Cities
         City Atlanta = new City("Atlanta", .707f, .477f);
         City Boston = new City("Boston", .8941f, .1722f);
-        City Calgary = new City("Calgary", 2314f, .0146f);
+        City Calgary = new City("Calgary", .2314f, .0260f);
         City Charleston = new City("Charleston", .7838f, .4861f);
         City Chicago = new City("Chicago", .6402f, .2787f);
         City Dallas = new City("Dallas", .4589f, .5306f);
@@ -210,8 +215,8 @@ public class ClientModel implements iObservable {
         City Duluth = new City("Duluth", .5084f, .1796f);
         City El_Paso = new City("El Paso", .3108f, .5416f);
         City Helena = new City("Helena", .2917f, .1398f);
-        City Houston = new City("Houston", .4814f, 5898f);
-        City Kansas_City = new City("Kansas City", .5747f, .3454f);
+        City Houston = new City("Houston", .4814f, .5898f);
+        City Kansas_City = new City("Kansas City", .4760f, .3476f);
         City Las_Vegas = new City("Las Vegas", .1616f, .3935f);
         City Little_Rock = new City("Little Rock", .5619f, .4666f);
         City Los_Angeles = new City("Los Angeles", .0822f, .4269f);
@@ -304,7 +309,10 @@ public class ClientModel implements iObservable {
         Path Helena_to_Omaha = new Path(ColorENUM.RED, 5, Helena, Omaha, "Helena_to_Omaha");
         Path KansasCity_to_Omaha = new Path(ColorENUM.COLORLESS, 1, Kansas_City, Omaha, "KansasCity_to_Omaha");
         Path KansasCity_to_OklahomaCity = new Path(ColorENUM.COLORLESS, 2, Kansas_City, Oklahoma_City, "KansasCity_to_OklahomaCity");
+        Path LasVegas_to_LosAngeles = new Path(ColorENUM.COLORLESS, 2, Las_Vegas, Los_Angeles, "LasVegas_to_LosAngeles");
         Path LasVegas_to_SaltLake = new Path(ColorENUM.ORANGE, 3, Las_Vegas, Salt_Lake, "LasVegas_to_SaltLake");
+        Path LosAngeles_to_SanFrancisco = new Path(ColorENUM.YELLOW, 3, Los_Angeles, San_Francisco, "LosAngeles_to_SanFrancisco");
+        Path LosAngeles_to_Phoenix = new Path(ColorENUM.COLORLESS, 3, Los_Angeles, Las_Vegas, "LosAngeles_to_Phoenix");
         Path OklahomaCity_to_SantaFe = new Path(ColorENUM.BLUE, 3, Oklahoma_City, Santa_Fe, "OklahomaCity_to_SantaFe");
         Path Phoenix_to_SantaFe = new Path(ColorENUM.COLORLESS, 3, Phoenix, Santa_Fe, "Phoenix_to_SantaFe");
         Path Portland_to_Seattle = new Path(ColorENUM.COLORLESS, 1, Portland, Seattle, "Portland_to_Seattle");
@@ -362,6 +370,7 @@ public class ClientModel implements iObservable {
         allPaths.add(Dallas_to_ElPaso);
         allPaths.add(Dallas_to_OklahomaCity);
         allPaths.add(Dallas_to_Houston);
+        allPaths.add(Denver_to_Phoenix);
         allPaths.add(Denver_to_SaltLake);
         allPaths.add(Denver_to_OklahomaCity);
         allPaths.add(Denver_to_KansasCity);
@@ -381,7 +390,10 @@ public class ClientModel implements iObservable {
         allPaths.add(Helena_to_Omaha);
         allPaths.add(KansasCity_to_Omaha);
         allPaths.add(KansasCity_to_OklahomaCity);
+        allPaths.add(LasVegas_to_LosAngeles);
         allPaths.add(LasVegas_to_SaltLake);
+        allPaths.add(LosAngeles_to_SanFrancisco);
+        allPaths.add(LosAngeles_to_Phoenix);
         allPaths.add(OklahomaCity_to_SantaFe);
         allPaths.add(Phoenix_to_SantaFe);
         allPaths.add(Portland_to_Seattle);
@@ -430,11 +442,73 @@ public class ClientModel implements iObservable {
         allPaths.add(Sault_St_Marie_to_Winnipeg);
         allPaths.add(Toronto_to_Sault_St_Marie);
       
-        // Add all of the Paths to the array list of paths
+        // Add each adjacent city to each city
+        initializeCityConnections();
 
 
     }
 
+    /**
+     * Initialize all the cities that are already in allCities with their adjacent cities.
+     * I know this implementation can seem pretty confusing so i commented it all
+     */
+    private void initializeCityConnections(){
+
+        for(City city: allCities){ // Go through all the cities
+            for(Path path: allPaths){ // For each city check every path
+                if(path.containsCity(city)) { // If the current path in the loop contains the city
+                    for (City cityToAdd : path.getCities()) { // iterate through the paths cities (only 2)
+                        if(!cityToAdd.getCityName().equals(city.getCityName())) { // Add the city on the path that isn't the same one
+                            city.addConnectedCity(cityToAdd);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Search for a city with a xScale and yScale within .015 to these ones
+     * @param xScaleClick - x axis value to compare to city scales (probably from a click)
+     * @param yScaleClick - y axis value to compare to city scales (probably from a click)
+     * @return - return the city with scales within .015 of the parameters, else null
+     */
+    public City getCityByScaleValues(float xScaleClick, float yScaleClick){
+
+        float tolerance = .015f;
+
+        for(City city: allCities){
+
+            // city is within .015 of the x param
+            boolean clickIsInXBounds =  xScaleClick >= city.getxPosScale() - tolerance &&
+                                        xScaleClick <= city.getxPosScale() + tolerance;
+
+            // city is within .015 of the y param
+            boolean clickIsInYBounds =  yScaleClick >= city.getyPosScale() - tolerance &&
+                                        yScaleClick <= city.getyPosScale() + tolerance;
+
+            if (clickIsInXBounds && clickIsInYBounds) {
+                return city;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Search for a path that has the two citie at it end points
+     * @param city1 - the first city to search for
+     * @param city2 - the second city to search for
+     * @return the path with the two cities, otherwise null
+     */
+    public Path getPathByCities(City city1, City city2){
+        for (Path path: allPaths){
+            if (path.containsCity(city1) && path.containsCity(city2)) {
+                return path;
+            }
+        }
+        return null;
+    }
 
     /**
      * @param name - name of the city to search
@@ -463,8 +537,12 @@ public class ClientModel implements iObservable {
 
     public City getCityInMapByName(String name) { return mCities.get(name); }
 
-    public void claimPath(Path path) {
-        this.getCurrentTTRGame().claimPath(path);
+    /**
+     * claim the path
+     * @param path
+     */
+    public void updateClaimedPath(Path path) {
+        this.getCurrentTTRGame().updateClaimedPath(path);
         notifyObservers();
     }
 
@@ -484,5 +562,9 @@ public class ClientModel implements iObservable {
             }
         }
         return null;
+    }
+
+    public void setUsersTrains(PlasticTrainCollection trains){
+        mUsersTrains = trains;
     }
 }
