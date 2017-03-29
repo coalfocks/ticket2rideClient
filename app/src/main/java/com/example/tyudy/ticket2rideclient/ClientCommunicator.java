@@ -17,6 +17,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ResetIndexCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SelectTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -183,6 +184,10 @@ public class ClientCommunicator {
                        drawTrainCardCommand.setData(responseDTO);
                        drawTrainCardCommand.execute();
                        break;
+                   case "selectTrainCard" :
+                       SelectTrainCardCommand selectTrainCardCommand = new SelectTrainCardCommand();
+                       selectTrainCardCommand.setData(responseDTO);
+                       selectTrainCardCommand.execute();
 
                    default:
                        break;

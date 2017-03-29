@@ -26,12 +26,12 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
         {
             TrainCard card = (TrainCard) Serializer.deserialize(data.getData());
             ClientModel.SINGLETON.addTrainCard(card);
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + "card!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + " card!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return data;
+        return null;
     }
 
 }

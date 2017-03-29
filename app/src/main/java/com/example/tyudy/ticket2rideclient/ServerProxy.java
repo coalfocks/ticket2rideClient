@@ -18,8 +18,6 @@ import com.example.tyudy.ticket2rideclient.common.commands.ReturnDestCardsComman
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
-import com.example.tyudy.ticket2rideclient.model.ClientModel;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 

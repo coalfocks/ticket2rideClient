@@ -111,6 +111,7 @@ public class DecksDialogPresenter  {
         }
 
         ClientModel.SINGLETON.addTrainCard(card);
+        MethodsFacade.SINGLETON.selectTrainCard(cardNumber);
 
     }
 
