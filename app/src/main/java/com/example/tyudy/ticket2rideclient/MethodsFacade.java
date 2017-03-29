@@ -184,12 +184,21 @@ public class MethodsFacade {
      * @param path - path to be claimed
      */
     public void claimPath(Path path){
-            DataTransferObject dto = new DataTransferObject();
-            String pathData = gson.toJson(path);
+        DataTransferObject dto = new DataTransferObject();
+        try {
+            String pathData = Serializer.serialize(path);
             dto.setData(pathData);
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<Path> getModelPaths(){
+        return ClientModel.SINGLETON.getPaths();
     }
 
     public void reset() {

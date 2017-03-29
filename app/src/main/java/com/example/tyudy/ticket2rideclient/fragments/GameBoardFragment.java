@@ -2,13 +2,17 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -88,26 +92,6 @@ public class GameBoardFragment extends Fragment implements iObserver
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.gameplay_fragment, container, false);
 
-        // Tester listener to print coordinates when they are clicked on for city location finding
-//        v.setOnTouchListener(new View.OnTouchListener() {
-//            public boolean onTouch(View v, MotionEvent event) {
-//                WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-//                Display display = mWindowManager.getDefaultDisplay();
-//                Point size = new Point();
-//                display.getSize(size);
-//                int maxX = size.x;
-//                int maxY = size.y;
-//
-//                // Display display =  getWindowManager().getDefaultDisplay();
-//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    int x = (int) event.getX();
-//                    int y = (int) event.getY();
-//                    Toast.makeText(getContext(), "x: " + x + " y: " + y +
-//                            "Max Height: " + maxY + "Max Width: " + maxX, Toast.LENGTH_SHORT).show();
-//                }
-//                return true;
-//            }
-//        });
 
         mMapHolderFL = (FrameLayout) v.findViewById(R.id.content_frame);
         mMapView = new MapView(getContext());
@@ -119,21 +103,13 @@ public class GameBoardFragment extends Fragment implements iObserver
         mChat = (SlidingUpPanelLayout) v.findViewById(R.id.bottom_sheet);
         mDecksButton = (ImageButton) v.findViewById(R.id.decks_button);
 
-
-//        ViewTreeObserver usaViewTreeObserver = mUnitedStatesImage.getViewTreeObserver();
-//        usaViewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//                mUnitedStatesImage.getViewTreeObserver().removeOnPreDrawListener(this);
-//                int height = mUnitedStatesImage.getMeasuredHeight();
-//                int width = mUnitedStatesImage.getMeasuredWidth();
-//                initializeDrawingHelper(height, width);
-//                return true;
-//            }
-//        });
-
-
-
+        mMapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mGameBoardPresenter.displayRoutesIfCityClicked(event);
+                return false;
+            }
+        });
 
         // Listener to print coordinates when the image is clicked on
 //        mMapView.setOnTouchListener(new View.OnTouchListener() {
@@ -151,7 +127,6 @@ public class GameBoardFragment extends Fragment implements iObserver
 //                    float y = event.getY();
 //                    Toast.makeText(getContext(), "xScale: " + x/maxX + " yScale: " + y/maxY, Toast.LENGTH_SHORT).show();
 //
-//                    mMapView.reDraw();
 //                }
 //                return true;
 //            }
@@ -181,7 +156,16 @@ public class GameBoardFragment extends Fragment implements iObserver
         return v;
     }
 
+    public MapView getMapView(){
+        return mMapView;
+    }
 
+
+    /**
+     * updates left drawer info based on current users in currentTTRGame
+     * updates train cards off of currentUser's trainCards
+     * updates drawn paths based off of the paths in the ClientModel
+     */
     @Override
     public void observe()
     {

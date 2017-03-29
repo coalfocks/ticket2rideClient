@@ -133,7 +133,7 @@ public class TTRGame implements Serializable
      * Updates the current user's owned paths with given path, and sets its owner in ClientModel
      * @param path - The path the current user claimed
      */
-    public void claimPath(Path path) {
+    public void updateClaimedPath(Path path) {
         for (Path p : ClientModel.SINGLETON.getAllPaths())
         {
             if (p.getName().equals(path.getName()))
@@ -148,19 +148,13 @@ public class TTRGame implements Serializable
 
     // dealTrainCard used by the server
     public void dealTrainCard(int playerID){
-        TrainCard card = (TrainCard) myTrainDeck.getCard();
-        for (User u : players) {
-            if (u.getPlayerID() == playerID) {
-                u.addTrainCard(card);
-            }
-        }
+
     }
 
     public void dealTrainCard(User u){
         TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
         u.addTrainCard(myCard);
     }
-
 
 
     public void dealDestCard(User u){
