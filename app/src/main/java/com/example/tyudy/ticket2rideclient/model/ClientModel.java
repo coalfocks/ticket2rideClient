@@ -119,7 +119,6 @@ public class ClientModel implements iObservable {
         return currentUser;
     }
 
-
     public String getIpAddress(){
         return ipAddress;
     }
@@ -158,7 +157,6 @@ public class ClientModel implements iObservable {
         }
         return mCurrentTTRGame;
     }
-
 
     public void removeObserver(iObserver observer) {
         obsList.remove(observer);
@@ -483,7 +481,7 @@ public class ClientModel implements iObservable {
 
     public void claimPath(Path path) {
         this.getCurrentTTRGame().claimPath(path);
-        notifyObservers();
+        this.notifyObservers();
     }
 
     public ArrayList<Path> getAllPaths() {
@@ -509,6 +507,7 @@ public class ClientModel implements iObservable {
             currentState = new NoAction(); // Set the state to the NoAction state for player
 
         setCurrentPlayerTurnID(nextPlayerID);
+        this.notifyObservers();
     }
 
     // CAN DO METHODS -----------------------------

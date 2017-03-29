@@ -4,6 +4,7 @@ import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
 
