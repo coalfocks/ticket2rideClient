@@ -39,14 +39,9 @@ public class LoginCommand extends Command implements iCommand, Serializable {
                 if (loggedInUser.getInGame() == 0) {
                     ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
                     Toast.makeText(jeffery, "Successful Login!", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-                    ((PreGameActivity) jeffery).onLogin(loggedInUser);
-                } else {
-=======
+
                     ((PreGameActivity) jeffery).onLogin(loggedInUser.getInGame());
-                }
-                else {
->>>>>>> origin/do-train-cards
+                } else {
                     MethodsFacade.SINGLETON.getGameList();
                 }
             } catch (Exception e) {
