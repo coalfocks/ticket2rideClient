@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 
 public class NextTurnCommand extends Command implements iCommand, Serializable {
-    private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()
@@ -25,14 +24,5 @@ public class NextTurnCommand extends Command implements iCommand, Serializable {
             MethodsFacade.SINGLETON.changeTurn(nextPlayerID);
 
         return data;
-    }
-
-    public DataTransferObject getData(){
-        return data;
-    }
-
-    public void setData(DataTransferObject d)
-    {
-        this.data = d;
     }
 }
