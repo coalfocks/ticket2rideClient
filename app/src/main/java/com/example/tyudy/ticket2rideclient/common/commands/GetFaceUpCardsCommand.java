@@ -3,7 +3,6 @@ package com.example.tyudy.ticket2rideclient.common.commands;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
-import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
@@ -17,7 +16,6 @@ import java.io.Serializable;
 
 public class GetFaceUpCardsCommand extends Command implements iCommand, Serializable {
     public GetFaceUpCardsCommand(){}
-    private DataTransferObject data;
 
     @Override
     public DataTransferObject execute()
@@ -33,10 +31,4 @@ public class GetFaceUpCardsCommand extends Command implements iCommand, Serializ
         return null;
     }
 
-
-    public void setData(DataTransferObject d)
-    {
-        super.setData(d);
-        this.data = d;
-    }
 }

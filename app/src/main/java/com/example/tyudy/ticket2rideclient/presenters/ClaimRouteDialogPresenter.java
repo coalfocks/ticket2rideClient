@@ -65,10 +65,6 @@ public class ClaimRouteDialogPresenter {
         Path chosenPath = ClientModel.SINGLETON.getPathByCities(mClickedCity, mSelectedCity);
         MethodsFacade.SINGLETON.claimPath(chosenPath);
 
-        // This stuff is done when the command comes back from the server
-//        chosenPath.setOwner(ClientModel.SINGLETON.getCurrentUser());
-//        ClientModel.SINGLETON.notifyObservers();
-
         setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
 
