@@ -86,10 +86,5 @@ public class City implements Serializable {
         return super.equals(obj);
     }
 
-
-//    @Override
-//    public int compareTo(City city) {
-//        if(city == null)
-//    }
 }
 

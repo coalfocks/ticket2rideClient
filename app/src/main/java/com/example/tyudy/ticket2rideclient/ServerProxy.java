@@ -2,7 +2,7 @@ package com.example.tyudy.ticket2rideclient;
 
 import android.util.Log;
 
-import com.example.tyudy.ticket2rideclient.common.Command;
+import com.example.tyudy.ticket2rideclient.common.commands.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
@@ -16,7 +16,6 @@ import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
 import com.google.gson.Gson;
-import com.google.gson.internal.Excluder;
 
 import java.io.IOException;
 

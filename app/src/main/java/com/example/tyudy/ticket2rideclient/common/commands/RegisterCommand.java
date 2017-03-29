@@ -5,10 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
-import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
-import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 
 import java.io.Serializable;
 
@@ -17,15 +15,11 @@ import java.io.Serializable;
  */
 public class RegisterCommand extends Command implements iCommand, Serializable
 {
-  public RegisterCommand(){}
-private DataTransferObject data;
+    public RegisterCommand(){}
 
     @Override
     public DataTransferObject execute()
     {
-//      TTRServerFacade facade = new TTRServerFacade();
-//      data = facade.register(data);
-//      return data;
         FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
         if(data.getErrorMsg().length()!=0){
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
@@ -42,13 +36,6 @@ private DataTransferObject data;
             }
         }
         return null;
-    }
-
-
-    public void setData(DataTransferObject d)
-    {
-        super.setData(d);
-        this.data = d;
     }
 
 }

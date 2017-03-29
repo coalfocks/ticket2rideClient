@@ -1,10 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
-import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
-import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
-import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 
 import com.example.tyudy.ticket2rideclient.common.iCommand;
@@ -18,13 +15,6 @@ import java.util.ArrayList;
  * Created by colefox on 3/3/17.
  */
 public class GetCommandsCommand extends Command implements iCommand, Serializable {
-    private DataTransferObject data;
-
-    @Override
-    public void setData(DataTransferObject d) {
-        super.setData(d);
-        data = d;
-    }
 
     @Override
     public DataTransferObject execute() {
