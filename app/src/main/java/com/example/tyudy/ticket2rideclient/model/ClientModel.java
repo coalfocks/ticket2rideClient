@@ -577,4 +577,12 @@ public class ClientModel implements iObservable {
             }
         }
     }
+
+    /**
+     * Checks to see if it is the currentUsers turn
+     * @return - true if it is the current Users turn false otherwise
+     */
+    public boolean isCurrentUsersTurn(){
+        return mCurrentTTRGame.getWhoTurn() == currentUser.getPlayerID();
+    }
 }
