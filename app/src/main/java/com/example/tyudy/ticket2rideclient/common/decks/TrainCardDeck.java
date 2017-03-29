@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.decks;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
 
@@ -16,6 +17,7 @@ public class TrainCardDeck implements iDeck, Serializable
 {
 
     List<iCard> cards = new ArrayList<iCard>();
+    FaceUpCards faceUpCards = new FaceUpCards();
 
     //initialize the deck
     public TrainCardDeck(){
@@ -29,6 +31,11 @@ public class TrainCardDeck implements iDeck, Serializable
         this.addCard(newWild);
         this.addCard(newWild);
         this.shuffle();
+        faceUpCards.setCard1((TrainCard) this.getCard());
+        faceUpCards.setCard2((TrainCard) this.getCard());
+        faceUpCards.setCard3((TrainCard) this.getCard());
+        faceUpCards.setCard4((TrainCard) this.getCard());
+        faceUpCards.setCard5((TrainCard) this.getCard());
     }
     public void shuffle(){
         Collections.shuffle(this.cards);
@@ -45,6 +52,34 @@ public class TrainCardDeck implements iDeck, Serializable
         }
         else{
             return null;
+        }
+    }
+
+    public FaceUpCards getFaceUpCards() {
+        return faceUpCards;
+    }
+
+    public void setFaceUpCards(FaceUpCards faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
+
+    public void swapFaceUpCard(int index) {
+        switch (index) {
+            case 1:
+                faceUpCards.setCard1((TrainCard) this.getCard());
+                break;
+            case 2:
+                faceUpCards.setCard2((TrainCard) this.getCard());
+                break;
+            case 3:
+                faceUpCards.setCard3((TrainCard) this.getCard());
+                break;
+            case 4:
+                faceUpCards.setCard4((TrainCard) this.getCard());
+                break;
+            case 5:
+                faceUpCards.setCard5((TrainCard) this.getCard());
+                break;
         }
     }
 }

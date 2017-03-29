@@ -65,10 +65,6 @@ public class ClaimRouteDialogPresenter {
         Path chosenPath = ClientModel.SINGLETON.getPathByCities(mClickedCity, mSelectedCity);
         MethodsFacade.SINGLETON.claimPath(chosenPath);
 
-        // This stuff is done when the command comes back from the server
-//        chosenPath.setOwner(ClientModel.SINGLETON.getCurrentUser());
-//        ClientModel.SINGLETON.notifyObservers();
-
         setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
 
@@ -126,7 +122,7 @@ public class ClaimRouteDialogPresenter {
             // Set each part of the list element
             getRouteTitleByIndex(routesIndex).setText(currentConnectedCity.getCityName());
             getColorHolderByIndex(routesIndex).setBackgroundColor(GraphicsUtils.getRealColorFromEnum(path.getPathColor()));
-            getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getPoints()));
+            getRouteLengthByIndex(routesIndex).setText(Integer.toString(path.getDistance()));
         }
     }
 

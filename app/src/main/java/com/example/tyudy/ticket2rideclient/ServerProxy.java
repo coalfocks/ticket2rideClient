@@ -2,23 +2,23 @@ package com.example.tyudy.ticket2rideclient;
 
 import android.util.Log;
 
-import com.example.tyudy.ticket2rideclient.common.Command;
+import com.example.tyudy.ticket2rideclient.common.commands.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.DrawTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetFaceUpCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ReturnDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SelectTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
-import com.example.tyudy.ticket2rideclient.model.ClientModel;
-import com.google.gson.Gson;
-import com.google.gson.internal.Excluder;
 
 import java.io.IOException;
 
@@ -29,7 +29,6 @@ import java.io.IOException;
 public class ServerProxy implements iTTRServer {
 
     public static final ServerProxy SINGLETON = new ServerProxy();
-    private Gson gson = new Gson();
 
     private ServerProxy(){}
 
@@ -208,6 +207,42 @@ public class ServerProxy implements iTTRServer {
     public DataTransferObject sendBackDestCards (DataTransferObject data) {
         try {
             ReturnDestCardsCommand command = new ReturnDestCardsCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DataTransferObject drawTrainCard (DataTransferObject data) {
+        try {
+            DrawTrainCardCommand command = new DrawTrainCardCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DataTransferObject selectTrainCard (DataTransferObject data) {
+        try {
+            SelectTrainCardCommand command = new SelectTrainCardCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public DataTransferObject getFaceUpCards(DataTransferObject data) {
+        try {
+            GetFaceUpCardsCommand command = new GetFaceUpCardsCommand();
             command.setData(data);
             String commandString = Serializer.serialize(command);
             ClientCommunicator.getInstance().sendCommand(commandString);

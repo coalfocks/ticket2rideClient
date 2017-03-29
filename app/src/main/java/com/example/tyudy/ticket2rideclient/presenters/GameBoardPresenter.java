@@ -37,7 +37,7 @@ public class GameBoardPresenter {
     }
 
     public void showDecks(){
-        PresenterHolder.SINGLETON.getDecksDialogPresenter().showDialog(mGameBoardFragment.getActivity());
+        MethodsFacade.SINGLETON.getFaceUpCards();
     }
 
     public void displayRoutesIfCityClicked(MotionEvent event){
@@ -64,3 +64,4 @@ public class GameBoardPresenter {
 //Todo: tap dest card to remove at init
 //TODO: start turn sends updated game model
 //Todo: handle db exceptions gracefully
+//TODO: initialize train cards correctly-

@@ -7,14 +7,17 @@ import android.support.v4.app.FragmentActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.DrawTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetFaceUpCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.InitializeGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ResetIndexCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.SelectTrainCardCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -171,6 +174,20 @@ public class ClientCommunicator {
                        getDestCardsCommand.setData(responseDTO);
                        getDestCardsCommand.execute();
                        break;
+                   case "faceUps" :
+                       GetFaceUpCardsCommand getFaceUpCardsCommand = new GetFaceUpCardsCommand();
+                       getFaceUpCardsCommand.setData(responseDTO);
+                       getFaceUpCardsCommand.execute();
+                       break;
+                   case "drawTrainCard" :
+                       DrawTrainCardCommand drawTrainCardCommand = new DrawTrainCardCommand();
+                       drawTrainCardCommand.setData(responseDTO);
+                       drawTrainCardCommand.execute();
+                       break;
+                   case "selectTrainCard" :
+                       SelectTrainCardCommand selectTrainCardCommand = new SelectTrainCardCommand();
+                       selectTrainCardCommand.setData(responseDTO);
+                       selectTrainCardCommand.execute();
 
                    default:
                        break;

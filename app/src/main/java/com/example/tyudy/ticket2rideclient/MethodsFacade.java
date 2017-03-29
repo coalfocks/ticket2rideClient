@@ -152,7 +152,6 @@ public class MethodsFacade {
         else{
             return true;
         }
-
     }
 
     public void setContext(FragmentActivity jeffery){
@@ -195,7 +194,7 @@ public class MethodsFacade {
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
-        } catch (IOException e){
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -230,6 +229,29 @@ public class MethodsFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void drawTrainCard() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("drawTrainCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.drawTrainCard(dto);
+    }
+
+    public void selectTrainCard(int cardID) {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("selectTrainCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) + "," + String.valueOf(cardID));
+        ServerProxy.SINGLETON.selectTrainCard(dto);
+    }
+
+    public void getFaceUpCards() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("faceUps");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.getFaceUpCards(dto);
     }
 }
