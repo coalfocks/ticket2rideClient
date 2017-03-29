@@ -67,6 +67,9 @@ private DataTransferObject data;
         return null;
     }
 
+    public DataTransferObject getData(){
+        return data;
+    }
 
     public void setData(DataTransferObject d)
     {

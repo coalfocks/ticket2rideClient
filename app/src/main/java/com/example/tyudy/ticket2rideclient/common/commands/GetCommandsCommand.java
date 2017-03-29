@@ -33,7 +33,7 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
             for (Command c : commands) {
                 //TODO: only execute if pertaining to current user
                 // dont execute startgame if game already started
-                //
+
                 if (c.getClass() == StartGameCommand.class &&
                         ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
                     continue;
@@ -45,5 +45,9 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
             e.printStackTrace();
         }
         return null;
+    }
+
+    public DataTransferObject getData(){
+        return data;
     }
 }

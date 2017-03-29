@@ -41,4 +41,8 @@ public class GetDestCardsCommand extends Command implements iCommand, Serializab
         super.setData(d);
         this.data = d;
     }
+
+    public DataTransferObject getData(){
+        return data;
+    }
 }

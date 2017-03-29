@@ -38,6 +38,8 @@ public class GameLobbyActivity extends AppCompatActivity {
         });
 
         mWelcomeMsg = (TextView) findViewById(R.id.game_board_title);
+
+        // TODO: this causes a bug when the owner of the game has started a game, closes the client, then tries to log back in
         mWelcomeMsg.setText("Welcome to " + ClientModel.SINGLETON.getCurrentTTRGame().getOwnerUsername() + "'s game!");
     }
 

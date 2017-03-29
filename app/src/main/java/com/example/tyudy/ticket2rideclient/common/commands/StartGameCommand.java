@@ -31,7 +31,8 @@ private DataTransferObject data;
     public DataTransferObject execute()
     {
         FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
-        if(data.getErrorMsg().length()!=0){
+        if(data.getErrorMsg().length() != 0)
+        {
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
         }
         else{
@@ -47,6 +48,7 @@ private DataTransferObject data;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                System.console().printf(e.getMessage());
             }
             Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
             ((GameLobbyActivity) jeffery).onStartGame();
@@ -59,5 +61,9 @@ private DataTransferObject data;
     {
         super.setData(d);
         this.data = d;
+    }
+
+    public DataTransferObject getData(){
+        return data;
     }
 }

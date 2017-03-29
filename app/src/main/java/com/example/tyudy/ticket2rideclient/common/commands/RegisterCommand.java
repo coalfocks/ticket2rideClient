@@ -23,9 +23,6 @@ private DataTransferObject data;
     @Override
     public DataTransferObject execute()
     {
-//      TTRServerFacade facade = new TTRServerFacade();
-//      data = facade.register(data);
-//      return data;
         FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
         if(data.getErrorMsg().length()!=0){
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
@@ -51,4 +48,7 @@ private DataTransferObject data;
         this.data = d;
     }
 
+    public DataTransferObject getData(){
+        return data;
+    }
 }
