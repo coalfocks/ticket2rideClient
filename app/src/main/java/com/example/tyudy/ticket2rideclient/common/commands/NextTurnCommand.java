@@ -20,7 +20,11 @@ public class NextTurnCommand extends Command implements iCommand, Serializable {
     public DataTransferObject execute()
     {
         int nextPlayerID = data.getPlayerID();
-        MethodsFacade.SINGLETON.changeTurn(nextPlayerID);
+
+        // Checks if a turn end is valid in current state
+        if (ClientModel.SINGLETON.canEndTurn())
+            MethodsFacade.SINGLETON.changeTurn(nextPlayerID);
+
         return data;
     }
 

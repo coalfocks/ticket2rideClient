@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.model.states.IState;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 import com.example.tyudy.ticket2rideclient.model.states.myturnstates.NoAction;
 import com.example.tyudy.ticket2rideclient.model.states.myturnstates.PickSecond;
@@ -511,7 +512,7 @@ public class ClientModel implements iObservable {
     }
 
     // CAN DO METHODS -----------------------------
-    // All these methods assume that it's the current player's turn.
+    // All these methods assume that it's the current player's turn (except canEndTurn()).
 
     /**
      * The can-do method for claiming a path.
@@ -612,8 +613,9 @@ public class ClientModel implements iObservable {
     public boolean canEndTurn() {
 
         // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.endTurn() == currentState)
+        // not a valid action (unless it's not my turn)
+        if (currentState.endTurn() == currentState
+                && currentState instanceof MyTurnState)
             return false;
 
         return true;

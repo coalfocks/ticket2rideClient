@@ -43,9 +43,11 @@ public class DecksDialogPresenter  {
     }
 
     public void destDeckClicked(){
-        //IMPLEMENT ME!!
-//        PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
-        MethodsFacade.SINGLETON.drawDestCard();
+        if (ClientModel.SINGLETON.canDrawDestCard())
+        {
+            //PresenterHolder.SINGLETON.getDestCardsPresenter().showDialog(mDecksDialogFragment.getActivity());
+            MethodsFacade.SINGLETON.drawDestCard();
+        }
     }
 
     public void trainDeckClicked(){

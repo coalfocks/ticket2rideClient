@@ -26,8 +26,7 @@ public class TTRGame implements Serializable
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
 
-    public TTRGame()
-    {
+    public TTRGame() {
     }
 
     public void setMyTrainDeck(TrainCardDeck myTrainDeck) {
@@ -117,22 +116,20 @@ public class TTRGame implements Serializable
     }
 
     /**
-     * Updates the ClientModels given path to have an owner and adds the corresponding points to the paths owner user.
-     * @param path - the path to update in the client model
+     * Updates the current user's owned paths with given path, and sets its owner in ClientModel
+     * @param path - The path the current user claimed
      */
     public void claimPath(Path path) {
-
-        for (Path p : ClientModel.SINGLETON.getAllPaths()) {
-            if (p.getName().equals(path.getName())) {
-                p.setOwner(path.getOwner());
-                for (User u : this.getUsers()) {
-                    if (u.getPlayerID() == path.getOwner().getPlayerID()) {
-                        u.addPoints(path.getPoints());
-                    }
-                }
+        for (Path p : ClientModel.SINGLETON.getAllPaths())
+        {
+            if (p.getName().equals(path.getName()))
+            {
+                p.setOwner(ClientModel.SINGLETON.getCurrentUser());
+                ClientModel.SINGLETON.getCurrentUser().claimPath(path);
+                ClientModel.SINGLETON.getCurrentUser().addPoints(path.getPoints());
+                return;
             }
         }
-
     }
 
     // dealTrainCard used by the server

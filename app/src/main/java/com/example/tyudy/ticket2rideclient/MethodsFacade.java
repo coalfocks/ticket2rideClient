@@ -62,7 +62,6 @@ public class MethodsFacade {
      * @return - a User object reflecting the registered user or null if the userName or password was invalid
      */
     public User registerUser(String enteredName, String enteredPassword){
-        // IMPLEMENT ME!
         if(checkPassword(enteredName) && checkPassword(enteredPassword)){
             User user = new User();
             user.setUsername(enteredName);
@@ -100,8 +99,6 @@ public class MethodsFacade {
         dto.setPlayerID(user.getPlayerID());
         dto.setCommand("create");
         ServerProxy.SINGLETON.createGame(dto);
-
-
     }
 
     public void startGame(){
@@ -120,7 +117,6 @@ public class MethodsFacade {
 
 
      public void getGameList() {
-
          DataTransferObject dto = new DataTransferObject();
          dto.setCommand("gameList");
          ServerProxy.SINGLETON.listGames(dto);
@@ -197,16 +193,12 @@ public class MethodsFacade {
      * @param path - path to be claimed
      */
     public void claimPath(Path path){
-        DataTransferObject dto = new DataTransferObject();
-        String pathData = gson.toJson(path);
-        dto.setData(pathData);
-        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
-        dto.setCommand("claimPath");
-        ServerProxy.SINGLETON.claimPath(dto);
-    }
-
-    public ArrayList<Path> getModelPaths(){
-        return ClientModel.SINGLETON.getPaths();
+            DataTransferObject dto = new DataTransferObject();
+            String pathData = gson.toJson(path);
+            dto.setData(pathData);
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setCommand("claimPath");
+            ServerProxy.SINGLETON.claimPath(dto);
     }
 
     public void reset() {
@@ -215,11 +207,13 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
 
+    // Checked can-do before function call
     public void changeTurn(int nextPlayerID) {
         ClientModel.SINGLETON.changeTurn(nextPlayerID);
         ClientModel.SINGLETON.getCurrentTTRGame().changeTurn();
     }
 
+    // Checked can-do before function call
     public void drawDestCard() {
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
