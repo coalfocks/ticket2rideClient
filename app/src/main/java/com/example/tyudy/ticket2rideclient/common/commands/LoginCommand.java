@@ -41,9 +41,15 @@ public class LoginCommand extends Command implements iCommand, Serializable
                 User loggedInUser = (User) Serializer.deserialize(data.getData());
                 ClientModel.SINGLETON.setCurrentUser(loggedInUser);
                 // I am such a boss programmer for this line ..... it sets the current game
-                ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
-                Toast.makeText(jeffery, "Successful Login!", Toast.LENGTH_SHORT).show();
-                ((PreGameActivity) jeffery).onLogin();
+                if (loggedInUser.getInGame() == 0)
+                {
+                    ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
+                    Toast.makeText(jeffery, "Successful Login!", Toast.LENGTH_SHORT).show();
+                    ((PreGameActivity) jeffery).onLogin(loggedInUser.getInGame());
+                }
+                else {
+                    MethodsFacade.SINGLETON.getGameList();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(jeffery, "Invalid Login", Toast.LENGTH_SHORT).show();

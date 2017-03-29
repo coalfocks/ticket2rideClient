@@ -53,4 +53,9 @@ public class GameLobbyActivity extends AppCompatActivity {
         Intent i = new Intent(this, GameBoardActivity.class);
         startActivity(i);
     }
+
+    public void onResumeGame() {
+        Intent i = new Intent(this, GameBoardActivity.class);
+        startActivity(i);
+    }
 }

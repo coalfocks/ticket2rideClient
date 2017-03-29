@@ -41,10 +41,16 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
 
     }
 
-    public void onLogin(){
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.addToBackStack(null);
-        ft.replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
+    public void onLogin(int inGame){
+        if (inGame == 0) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.addToBackStack(null);
+            ft.replace(R.id.fragment_container, new GameSelectionFragment()).commit(); // Go to the GameSelectionFragment
+        }
+        else {
+            Intent i = new Intent(this, GameLobbyActivity.class);
+            startActivity(i);
+        }
     }
 
     public void onLoginAndGame(int inProgress) {
@@ -62,6 +68,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
     protected void onResume(){
         super.onResume();
         MethodsFacade.SINGLETON.setContext(this);
+        MethodsFacade.SINGLETON.reset();
     }
 
     @Override

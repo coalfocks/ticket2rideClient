@@ -7,14 +7,18 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.commands.ClaimPathCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.ReturnDestCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iTTRServer;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.google.gson.Gson;
+import com.google.gson.internal.Excluder;
 
 import java.io.IOException;
 
@@ -183,6 +187,32 @@ public class ServerProxy implements iTTRServer {
         } catch (IOException e){
             e.printStackTrace();
             Log.d("ServerProxy", e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public DataTransferObject drawDestCard(DataTransferObject data) {
+        try {
+            GetDestCardsCommand command = new GetDestCardsCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
+        }
+        return null;
+    }
+
+    public DataTransferObject sendBackDestCards (DataTransferObject data) {
+        try {
+            ReturnDestCardsCommand command = new ReturnDestCardsCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

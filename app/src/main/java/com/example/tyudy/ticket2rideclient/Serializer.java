@@ -14,7 +14,7 @@ public class Serializer
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
         oos.close();
-        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        return Base64.encodeToString(baos.toByteArray(), Base64.NO_WRAP);
     }
 
     public static Object deserialize(String s) throws IOException, ClassNotFoundException

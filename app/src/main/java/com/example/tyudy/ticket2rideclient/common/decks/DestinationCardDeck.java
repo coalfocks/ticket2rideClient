@@ -16,9 +16,7 @@ public class DestinationCardDeck implements iDeck, Serializable {
 
     //initialize a deck TODO: figure out wtf to do here.
     public DestinationCardDeck() {
-        for (int i = 0; i < 30; i++) {
-            cards.add(new DestinationCard());
-        }
+
     }
     public void shuffle(){
         Collections.shuffle(this.cards);

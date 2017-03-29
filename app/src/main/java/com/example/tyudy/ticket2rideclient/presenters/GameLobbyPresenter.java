@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
@@ -30,7 +31,13 @@ public class GameLobbyPresenter {
     public void startGameClicked(){
         if(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
             if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
-                MethodsFacade.SINGLETON.startGame();
+                if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0)
+                {
+                    MethodsFacade.SINGLETON.startGame();
+                } else {
+                    FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
+                    ((GameLobbyActivity) jeffery).onResumeGame();
+                }
             }
             else {
                 Toast.makeText(mGameLobbyActivity, "You can't play by yourself!", Toast.LENGTH_LONG).show();

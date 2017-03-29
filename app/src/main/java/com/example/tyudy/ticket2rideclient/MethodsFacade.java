@@ -1,26 +1,16 @@
 package com.example.tyudy.ticket2rideclient;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
-import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
-import com.example.tyudy.ticket2rideclient.common.commands.CreateGameCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.SendChatCommand;
-import com.example.tyudy.ticket2rideclient.common.commands.StartGameCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tyudy on 2/6/17.
@@ -123,6 +113,7 @@ public class MethodsFacade {
 
          DataTransferObject dto = new DataTransferObject();
          dto.setCommand("gameList");
+         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
          ServerProxy.SINGLETON.listGames(dto);
      }
 
@@ -213,5 +204,27 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setCurrentTTRGame(new TTRGame());
         ClientModel.SINGLETON.setCurrentUser(new User());
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
+    }
+
+    public void drawDestCard() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("drawDestCard");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.drawDestCard(dto);
+    }
+
+    public void sendBackDestCards(ArrayList<ArrayList<DestinationCard>> cards) {
+        try
+        {
+            DataTransferObject dto = new DataTransferObject();
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setCommand("sendBackDestCards");
+            dto.setData(Serializer.serialize(cards));
+            ServerProxy.SINGLETON.sendBackDestCards(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

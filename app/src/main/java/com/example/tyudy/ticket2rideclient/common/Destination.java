@@ -2,38 +2,40 @@ package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 
+import java.io.Serializable;
+
 /**
  * Created by zacheaton on 3/2/17.
  */
 
-public class Destination {
-    City source;
-    City dest;
+public class Destination implements Serializable
+{
+    String source;
+    String dest;
 
-    public Destination(City source, City dest) {
+    public Destination(String source, String dest) {
         this.source = source;
         this.dest = dest;
     }
 
-    public City getSource() {
+    public String getSource() {
         return source;
     }
 
-    public City getDest() {
+    public String getDest() {
         return dest;
     }
 
-    public void setSource(City source) {
+    public void setSource(String source) {
         this.source = source;
     }
 
-    public void setDest(City dest) {
+    public void setDest(String dest) {
         this.dest = dest;
     }
 
-    @Override
-    public String toString() {
-        return "Source: " + source.getCityName() +
-                    ", Dest: " + dest.getCityName();
-    }
+//    @Override
+//    public String toString() {
+//        return "Source: " + source + ", Dest: " + dest;
+//    }
 }
