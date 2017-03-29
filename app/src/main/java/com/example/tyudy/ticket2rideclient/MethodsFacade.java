@@ -1,10 +1,6 @@
 package com.example.tyudy.ticket2rideclient;
 
 import android.support.v4.app.FragmentActivity;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/do-train-cards
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
