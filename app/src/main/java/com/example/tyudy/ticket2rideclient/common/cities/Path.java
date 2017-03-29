@@ -5,6 +5,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 /**
@@ -35,6 +36,9 @@ public class Path implements Serializable {
     public int getPoints() {
         return this.distance;
     }
+    public ColorENUM getPathColor(){
+        return pathColor;
+    }
 
     /**
      * A method to find if a path contains the given city
@@ -43,7 +47,7 @@ public class Path implements Serializable {
      */
     public boolean containsCity(City city) {
 
-        TreeSet<City> cities = new TreeSet<>(connectedCities);
+        HashSet<City> cities = new HashSet<>(connectedCities);
         return cities.contains(city);
     }
 

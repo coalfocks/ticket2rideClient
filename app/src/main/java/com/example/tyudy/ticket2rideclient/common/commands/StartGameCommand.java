@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.Utils.GraphicsUtils;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
 import com.example.tyudy.ticket2rideclient.common.Command;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
@@ -13,6 +14,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRServerFacade;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.PlasticTrainCollection;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -39,6 +41,8 @@ private DataTransferObject data;
                 for (User u : game.getUsers()) {
                     if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                         ClientModel.SINGLETON.setCurrentUser(u);
+                        int usersColor = GraphicsUtils.getRealColorFromEnum(ClientModel.SINGLETON.getCurrentUser().getColor());
+                        ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
             } catch (Exception e) {
