@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
-import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.presenters.GetDestCardsPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
@@ -120,7 +119,7 @@ public class GetDestCardsFragment extends DialogFragment
     public void selectCard(int card, boolean select) {
         switch (card) {
             case(0):
-                if (!select) {
+                if (select) {
                     mCard1.setBackgroundColor(Color.LTGRAY);
                 }
                 else {
@@ -128,19 +127,21 @@ public class GetDestCardsFragment extends DialogFragment
                 }
                 break;
             case(1):
-                if (!select) {
+                if (select) {
                     mCard2.setBackgroundColor(Color.LTGRAY);
                 }
                 else {
                     mCard2.setBackgroundColor(Color.DKGRAY);
-                }                break;
+                }
+                break;
             case(2):
-                if (!select) {
+                if (select) {
                     mCard3.setBackgroundColor(Color.LTGRAY);
                 }
                 else {
                     mCard3.setBackgroundColor(Color.DKGRAY);
-                }                break;
+                }
+                break;
         }
     }
 }

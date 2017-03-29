@@ -33,10 +33,16 @@ public class ListGamesCommand extends Command implements iCommand, Serializable
         try {
             ArrayList<TTRGame> gList = (ArrayList<TTRGame>) Serializer.deserialize(data.getData());
             MethodsFacade.SINGLETON.replaceModelsGames(gList);
-            if (ClientModel.SINGLETON.getCurrentUser().getInGame() != 0) {
+            if (ClientModel.SINGLETON.getCurrentUser().getInGame() != 0 &&
+                    gList.size() != 0) {
+
                 ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
                 FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
-                ((PreGameActivity) jeffery).onLogin(ClientModel.SINGLETON.getCurrentUser());
+                ((PreGameActivity) jeffery).onLogin(ClientModel.SINGLETON.getCurrentUser().getInGame());
+
+            } else if (ClientModel.SINGLETON.getCurrentUser().getInGame() != 0) {
+                FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
+                ((PreGameActivity) jeffery).onLogin(0);
             }
         } catch (Exception e){
             Log.d("ListGamesCommand", e.getMessage());
