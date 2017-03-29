@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.decks;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.iCard;
 
@@ -14,36 +15,48 @@ import java.util.List;
  */
 public class TrainCardDeck implements iDeck, Serializable
 {
-
-    List<iCard> cards = new ArrayList<iCard>();
+    private List<iCard> cards;
+    private TTRGame currentGame;
 
     //initialize the deck
     public TrainCardDeck(){
-        for (ColorENUM c : ColorENUM.values()){
-            for(int i = 0; i < 12; i++){
-                TrainCard newCard = new TrainCard(c);
-                this.addCard(newCard);
-            }
-        }
-        TrainCard newWild = new TrainCard(ColorENUM.COLORLESS);
-        this.addCard(newWild);
-        this.addCard(newWild);
-        this.shuffle();
+        cards = new ArrayList<>();
     }
+
+    public void initCards(){
+        //implemented on server side
+    }
+
+    public void setCurrentGame(TTRGame game) { currentGame = game; }
+
+    public List<iCard> getDeck() { return cards; }
+
     public void shuffle(){
         Collections.shuffle(this.cards);
     };
 
-    public  void addCard(iCard card){
+    public void addCard(iCard card){
         this.cards.add(card);
     }
-    public  iCard getCard(){
-        if(cards.size()>0) {
+
+    public iCard getCard(){
+        if(cards.size() > 0) {
             iCard myCard = cards.get(cards.size() - 1);
             cards.remove(cards.size() - 1);
             return myCard;
         }
-        else{
+        else if (currentGame != null)
+        {
+            TrainCardDeck newDeck = currentGame.getTrainDiscardDeck();
+            newDeck.shuffle();
+            cards = newDeck.getDeck();
+
+            currentGame.clearTrainDiscardDeck();
+
+            return getCard();
+        }
+        else
+        {
             return null;
         }
     }
