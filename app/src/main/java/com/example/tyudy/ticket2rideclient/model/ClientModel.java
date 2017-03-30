@@ -1,11 +1,8 @@
 package com.example.tyudy.ticket2rideclient.model;
 
-import android.graphics.Color;
-
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
@@ -13,11 +10,10 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.model.states.IState;
-import com.example.tyudy.ticket2rideclient.model.states.MyTurnState;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnStateNoAction;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 import com.example.tyudy.ticket2rideclient.model.states.myturnstates.NoAction;
 import com.example.tyudy.ticket2rideclient.model.states.myturnstates.PickSecond;
-import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -695,7 +691,7 @@ public class ClientModel implements iObservable {
         // If the current state returns itself, it's
         // not a valid action (unless it's not my turn)
         if (currentState.endTurn() == currentState
-                && currentState instanceof MyTurnState)
+                && currentState instanceof MyTurnStateNoAction)
             return false;
 
         return true;
