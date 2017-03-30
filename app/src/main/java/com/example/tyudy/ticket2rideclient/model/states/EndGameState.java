@@ -40,4 +40,9 @@ public class EndGameState implements IState {
     public IState endTurn() {
         return this;
     }
+
+    @Override
+    public IState pickedWild() {
+        return null;
+    }
 }

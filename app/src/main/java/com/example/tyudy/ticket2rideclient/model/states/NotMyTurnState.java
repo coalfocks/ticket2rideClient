@@ -11,6 +11,9 @@ package com.example.tyudy.ticket2rideclient.model.states;
  */
 public class NotMyTurnState implements IState {
 
+    public NotMyTurnState() {}
+    public NotMyTurnState(int flag) {}
+
     @Override
     public IState drawTrainCard() {
         return this;

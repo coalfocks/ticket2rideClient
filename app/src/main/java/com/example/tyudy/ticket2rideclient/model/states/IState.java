@@ -94,4 +94,7 @@ public interface IState {
     IState endTurn();
 
     IState pickedWild();
-}
+
+    //TODO: toast if can't do
+    //TODO: send command in notmyturn constructor
+ }

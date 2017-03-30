@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -11,9 +12,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.model.states.IState;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnStateNoAction;
-import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
-import com.example.tyudy.ticket2rideclient.model.states.myturnstates.NoAction;
-import com.example.tyudy.ticket2rideclient.model.states.myturnstates.PickSecond;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 
 import java.util.ArrayList;
 
@@ -51,7 +50,7 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
-        currentState = new PreGameState();
+        currentState = new NotMyTurnState(0);
         mNewDestCards = new ArrayList<>();
         mUsersTrains = null;
         initCitiesAndPaths();
@@ -581,7 +580,7 @@ public class ClientModel implements iObservable {
 
     public void changeTurn(int nextPlayerID){
         if (nextPlayerID == currentUser.getPlayerID())
-            currentState = new NoAction(); // Set the state to the NoAction state for player
+            currentState = new MyTurnStateNoAction(); // Set the state to the NoAction state for player
 
         setCurrentPlayerTurnID(nextPlayerID);
         this.notifyObservers();
@@ -629,13 +628,10 @@ public class ClientModel implements iObservable {
 
         // If the current state returns itself, it's
         // not a valid action.
-        if (currentState.pickCard() == currentState)
+        if (currentState.pickTrainCard() == currentState)
             return false;
 
-        // Can't pick a face-up wild card on the second pick
-        if (currentState.getClass() == PickSecond.class
-                && card.getColor() == ColorENUM.WILD)
-            return false;
+        FaceUpCards fu = ClientModel.SINGLETON.getCurrentTTRGame().getMyTrainDeck().getFaceUpCards();
 
         return true;
     }
@@ -648,8 +644,10 @@ public class ClientModel implements iObservable {
 
         // If the current state returns itself, it's
         // not a valid action.
-        if (currentState.drawCard() == currentState)
+        if (currentState.drawTrainCard() == currentState)
             return false;
+
+        //TODO: if no cards left on server, handle
 
         return true;
     }
@@ -662,7 +660,7 @@ public class ClientModel implements iObservable {
 
         // If the current state returns itself, it's
         // not a valid action.
-        if (currentState.drawDest() == currentState)
+        if (currentState.drawDestinationCard() == currentState)
             return false;
 
         return true;
@@ -676,7 +674,7 @@ public class ClientModel implements iObservable {
 
         // If the current state returns itself, it's
         // not a valid action.
-        if (currentState.returnCard() == currentState)
+        if (currentState.returnDestinationCard() == currentState)
             return false;
 
         return true;
@@ -709,6 +707,10 @@ public class ClientModel implements iObservable {
             return false;
 
         return true;
+    }
+
+    public void setCurrentState(IState state) {
+        this.currentState = state;
     }
   
     public void setUsersTrains(PlasticTrainCollection trains){
