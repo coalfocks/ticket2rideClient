@@ -79,6 +79,7 @@ public class DecksDialogPresenter  {
 
     public void trainDeckClicked() {
         MethodsFacade.SINGLETON.drawTrainCard();
+    }
 
     public void destDeckClicked(){
         if (ClientModel.SINGLETON.canDrawDestCard())
