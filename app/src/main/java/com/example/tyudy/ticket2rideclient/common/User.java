@@ -4,6 +4,7 @@ import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.exceptions.TrainCardDoesNotExist;
 //import com.example.tyudy.ticket2rideclient.common.states.IState;
 //import com.example.tyudy.ticket2rideclient.common.states.PreGameState;
 
@@ -149,6 +150,22 @@ public class User implements Serializable, Comparable<User> {
     public ArrayList<TrainCard> getTrainCards(){
         ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
         return arrayOfCards;
+    }
+
+    /**
+     * Get the TrainCard(s) object for a specific color
+     * @param - the color of card to search for
+     * @throws - throws TrainCardDoesNotExist exception if the user has no train card object that has the params given color
+     * @return - TrainCard object that has the given color
+     */
+    public TrainCard getTrainCardsOfColor(ColorENUM color) {
+        ArrayList<TrainCard> arrayOfCards = getTrainCards();
+        for(TrainCard trainCard: arrayOfCards){
+            if (color == trainCard.getColor()) {
+                return trainCard;
+            }
+        }
+        throw new TrainCardDoesNotExist("User.getTrainCardsOfColor() could not find  a " + color.toString() + " colored card");
     }
 
     public int getNumCards () {

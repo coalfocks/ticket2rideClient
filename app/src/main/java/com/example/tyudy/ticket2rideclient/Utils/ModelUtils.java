@@ -1,6 +1,11 @@
 package com.example.tyudy.ticket2rideclient.Utils;
 
+import android.widget.Toast;
+
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 /**
@@ -14,23 +19,61 @@ public final class ModelUtils {
         return false;
     }
 
-    public static boolean canClaimPath(Path path){
-        for (Path p : ClientModel.SINGLETON.getAllPaths())
-        {
-            if (p.getName().equals(path.getName()))
-            {
-                // Can't claim a path if the path already has
-                // an owner (even if the owner is the current
-                // player)
-                if (p.hasOwner())
-                    return false;
+    /**
+     * Check to makes sure that
+     * 1. It is the currentUsers turn
+     * 2. The route has not yet been claimed
+     * 3. The currentUser has enough train cards to claim the route
+     * 4. The currentUser has enough train pieces to claim the route
+     * @param path - the path that we are checking if the user can claim
+     * @return - true if the path can be claimed. False otherwise.
+     */
+    public static boolean canClaimPath(Path path) {
 
-                return true;
+        Class classToCompareTo = null;
+
+        try {
+            classToCompareTo = Class.forName("com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        // Make sure it is the currentUsers turn and they haven't done anything yet
+        if (currentState.getClass() != classToCompareTo) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to claim a path!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Make sure the route has not yet been claimed
+        for (Path p : ClientModel.SINGLETON.getAllPaths()) {
+            if (p.getName().equals(path.getName())) {
+                if (p.hasOwner()) {
+                    Toast.makeText(MethodsFacade.SINGLETON.getContext(), "That path has already been claimed", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             }
         }
 
-        // Should only get to this point if for some reason the path doesn't exist
-        return false;    }
+        // Make sure the user has enough train cards to claim the route
+        ColorENUM pathColor = path.getPathColor();
+        boolean userHasEnoughCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum()
+                >= path.getDistance();
+        if (!userHasEnoughCards) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + " cards!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Make sure the user has enough train pieces
+        int numberTrainPieces = ClientModel.SINGLETON.getUsersTrains().getSize();
+        if (numberTrainPieces >= path.getDistance()) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You only have " + numberTrainPieces + " train pieces!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
 
     public static boolean canDrawDestinationCard(){
         return false;

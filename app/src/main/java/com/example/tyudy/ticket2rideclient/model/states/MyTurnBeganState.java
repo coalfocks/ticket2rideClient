@@ -9,14 +9,19 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 
 public class MyTurnBeganState implements IState {
 
+    /**
+     * This should not be called on this state. If it is just return 'this'
+     * @return - 'this' instance of this class.
+     */
     @Override
     public IState startGame() {
-        return null;
+        return this;
     }
 
     @Override
     public IState claimPath() {
-        return null;
+
+        return new NotMyTurnState();
     }
 
     @Override

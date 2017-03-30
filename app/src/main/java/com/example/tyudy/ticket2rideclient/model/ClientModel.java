@@ -50,7 +50,7 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
-        mCurrentState = new NotMyTurnState(0);
+        mCurrentState = new NotMyTurnState();
         mUsersTrains = null;
         mCurrentState = new PreGameState();
         initCitiesAndPaths();
@@ -618,6 +618,10 @@ public class ClientModel implements iObservable {
 
     public void setUsersTrains(PlasticTrainCollection trains){
         mUsersTrains = trains;
+    }
+
+    public PlasticTrainCollection getUsersTrains(){
+        return mUsersTrains;
     }
 
     public void addTrainCard (TrainCard card) {

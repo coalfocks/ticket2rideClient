@@ -27,6 +27,9 @@ public class PlasticTrainCollection {
     public int getCollectionColor(){
         return mCollectionColor;
     }
+    public int getSize(){
+        return mMyTrains.size();
+    }
 
 
 

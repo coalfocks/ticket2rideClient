@@ -1,6 +1,8 @@
 package com.example.tyudy.ticket2rideclient;
 
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
+
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
@@ -183,6 +185,11 @@ public class MethodsFacade {
      * @param path - path to be claimed
      */
     public void claimPath(Path path){
+
+        if (!ClientModel.SINGLETON.canClaimPath(path)) {
+            return;
+        }
+
         DataTransferObject dto = new DataTransferObject();
         try {
             String pathData = Serializer.serialize(path);
@@ -190,6 +197,7 @@ public class MethodsFacade {
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
+            ClientModel.SINGLETON.getCurrentState().claimPath();
         } catch (Exception e){
             e.printStackTrace();
         }
