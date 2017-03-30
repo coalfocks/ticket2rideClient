@@ -44,5 +44,4 @@ public class ListGamesCommand extends Command implements iCommand, Serializable
         }
         return null;
     }
-
 }

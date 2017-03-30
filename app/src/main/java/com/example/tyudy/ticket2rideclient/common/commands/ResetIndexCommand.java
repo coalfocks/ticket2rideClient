@@ -21,5 +21,4 @@ public class ResetIndexCommand extends Command implements iCommand, Serializable
         Poller.getInstance().setQueueIndex(index);
         return null;
     }
-
 }

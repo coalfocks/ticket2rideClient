@@ -20,5 +20,4 @@ public class EndGameCommand extends Command implements iCommand, Serializable
 //        return data;
         return null;
     }
-
 }

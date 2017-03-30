@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.presenters;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.widget.Toast;
+
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
@@ -77,16 +78,30 @@ public class DecksDialogPresenter  {
         mDecksDialogFragment.dismiss();
     }
 
+    public void destDeckClicked() {
+        MethodsFacade.SINGLETON.drawDestCard();
+    }
+
     public void trainDeckClicked() {
         MethodsFacade.SINGLETON.drawTrainCard();
     }
 
-    public void destDeckClicked(){
-        if (ClientModel.SINGLETON.canDrawDestCard())
-        {
-            MethodsFacade.SINGLETON.drawDestCard();
-        }
-    }
+//    public void trainDeckClicked(){
+//        //TREVOR'S TEST STUFF
+//        NextTurnCommand command = new NextTurnCommand();
+//        DataTransferObject dto = new DataTransferObject();
+//        int gameID = ClientModel.SINGLETON.getCurrentTTRGame().getGameID();
+//
+//
+//        dto.setData((Integer.toString(gameID)));
+//        command.setData(dto);
+//
+//        try {
+//            ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * triggered when a card is clicked in the DecksDialogFragment
@@ -119,6 +134,7 @@ public class DecksDialogPresenter  {
         }
 
         ClientModel.SINGLETON.addTrainCard(card);
+        MethodsFacade.SINGLETON.selectTrainCard(cardNumber);
 
     }
 

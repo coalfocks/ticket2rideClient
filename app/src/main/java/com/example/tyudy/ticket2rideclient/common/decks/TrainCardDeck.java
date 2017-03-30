@@ -22,9 +22,12 @@ public class TrainCardDeck implements iDeck, Serializable
     private TTRGame currentGame;
 
     //initialize the deck
-    public TrainCardDeck(){
-        for (ColorENUM c : ColorENUM.values()){
-            for(int i = 0; i < 12; i++){
+    public TrainCardDeck()
+    {
+        for (ColorENUM c : ColorENUM.values())
+        {
+            for (int i = 0; i < 12; i++)
+            {
                 TrainCard newCard = new TrainCard(c);
                 this.addCard(newCard);
             }
@@ -40,12 +43,20 @@ public class TrainCardDeck implements iDeck, Serializable
         faceUpCards.setCard5((TrainCard) this.getCard());
     }
 
-
-    public void initCards(){
-        //implemented on server side
-    }
-
-    public void setCurrentGame(TTRGame game) { currentGame = game; }
+//    private List<iCard> cards;
+//    private TTRGame currentGame;
+//
+//    //initialize the deck
+//    public TrainCardDeck(){
+//        cards = new ArrayList<>();
+//    }
+//
+//    public void initCards(){
+//        //implemented on server side
+//>>>>>>> cbb6986a99714fce3e1db850c6ee04b66e7a733c
+//    }
+//
+//    public void setCurrentGame(TTRGame game) { currentGame = game; }
 
     public List<iCard> getDeck() { return cards; }
 
@@ -63,16 +74,16 @@ public class TrainCardDeck implements iDeck, Serializable
             cards.remove(cards.size() - 1);
             return myCard;
         }
-        else if (currentGame != null)
-        {
-            TrainCardDeck newDeck = currentGame.getTrainDiscardDeck();
-            newDeck.shuffle();
-            cards = newDeck.getDeck();
-
-            currentGame.clearTrainDiscardDeck();
-
-            return getCard();
-        }
+//        else if (currentGame != null)
+//        {
+//            TrainCardDeck newDeck = currentGame.getTrainDiscardDeck();
+//            newDeck.shuffle();
+//            cards = newDeck.getDeck();
+//
+//            currentGame.clearTrainDiscardDeck();
+//
+//            return getCard();
+//        }
         else
         {
             return null;
@@ -85,5 +96,25 @@ public class TrainCardDeck implements iDeck, Serializable
 
     public void setFaceUpCards(FaceUpCards faceUpCards) {
         this.faceUpCards = faceUpCards;
+    }
+
+    public void swapFaceUpCard(int index) {
+        switch (index) {
+            case 1:
+                faceUpCards.setCard1((TrainCard) this.getCard());
+                break;
+            case 2:
+                faceUpCards.setCard2((TrainCard) this.getCard());
+                break;
+            case 3:
+                faceUpCards.setCard3((TrainCard) this.getCard());
+                break;
+            case 4:
+                faceUpCards.setCard4((TrainCard) this.getCard());
+                break;
+            case 5:
+                faceUpCards.setCard5((TrainCard) this.getCard());
+                break;
+        }
     }
 }

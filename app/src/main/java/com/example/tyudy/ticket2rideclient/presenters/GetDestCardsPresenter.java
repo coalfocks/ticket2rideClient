@@ -53,6 +53,7 @@ public class GetDestCardsPresenter
             toReturn.add(mDestCards.get(0));
         } else {
             ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(0));
+            ClientModel.SINGLETON.addDestCard(mDestCards.get(0));
             toUpdate.add(mDestCards.get(0));
         }
 
@@ -60,12 +61,14 @@ public class GetDestCardsPresenter
             toReturn.add(mDestCards.get(1));
         } else {
             ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(1));
+            ClientModel.SINGLETON.addDestCard(mDestCards.get(1));
             toUpdate.add(mDestCards.get(1));        }
 
         if (card3Selected) {
             toReturn.add(mDestCards.get(2));
         } else {
             ClientModel.SINGLETON.getCurrentUser().getDestCards().add(mDestCards.get(2));
+            ClientModel.SINGLETON.addDestCard(mDestCards.get(2));
             toUpdate.add(mDestCards.get(2));        }
 
         if (toReturn.size() > 2) {

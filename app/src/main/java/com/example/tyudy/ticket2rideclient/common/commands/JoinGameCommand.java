@@ -41,5 +41,4 @@ public class JoinGameCommand extends Command implements iCommand, Serializable
 
         return null;
     }
-
 }

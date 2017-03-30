@@ -268,7 +268,7 @@ public class GameBoardFragment extends Fragment implements iObserver
             }
             
             holder.mPoints.setText(String.valueOf(user.getPoints()));
-            String trains = "Train: " + String.valueOf(user.getTrainCards().size());
+            String trains = "Train: " + String.valueOf(user.getNumCardsOfColor());
             holder.mTrains.setText(trains);
             String dest = "Dest: " + String.valueOf(user.getDestCards().size());
             holder.mDest.setText(dest);

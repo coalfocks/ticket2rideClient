@@ -51,5 +51,4 @@ public class StartGameCommand extends Command implements iCommand, Serializable
         }
         return null;
     }
-
 }

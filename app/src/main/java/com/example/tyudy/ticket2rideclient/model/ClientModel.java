@@ -725,6 +725,16 @@ public class ClientModel implements iObservable {
                 u.addTrainCard(card);
             }
         }
+        notifyObservers();
+    }
+
+    public void addDestCard (DestinationCard card) {
+        for (User u : mCurrentTTRGame.getUsers()) {
+            if (u.getPlayerID() == currentUser.getPlayerID()) {
+                u.addDestinationCard(card);
+            }
+        }
+        notifyObservers();
     }
 
     /**
