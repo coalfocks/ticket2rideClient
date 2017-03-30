@@ -1,7 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import com.example.tyudy.ticket2rideclient.Utils.ModelUtils;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
-import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -10,9 +10,10 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
-import com.example.tyudy.ticket2rideclient.model.states.IState;
-import com.example.tyudy.ticket2rideclient.model.states.MyTurnStateNoAction;
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
 import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
+import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 import java.util.ArrayList;
 
@@ -35,8 +36,7 @@ public class ClientModel implements iObservable {
     private TTRGame mCurrentTTRGame;
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
-    private IState currentState;
-    private ArrayList<DestinationCard> mNewDestCards;
+    private IState mCurrentState;
     private PlasticTrainCollection mUsersTrains;
 
 
@@ -50,9 +50,9 @@ public class ClientModel implements iObservable {
         mCurrentTTRGame = null;
         allCities = new ArrayList<>();
         allPaths = new ArrayList<>();
-        currentState = new NotMyTurnState(0);
-        mNewDestCards = new ArrayList<>();
+        mCurrentState = new NotMyTurnState(0);
         mUsersTrains = null;
+        mCurrentState = new PreGameState();
         initCitiesAndPaths();
     }
 
@@ -580,139 +580,42 @@ public class ClientModel implements iObservable {
 
     public void changeTurn(int nextPlayerID){
         if (nextPlayerID == currentUser.getPlayerID())
-            currentState = new MyTurnStateNoAction(); // Set the state to the NoAction state for player
+            mCurrentState = new MyTurnBeganState(); // Set the state to the NoAction state for player
 
         setCurrentPlayerTurnID(nextPlayerID);
         this.notifyObservers();
     }
 
     // CAN DO METHODS -----------------------------
-    // All these methods assume that it's the current player's turn (except canEndTurn()).
 
-    /**
-     * The can-do method for claiming a path.
-     * @param path The path to be claimed.
-     * @return True if it's a valid action, false otherwise.
-     */
+    public boolean canStartGame(){
+        return ModelUtils.canStartGame();
+    }
+
     public boolean canClaimPath(Path path) {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.claimPath() == currentState)
-            return false;
-
-        for (Path p : allPaths)
-        {
-            if (p.getName().equals(path.getName()))
-            {
-                // Can't claim a path if the path already has
-                // an owner (even if the owner is the current
-                // player)
-                if (p.hasOwner())
-                    return false;
-
-                return true;
-            }
-        }
-
-        // Should only get to this point if for some reason the path doesn't exist
-        return false;
+        return ModelUtils.canClaimPath(path);
     }
 
-    /**
-     * The can-do method for picking a face-up train card.
-     * @param card The picked card.
-     * @return True if it's a valid action, false otherwise.
-     */
-    public boolean canPickTrainCard(TrainCard card) {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.pickTrainCard() == currentState)
-            return false;
-
-        FaceUpCards fu = ClientModel.SINGLETON.getCurrentTTRGame().getMyTrainDeck().getFaceUpCards();
-
-        return true;
-    }
-
-    /**
-     * The can-do method for drawing a face-down train card.
-     * @return True if it's a valid action, false otherwise.
-     */
     public boolean canDrawTrainCard() {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.drawTrainCard() == currentState)
-            return false;
-
-        //TODO: if no cards left on server, handle
-
-        return true;
+        return ModelUtils.canDrawTrainCard();
     }
 
-    /**
-     * The can-do method for drawing destination cards.
-     * @return True if it's a valid action, false otherwise.
-     */
-    public boolean canDrawDestCard() {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.drawDestinationCard() == currentState)
-            return false;
-
-        return true;
+    public boolean canDrawDestinationCard() {
+        return ModelUtils.canDrawDestinationCard();
     }
 
-    /**
-     * The can-do method for returning a destination card.
-     * @return True if it's a valid action, false otherwise.
-     */
-    public boolean canReturnDestCard() {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.returnDestinationCard() == currentState)
-            return false;
-
-        return true;
-    }
-
-    /**
-     * The can-do method for ending a player's turn.
-     * @return True if it's a valid action, false otherwise.
-     */
     public boolean canEndTurn() {
-
-        // If the current state returns itself, it's
-        // not a valid action (unless it's not my turn)
-        if (currentState.endTurn() == currentState
-                && currentState instanceof MyTurnStateNoAction)
-            return false;
-
-        return true;
+        return ModelUtils.canEndTurn();
     }
 
-    /**
-     * The can-do method for scoring points.
-     * @return True if it's a valid call, false otherwise.`
-     */
-    public boolean canScorePoints() {
-
-        // If the current state returns itself, it's
-        // not a valid action.
-        if (currentState.scorePoints() == currentState)
-            return false;
-
-        return true;
+    public IState getCurrentState(){
+        return mCurrentState;
     }
 
     public void setCurrentState(IState state) {
-        this.currentState = state;
+        this.mCurrentState = state;
     }
-  
+
     public void setUsersTrains(PlasticTrainCollection trains){
         mUsersTrains = trains;
     }
@@ -742,4 +645,6 @@ public class ClientModel implements iObservable {
     public boolean isCurrentUsersTurn(){
         return mCurrentTTRGame.getWhoTurn() == currentUser.getPlayerID();
     }
+
+
 }

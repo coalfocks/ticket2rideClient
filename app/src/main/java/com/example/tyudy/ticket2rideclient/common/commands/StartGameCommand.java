@@ -42,6 +42,9 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                         ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
+                if (ClientModel.SINGLETON.canStartGame()) {
+                    ClientModel.SINGLETON.getCurrentState().startGame(); // Call startGame() on the PreGameState
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.console().printf(e.getMessage());

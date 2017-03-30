@@ -1,48 +1,31 @@
 package com.example.tyudy.ticket2rideclient.model.states;
 
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
+
 /**
  * Created by Trevor on 3/15/2017.
+ * State of the game after the game has ended and the game over screen will come up
  */
 
 public class EndGameState implements IState {
 
     @Override
-    public IState drawTrainCard() {
-        return this;
-    }
-
-    @Override
-    public IState drawDestinationCard() {
-        return this;
-    }
-
-    @Override
-    public IState pickTrainCard() {
-        return this;
+    public IState startGame() {
+        return null;
     }
 
     @Override
     public IState claimPath() {
-        return this;
+        return null;
     }
 
     @Override
-    public IState returnDestinationCard() {
-        return this;
+    public IState drawDestinationCard() {
+        return null;
     }
 
     @Override
-    public IState scorePoints() {
-        return this;
-    }
-
-    @Override
-    public IState endTurn() {
-        return this;
-    }
-
-    @Override
-    public IState pickedWild() {
+    public IState drawTrainCard() {
         return null;
     }
 }
