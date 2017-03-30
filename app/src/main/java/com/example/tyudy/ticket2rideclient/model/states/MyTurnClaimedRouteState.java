@@ -4,20 +4,20 @@ package com.example.tyudy.ticket2rideclient.model.states;
  * Created by Trevor on 3/15/2017.
  */
 
-public class MyTurnState implements IState {
+public class MyTurnClaimedRouteState implements IState {
 
     @Override
-    public IState drawCard() {
+    public IState drawTrainCard() {
         return this;
     }
 
     @Override
-    public IState drawDest() {
+    public IState drawDestinationCard() {
         return this;
     }
 
     @Override
-    public IState pickCard() {
+    public IState pickTrainCard() {
         return this;
     }
 
@@ -27,7 +27,7 @@ public class MyTurnState implements IState {
     }
 
     @Override
-    public IState returnCard() {
+    public IState returnDestinationCard() {
         return this;
     }
 
@@ -38,6 +38,11 @@ public class MyTurnState implements IState {
 
     @Override
     public IState endTurn() {
-        return this;
+        return new EndGameState();
+    }
+
+    @Override
+    public IState pickedWild() {
+        return null;
     }
 }

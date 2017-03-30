@@ -1,19 +1,13 @@
 package com.example.tyudy.ticket2rideclient.model.states;
 
 /**
- * Created by Trevor on 3/15/2017.
+ * Created by colefox on 3/29/17.
  */
 
-/**
- * All of the methods in this state will return false,
- * since there are no valid actions you can do on another
- * players' turns.
- */
-public class NotMyTurnState implements IState {
-
+public class MyTurnLastTurnDrewOneTrainCard implements IState {
     @Override
     public IState drawTrainCard() {
-        return this;
+        return new EndGameState();
     }
 
     @Override
@@ -23,7 +17,7 @@ public class NotMyTurnState implements IState {
 
     @Override
     public IState pickTrainCard() {
-        return this;
+        return new EndGameState();
     }
 
     @Override
@@ -38,20 +32,16 @@ public class NotMyTurnState implements IState {
 
     @Override
     public IState scorePoints() {
-        return this;
+        return null;
     }
 
     @Override
     public IState endTurn() {
-        return new NotMyTurnState();
+        return new EndGameState();
     }
 
     @Override
     public IState pickedWild() {
-        return this;
-    }
-
-    public IState startTurn() {
-        return new MyTurnStateNoAction();
+        return new EndGameState();
     }
 }

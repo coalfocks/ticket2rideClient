@@ -7,17 +7,17 @@ package com.example.tyudy.ticket2rideclient.model.states;
 public class EndGameState implements IState {
 
     @Override
-    public IState drawCard() {
+    public IState drawTrainCard() {
         return this;
     }
 
     @Override
-    public IState drawDest() {
+    public IState drawDestinationCard() {
         return this;
     }
 
     @Override
-    public IState pickCard() {
+    public IState pickTrainCard() {
         return this;
     }
 
@@ -27,7 +27,7 @@ public class EndGameState implements IState {
     }
 
     @Override
-    public IState returnCard() {
+    public IState returnDestinationCard() {
         return this;
     }
 

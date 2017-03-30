@@ -18,7 +18,7 @@ public interface IState {
      *      claimed a path on this turn.
      * @post The action will be valid.
      */
-    IState drawCard();
+    IState drawTrainCard();
 
     /**
      * This is the function to be called when a player
@@ -29,7 +29,7 @@ public interface IState {
      *      cards or claimed any paths.
      * @post The action will be valid.
      */
-    IState drawDest();
+    IState drawDestinationCard();
 
     /**
      * This is the function to be called when a player
@@ -43,7 +43,7 @@ public interface IState {
      * @post The action will be valid.
      *
      */
-    IState pickCard();
+    IState pickTrainCard();
 
     /**
      * This is the function to be called when a player
@@ -69,7 +69,7 @@ public interface IState {
      *      cards.
      * @post The action will be valid.
      */
-    IState returnCard();
+    IState returnDestinationCard();
 
     /**
      * This is the function that is called at the end
@@ -92,4 +92,6 @@ public interface IState {
      * @return New state if valid, current state otherwise.
      */
     IState endTurn();
+
+    IState pickedWild();
 }
