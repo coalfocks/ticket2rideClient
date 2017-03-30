@@ -13,6 +13,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.PlasticTrainCollection;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.io.Serializable;
 
@@ -42,6 +43,7 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                         ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 System.console().printf(e.getMessage());

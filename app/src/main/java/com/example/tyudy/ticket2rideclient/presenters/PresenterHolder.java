@@ -21,6 +21,7 @@ public class PresenterHolder {
     private DecksDialogPresenter mDecksDialogPresenter;
     private GetDestCardsPresenter mGetDestCardsPresenter;
     private ClaimRouteDialogPresenter mClaimRouteDialogPresenter;
+    private InitDestCardsPresenter mInitDestCardsPresenter;
 
     private PresenterHolder(){
         mLoginPresenter = new LoginPresenter();
@@ -33,6 +34,7 @@ public class PresenterHolder {
         mDecksDialogPresenter = new DecksDialogPresenter();
         mGetDestCardsPresenter = new GetDestCardsPresenter();
         mClaimRouteDialogPresenter = new ClaimRouteDialogPresenter();
+        mInitDestCardsPresenter = new InitDestCardsPresenter();
     }
 
     /*
@@ -75,6 +77,10 @@ public class PresenterHolder {
 
     public ClaimRouteDialogPresenter getClaimRouteDialogPresenter(){
         return mClaimRouteDialogPresenter;
+    }
+
+    public InitDestCardsPresenter getInitDestCardsPresenter() {
+        return mInitDestCardsPresenter;
     }
 
 }

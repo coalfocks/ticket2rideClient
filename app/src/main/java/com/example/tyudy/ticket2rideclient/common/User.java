@@ -135,6 +135,10 @@ public class User implements Serializable, Comparable<User> {
 
     public ArrayList<DestinationCard> getDestCards() { return destCards; }
 
+    public void setDestCards(ArrayList<DestinationCard> cards) {
+        this.destCards = cards;
+    }
+
     //Cards stuff
     public void addTrainCard(TrainCard card){
         TrainCard c = colorCards.get(card.getColor());
