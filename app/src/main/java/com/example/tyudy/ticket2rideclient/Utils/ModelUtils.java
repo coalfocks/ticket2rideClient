@@ -7,6 +7,8 @@ import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
  * Created by tyudy on 3/30/17.
@@ -30,13 +32,15 @@ public final class ModelUtils {
      */
     public static boolean canClaimPath(Path path) {
 
-        Class classToCompareTo = null;
+        Class classToCompareTo = MyTurnBeganState.class;
 
-        try {
-            classToCompareTo = Class.forName("com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ColorENUM pathColor = path.getPathColor();
+        boolean userHasEnoughColorsWithWilds = (ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum() +
+                ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum())
+                >= path.getDistance();
+        boolean userHasEnoughColorCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum()
+                >= path.getDistance();
+
 
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
@@ -57,17 +61,17 @@ public final class ModelUtils {
         }
 
         // Make sure the user has enough train cards to claim the route
-        ColorENUM pathColor = path.getPathColor();
-        boolean userHasEnoughCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum()
-                >= path.getDistance();
-        if (!userHasEnoughCards) {
+        if (!userHasEnoughColorCards) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + " cards!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
+        //TODO check to see if they have enough train cards with wilds cards
+
+
         // Make sure the user has enough train pieces
         int numberTrainPieces = ClientModel.SINGLETON.getUsersTrains().getSize();
-        if (numberTrainPieces >= path.getDistance()) {
+        if (numberTrainPieces < path.getDistance()) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You only have " + numberTrainPieces + " train pieces!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -88,13 +92,8 @@ public final class ModelUtils {
      * @return - true if the game can be started. False if it can't
      */
     public static boolean canStartGame(){
-        Class classToCompareTo = null;
 
-        try {
-            classToCompareTo = Class.forName("PreGameState");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        Class classToCompareTo = PreGameState.class;
 
         // If the game is still in the pregame state this is valid
         if ( ClientModel.SINGLETON.getCurrentState().getClass() == classToCompareTo){

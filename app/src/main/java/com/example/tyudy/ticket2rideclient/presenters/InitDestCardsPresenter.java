@@ -81,8 +81,7 @@ public class InitDestCardsPresenter {
         {
             cards.add(toReturn);
             cards.add(toUpdate);
-            //TODO: send back returned dest cards
-            //MethodsFacade.SINGLETON.sendBackDestCards(cards);
+            MethodsFacade.SINGLETON.sendBackInitDestCards(cards);
             card1Selected = false;
             card2Selected = false;
             card3Selected = false;

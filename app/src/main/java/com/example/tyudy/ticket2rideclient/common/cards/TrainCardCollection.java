@@ -14,15 +14,15 @@ import java.io.Serializable;
  * the num corresponds to how many of the specific color you have
  *
  */
-public class TrainCard implements iCard, Serializable {
+public class TrainCardCollection implements iCard, Serializable {
     public ColorENUM color;
     public int num;
-    public TrainCard(ColorENUM color){
+    public TrainCardCollection(ColorENUM color){
         this.num = 0;
         this.color = color;
     }
 
-    public TrainCard(){
+    public TrainCardCollection(){
         this.num = 0;
         this.color = color;
     }
@@ -44,5 +44,13 @@ public class TrainCard implements iCard, Serializable {
 
     public void incNum() {
         this.num += 1;
+    }
+
+    /**
+     * Subtract the given amount of cards from the train cards collection
+     * @param numToSubtract - this is the number of train cards to subtract from this collection of cards
+     */
+    public void subtractCards(int numToSubtract){
+        this.num -= numToSubtract;
     }
 }

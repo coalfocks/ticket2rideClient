@@ -198,6 +198,7 @@ public class MethodsFacade {
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
             ClientModel.SINGLETON.getCurrentState().claimPath();
+            ClientModel.SINGLETON.discardCardsForPath(path);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -242,6 +243,18 @@ public class MethodsFacade {
         }
     }
 
+    public void sendBackInitDestCards(ArrayList<ArrayList<DestinationCard>> cards) {
+        try
+        {
+            DataTransferObject dto = new DataTransferObject();
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setCommand("sendBackInitDestCards");
+            dto.setData(Serializer.serialize(cards));
+            ServerProxy.SINGLETON.sendBackDestCards(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void drawTrainCard() {
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());

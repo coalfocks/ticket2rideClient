@@ -18,11 +18,25 @@ public class ReturnDestCardsCommand extends Command implements iCommand, Seriali
     @Override
     public DataTransferObject execute()
     {
+        Boolean init = false;
+        String [] cards = new String[2];
+        if (data.getCommand().equals("sendBackInitDestCards")) {
+            init = true;
+            cards = data.getData().split(",");
+        } else {
+            cards [0] = data.getData();
+        }
+
         if (data.getPlayerID() != ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
             for (User u : ClientModel.SINGLETON.getCurrentTTRGame().getUsers()) {
                 if (u.getPlayerID() == data.getPlayerID()) {
-                    for (int i = 0; i < Integer.parseInt(data.getData()); i++) {
+                    for (int i = 0; i < Integer.parseInt(cards[0]); i++) {
                         u.addDestinationCard(new DestinationCard("","",0));
+                    }
+                    if (init) {
+                        for (int i = 0; i < Integer.parseInt(cards[1]); i++) {
+                            u.removeDestinationCard(u.getDestCards().get(u.getDestCards().size() - 1));
+                        }
                     }
                     ClientModel.SINGLETON.notifyObservers();
                 }

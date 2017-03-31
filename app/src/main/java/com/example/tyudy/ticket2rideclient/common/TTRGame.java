@@ -1,7 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
@@ -25,8 +25,12 @@ public class TTRGame implements Serializable
     private int mTurnIndex = 0;
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
+    private TrainCardDeck mTrainDiscardDeck;
+    private DestinationCardDeck mDestDiscardDeck;
 
     public TTRGame() {
+        mTrainDiscardDeck = new TrainCardDeck();
+        mDestDiscardDeck = new DestinationCardDeck();
     }
 
     public void setMyTrainDeck(TrainCardDeck myTrainDeck) {
@@ -35,6 +39,16 @@ public class TTRGame implements Serializable
 
     public void setMyDestDeck(DestinationCardDeck myDestDeck) {
         this.myDestDeck = myDestDeck;
+    }
+
+    public void addToTrainDiscard(TrainCardCollection card)
+    {
+        mTrainDiscardDeck.addCard(card);
+    }
+
+    public void addToDestDiscard(DestinationCard card)
+    {
+        mDestDiscardDeck.addCard(card);
     }
 
     public TrainCardDeck getMyTrainDeck() {
@@ -133,12 +147,12 @@ public class TTRGame implements Serializable
     }
 
     // dealTrainCard used by the server
-    public TrainCard dealTrainCard(int playerID){
+    public TrainCardCollection dealTrainCard(int playerID){
         return null;
     }
 
     public void dealTrainCard(User u){
-        TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
+        TrainCardCollection myCard = (TrainCardCollection)  getMyTrainDeck().getCard();
         u.addTrainCard(myCard);
     }
 
@@ -148,6 +162,14 @@ public class TTRGame implements Serializable
         u.addDestinationCard(myCard);
 
     }
+
+    public TrainCardDeck getTrainDiscardDeck() { return mTrainDiscardDeck; }
+
+    public DestinationCardDeck getDestDiscardDeck() { return mDestDiscardDeck; }
+
+    public void clearTrainDiscardDeck() { }//mTrainDiscardDeck.getDeck().clear(); }
+
+    public void clearDestDiscardDeck() { }//mDestDiscardDeck.getDeck().clear(); }
 
     public void changeTurn() {
         this.mTurnIndex++;

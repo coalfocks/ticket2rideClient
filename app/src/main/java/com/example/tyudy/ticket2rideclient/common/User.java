@@ -1,10 +1,9 @@
 package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
-import com.example.tyudy.ticket2rideclient.exceptions.TrainCardDoesNotExist;
 //import com.example.tyudy.ticket2rideclient.common.states.IState;
 //import com.example.tyudy.ticket2rideclient.common.states.PreGameState;
 
@@ -32,7 +31,7 @@ public class User implements Serializable, Comparable<User> {
     private ColorENUM color;
 
     private ArrayList<Path> claimedPaths;
-    private Map<ColorENUM, TrainCard> colorCards;
+    private Map<ColorENUM, TrainCardCollection> colorCards;
     private ArrayList<DestinationCard> destCards;
 
 
@@ -44,7 +43,7 @@ public class User implements Serializable, Comparable<User> {
         inGame = 0;
         points = 0;
         destCards = new ArrayList<>();
-        colorCards = new HashMap<>();
+        colorCards = new HashMap<ColorENUM, TrainCardCollection>();
         claimedPaths = new ArrayList<>();
         this.color = BLACK;
     }
@@ -58,12 +57,12 @@ public class User implements Serializable, Comparable<User> {
 
 
         destCards = new ArrayList<>();
-        colorCards = new HashMap<ColorENUM, TrainCard>();
-        TrainCard myCard = new TrainCard();
+        colorCards = new HashMap<ColorENUM, TrainCardCollection>();
+        TrainCardCollection myCard = new TrainCardCollection();
         myCard.setColor(WHITE);
         this.addTrainCard(myCard);
         destCards = new ArrayList<>();
-        colorCards = new HashMap<ColorENUM, TrainCard>();
+        colorCards = new HashMap<ColorENUM, TrainCardCollection>();
         this.color = BLACK;
     }
 
@@ -141,40 +140,42 @@ public class User implements Serializable, Comparable<User> {
     }
 
     //Cards stuff
-    public void addTrainCard(TrainCard card){
-        TrainCard c = colorCards.get(card.getColor());
+    public void addTrainCard(TrainCardCollection card){
+        TrainCardCollection c = colorCards.get(card.getColor());
         if(c != null) {
             c.incNum();
             colorCards.put(card.getColor(), c);
         }
         else{
+            card.incNum();
             colorCards.put(card.getColor(), card);
         }
     }
-    public ArrayList<TrainCard> getTrainCards(){
-        ArrayList<TrainCard> arrayOfCards = new ArrayList<TrainCard>(colorCards.values());
+    public ArrayList<TrainCardCollection> getTrainCards(){
+        ArrayList<TrainCardCollection> arrayOfCards = new ArrayList<TrainCardCollection>(colorCards.values());
         return arrayOfCards;
     }
 
     /**
-     * Get the TrainCard(s) object for a specific color
+     * Get the TrainCardCollection(s) object for a specific color
      * @param - the color of card to search for
      * @throws - throws TrainCardDoesNotExist exception if the user has no train card object that has the params given color
-     * @return - TrainCard object that has the given color
+     * @return - TrainCardCollection object that has the given color
      */
-    public TrainCard getTrainCardsOfColor(ColorENUM color) {
-        ArrayList<TrainCard> arrayOfCards = getTrainCards();
-        for(TrainCard trainCard: arrayOfCards){
-            if (color == trainCard.getColor()) {
-                return trainCard;
+    public TrainCardCollection getTrainCardsOfColor(ColorENUM color) {
+        ArrayList<TrainCardCollection> arrayOfCards = getTrainCards();
+        for(TrainCardCollection trainCardCollection : arrayOfCards){
+            if (color == trainCardCollection.getColor()) {
+                return trainCardCollection;
             }
         }
-        throw new TrainCardDoesNotExist("User.getTrainCardsOfColor() could not find  a " + color.toString() + " colored card");
+        return new TrainCardCollection(color);
+        //throw new TrainCardDoesNotExist("User.getTrainCardsOfColor() could not find  a " + color.toString() + " colored card");
     }
 
     public int getNumCards () {
         int total = 0;
-        for (TrainCard card : colorCards.values()) {
+        for (TrainCardCollection card : colorCards.values()) {
             total += card.getNum();
         }
         return total;

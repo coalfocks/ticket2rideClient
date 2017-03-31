@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -24,7 +24,7 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
     {
         try
         {
-            TrainCard card = (TrainCard) Serializer.deserialize(data.getData());
+            TrainCardCollection card = (TrainCardCollection) Serializer.deserialize(data.getData());
             ClientModel.SINGLETON.addTrainCard(card);
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + " card!", Toast.LENGTH_SHORT).show();
 

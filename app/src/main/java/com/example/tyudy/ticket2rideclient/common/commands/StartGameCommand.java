@@ -11,6 +11,7 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.PlasticTrainCollection;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
@@ -47,7 +48,8 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                 if (ClientModel.SINGLETON.canStartGame()) {
                     ClientModel.SINGLETON.getCurrentState().startGame(); // Call startGame() on the PreGameState
                 } else {
-                    return null;
+                    IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
+                    ClientModel.SINGLETON.setCurrentState(newState);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,35 +1,16 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.widget.Toast;
 
-import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
-import com.example.tyudy.ticket2rideclient.Serializer;
-import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
-import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
-import com.example.tyudy.ticket2rideclient.common.commands.NextTurnCommand;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
-import com.example.tyudy.ticket2rideclient.fragments.DisplayDestCardsDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLACK;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLUE;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.GREEN;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.ORANGE;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.PURPLE;
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.WHITE;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.WILD;
-import static com.example.tyudy.ticket2rideclient.common.ColorENUM.YELLOW;
 
 /**
  * Created by tyudy on 3/24/17.
@@ -52,11 +33,11 @@ public class DecksDialogPresenter  {
     public DecksDialogPresenter(){
         mFaceUpCards = new FaceUpCards();
 
-        TrainCard one = new TrainCard(RED);
-        TrainCard two = new TrainCard(RED);
-        TrainCard three = new TrainCard(RED);
-        TrainCard four = new TrainCard(RED);
-        TrainCard five = new TrainCard(RED);
+        TrainCardCollection one = new TrainCardCollection(RED);
+        TrainCardCollection two = new TrainCardCollection(RED);
+        TrainCardCollection three = new TrainCardCollection(RED);
+        TrainCardCollection four = new TrainCardCollection(RED);
+        TrainCardCollection five = new TrainCardCollection(RED);
 
         mFaceUpCards.setCard1(one);
         mFaceUpCards.setCard2(two);
@@ -112,7 +93,7 @@ public class DecksDialogPresenter  {
         //card to server model
         //replace faceups server
         //replace faceups model
-        TrainCard card;
+        TrainCardCollection card;
         switch (cardNumber) {
             case 1 :
                 card = mFaceUpCards.getCard1();
@@ -130,7 +111,7 @@ public class DecksDialogPresenter  {
                 card = mFaceUpCards.getCard5();
                 break;
             default :
-                card = new TrainCard();
+                card = new TrainCardCollection();
         }
 
         ClientModel.SINGLETON.addTrainCard(card);
@@ -138,7 +119,7 @@ public class DecksDialogPresenter  {
 
     }
 
-    public int getCardImage(TrainCard card) {
+    public int getCardImage(TrainCardCollection card) {
         ColorENUM color = card.getColor();
         switch(color) {
             case WHITE:
