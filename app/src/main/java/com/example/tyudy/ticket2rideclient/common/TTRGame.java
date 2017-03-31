@@ -1,7 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
@@ -133,12 +133,12 @@ public class TTRGame implements Serializable
     }
 
     // dealTrainCard used by the server
-    public TrainCard dealTrainCard(int playerID){
+    public TrainCardCollection dealTrainCard(int playerID){
         return null;
     }
 
     public void dealTrainCard(User u){
-        TrainCard myCard = (TrainCard)  getMyTrainDeck().getCard();
+        TrainCardCollection myCard = (TrainCardCollection)  getMyTrainDeck().getCard();
         u.addTrainCard(myCard);
     }
 

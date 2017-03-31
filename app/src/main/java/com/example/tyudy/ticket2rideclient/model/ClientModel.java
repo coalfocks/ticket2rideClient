@@ -2,10 +2,11 @@ package com.example.tyudy.ticket2rideclient.model;
 
 import com.example.tyudy.ticket2rideclient.Utils.ModelUtils;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
@@ -624,7 +625,7 @@ public class ClientModel implements iObservable {
         return mUsersTrains;
     }
 
-    public void addTrainCard (TrainCard card) {
+    public void addTrainCard (TrainCardCollection card) {
         for (User u : mCurrentTTRGame.getUsers()) {
             if (u.getPlayerID() == currentUser.getPlayerID()) {
                 u.addTrainCard(card);
@@ -648,6 +649,23 @@ public class ClientModel implements iObservable {
      */
     public boolean isCurrentUsersTurn(){
         return mCurrentTTRGame.getWhoTurn() == currentUser.getPlayerID();
+    }
+
+    /**
+     * Removes the amount of cards from the players hand
+     * @param path - path that we are using the cards to claim
+     */
+    public void discardCardsForPath(Path path){
+
+        if(currentUser.getTrainCardsOfColor(path.getPathColor()).getNum() < path.getDistance()){ // User doesnt have enough train cards
+            throw new BadLogicException("INVALID: Users " + path.getPathColor() + " train cards went negative."); // This should never execute and should be checked for in the canDo
+        }
+
+        // Throw out the number of train cards that we need to claim the path
+        currentUser.getTrainCardsOfColor(path.getPathColor()).subtractCards(path.getDistance());
+
+        //TODO: Discard cards command
+        // send path.getDistance number of cards of path.getPathColor color back to the server.. basically discard them
     }
 
 

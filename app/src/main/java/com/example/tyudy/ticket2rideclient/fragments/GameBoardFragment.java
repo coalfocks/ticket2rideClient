@@ -2,36 +2,23 @@ package com.example.tyudy.ticket2rideclient.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tyudy.ticket2rideclient.ClientCommunicator;
-import com.example.tyudy.ticket2rideclient.MethodsFacade;
-import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
-import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.User;
-import com.example.tyudy.ticket2rideclient.common.cards.TrainCard;
-import com.example.tyudy.ticket2rideclient.common.cities.City;
-import com.example.tyudy.ticket2rideclient.common.cities.Path;
-import com.example.tyudy.ticket2rideclient.common.commands.NextTurnCommand;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -40,7 +27,6 @@ import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 import com.example.tyudy.ticket2rideclient.views.MapView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -62,7 +48,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private SlidingUpPanelLayout mChat;
     
     private ArrayList<User> mUsers;
-    private ArrayList<TrainCard> mCards;
+    private ArrayList<TrainCardCollection> mCards;
    
     private GameBoardPresenter mGameBoardPresenter;
 
@@ -277,11 +263,11 @@ public class GameBoardFragment extends Fragment implements iObserver
         }
     }
 
-    private class CardsAdapter extends ArrayAdapter<TrainCard> {
+    private class CardsAdapter extends ArrayAdapter<TrainCardCollection> {
 
         private Context mContext;
 
-        public CardsAdapter(Context context, int resourceId, ArrayList<TrainCard> items) {
+        public CardsAdapter(Context context, int resourceId, ArrayList<TrainCardCollection> items) {
             super(context, resourceId, items);
             this.mContext = context;
         }
@@ -294,7 +280,7 @@ public class GameBoardFragment extends Fragment implements iObserver
 
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
-            TrainCard myCard = getItem(position);
+            TrainCardCollection myCard = getItem(position);
 
             LayoutInflater mInflater = (LayoutInflater) mContext
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

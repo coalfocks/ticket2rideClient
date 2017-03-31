@@ -198,6 +198,7 @@ public class MethodsFacade {
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
             ClientModel.SINGLETON.getCurrentState().claimPath();
+            ClientModel.SINGLETON.subtractCardsForPath(path);
         } catch (Exception e){
             e.printStackTrace();
         }
