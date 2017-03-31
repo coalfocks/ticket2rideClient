@@ -4,19 +4,24 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 
 /**
  * Created by Trevor on 3/15/2017.
- * State of the game after the game has ended and the game over screen will come up
+ * State of a game just after it becomes the currentUsers turn
  */
 
-public class EndGameState implements IState {
+public class MyTurnBeganState implements IState {
 
+    /**
+     * This should not be called on this state. If it is just return 'this'
+     * @return - 'this' instance of this class.
+     */
     @Override
     public IState startGame() {
-        return null;
+        return this;
     }
 
     @Override
     public IState claimPath() {
-        return null;
+
+        return new NotMyTurnState();
     }
 
     @Override

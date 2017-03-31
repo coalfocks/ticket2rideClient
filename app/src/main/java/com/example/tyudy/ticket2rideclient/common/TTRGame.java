@@ -25,12 +25,8 @@ public class TTRGame implements Serializable
     private int mTurnIndex = 0;
     private TrainCardDeck myTrainDeck;
     private DestinationCardDeck myDestDeck;
-    private TrainCardDeck mTrainDiscardDeck;
-    private DestinationCardDeck mDestDiscardDeck;
 
     public TTRGame() {
-        mTrainDiscardDeck = new TrainCardDeck();
-        mDestDiscardDeck = new DestinationCardDeck();
     }
 
     public void setMyTrainDeck(TrainCardDeck myTrainDeck) {
@@ -39,16 +35,6 @@ public class TTRGame implements Serializable
 
     public void setMyDestDeck(DestinationCardDeck myDestDeck) {
         this.myDestDeck = myDestDeck;
-    }
-
-    public void addToTrainDiscard(TrainCard card)
-    {
-        mTrainDiscardDeck.addCard(card);
-    }
-
-    public void addToDestDiscard(DestinationCard card)
-    {
-        mDestDiscardDeck.addCard(card);
     }
 
     public TrainCardDeck getMyTrainDeck() {
@@ -160,15 +146,8 @@ public class TTRGame implements Serializable
     public void dealDestCard(User u){
         DestinationCard myCard = (DestinationCard) getMyDestDeck().getCard();
         u.addDestinationCard(myCard);
+
     }
-
-    public TrainCardDeck getTrainDiscardDeck() { return mTrainDiscardDeck; }
-
-    public DestinationCardDeck getDestDiscardDeck() { return mDestDiscardDeck; }
-
-    public void clearTrainDiscardDeck() { mTrainDiscardDeck.getDeck().clear(); }
-
-    public void clearDestDiscardDeck() { mDestDiscardDeck.getDeck().clear(); }
 
     public void changeTurn() {
         this.mTurnIndex++;
