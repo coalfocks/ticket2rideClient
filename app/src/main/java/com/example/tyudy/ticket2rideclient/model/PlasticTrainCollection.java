@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
+
 import java.util.ArrayList;
 
 /**
@@ -29,6 +31,21 @@ public class PlasticTrainCollection {
     }
     public int getSize(){
         return mMyTrains.size();
+    }
+
+    /**
+     * remove the correct number of Train pieces "to place on the board".
+     * @param numberToRemove - The number of cars to be removed
+     */
+    public void removeTrains(int numberToRemove){
+        for(int i = 0; i < numberToRemove; i++) {
+
+            if (mMyTrains.isEmpty()) {
+                return;
+            }
+
+            mMyTrains.remove(0);
+        }
     }
 
 

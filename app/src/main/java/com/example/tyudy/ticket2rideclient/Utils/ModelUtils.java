@@ -35,11 +35,11 @@ public final class ModelUtils {
         Class classToCompareTo = MyTurnBeganState.class;
 
         ColorENUM pathColor = path.getPathColor();
-        boolean userHasEnoughColorsWithWilds = (ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum() +
-                ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum())
-                >= path.getDistance();
-        boolean userHasEnoughColorCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum()
-                >= path.getDistance();
+        // No idea wtf we have to add 1 on these next 2 lines but I guess that's what we are going with haha
+        int numberOfColoredTrainCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum();
+        int numberOfWildsCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum();
+        boolean userHasEnoughColorsWithWilds = numberOfWildsCards + numberOfColoredTrainCards >= path.getDistance();
+        boolean userHasEnoughColorCards = numberOfColoredTrainCards >= path.getDistance();
 
 
         IState currentState = ClientModel.SINGLETON.getCurrentState();
@@ -60,12 +60,6 @@ public final class ModelUtils {
             }
         }
 
-        // Make sure the user has enough train cards to claim the route
-        if (!userHasEnoughColorCards) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + " cards!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         //TODO check to see if they have enough train cards with wilds cards
 
 
@@ -76,7 +70,20 @@ public final class ModelUtils {
             return false;
         }
 
-        return true;
+        // Make sure the user has enough train cards (or train cards with wild cards) to claim the route
+        if (userHasEnoughColorCards) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Path claimed with all colored cards", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            if (userHasEnoughColorsWithWilds) {
+                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Path claimed with color and wild cards", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + "/WILD cards!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        }
     }
 
     public static boolean canDrawDestinationCard(){

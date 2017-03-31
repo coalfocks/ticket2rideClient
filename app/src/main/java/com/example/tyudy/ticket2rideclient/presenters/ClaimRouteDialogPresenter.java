@@ -68,6 +68,8 @@ public class ClaimRouteDialogPresenter {
         setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
 
+        // TODO: make a popup for user to select what color train cards to use if the path is colorless.
+
     }
 
     public void routeClicked(int index) {
