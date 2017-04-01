@@ -228,8 +228,12 @@ public class MethodsFacade {
         ServerProxy.SINGLETON.changeTurn(dto);
     }
 
-    // Checked can-do before function call
     public void drawDestCard() {
+
+        if (!ClientModel.SINGLETON.canDrawDestinationCard()) {
+            return;
+        }
+
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("drawDestCard");

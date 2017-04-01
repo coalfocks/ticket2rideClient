@@ -85,7 +85,15 @@ public final class ModelUtils {
     }
 
     public static boolean canDrawDestinationCard(){
+
+        // Make sure it is the users turn
+        if(ClientModel.SINGLETON.getCurrentState().getClass() == MyTurnBeganState.class) {
+            return true;
+        }
+
+        Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to draw cards!", Toast.LENGTH_SHORT).show();
         return false;
+
     }
 
     public static boolean canEndTurn(){
