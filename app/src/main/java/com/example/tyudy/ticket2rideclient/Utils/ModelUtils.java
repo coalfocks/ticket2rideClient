@@ -8,7 +8,10 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.DrewOneTrainCardState;
+import com.example.tyudy.ticket2rideclient.model.states.EndGameState;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
@@ -117,6 +120,22 @@ public final class ModelUtils {
     }
 
     /**
+     * Checks to see if the game is in a state where it can be changed.
+     * @return - false if the currentState is preGameState or EndGameState, otherwise true
+     */
+    public static boolean canChangeTurn() {
+
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        if (currentState.getClass() == PreGameState.class ||
+                currentState.getClass() == EndGameState.class) {
+            return false;
+        }
+
+        return true;  // Game is in progress, so the turn can be changed
+    }
+
+    /**
      * Remove the trainCardCollection Object from the currentUsers collection of train cards if its number is 0
      * @param trainCardCollection - reference to the users train cards of the given color
      * @param color - color of cards to be deleted if they are empty
@@ -127,4 +146,6 @@ public final class ModelUtils {
             ClientModel.SINGLETON.getCurrentUser().removeTrainCardsWithColor(color);
         }
     }
+
+
 }

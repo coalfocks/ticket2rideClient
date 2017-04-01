@@ -608,6 +608,11 @@ public class ClientModel implements iObservable {
         return ModelUtils.canEndTurn();
     }
 
+    public boolean canChangeTurn(){
+        return ModelUtils.canChangeTurn();
+    }
+
+
     public IState getCurrentState(){
         return mCurrentState;
     }

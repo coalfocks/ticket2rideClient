@@ -36,12 +36,10 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
                 ClientModel.SINGLETON.setCurrentTTRGame(gameAfterTurnChange);
                 ClientModel.SINGLETON.notifyObservers();
 
-                if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == gameAfterTurnChange.getWhoTurn()) {
-                    ClientModel.SINGLETON.setCurrentState(new MyTurnBeganState());
-                    Toast.makeText(jeffery, "Your turn began!", Toast.LENGTH_SHORT).show();
-                } else {
-                    ClientModel.SINGLETON.setCurrentState(new NotMyTurnState());
-                    Toast.makeText(jeffery, "Turn Changed!", Toast.LENGTH_SHORT).show();
+                // TODO: Test that this works when the server is impleented to send this command back off of the commandQueue
+                if (ClientModel.SINGLETON.canChangeTurn()) {
+                    IState newState = ClientModel.SINGLETON.getCurrentState().changeTurn();
+                    ClientModel.SINGLETON.setCurrentState(newState);
                 }
             } catch(Exception e){
                 e.printStackTrace();
