@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/choose_color_dialog_title"
+        android:text="@string/choose_color_title"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="20dp"/>
+
+    <!--Blue and Red Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/blue_color_select_button"
+            android:background="@color/blue"
+            android:text="Blue"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/red_color_select_button"
+            android:background="@color/red"
+            android:text="Red"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--Orange and Green Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/orange_color_select_button"
+            android:background="@color/orange"
+            android:text="Orange"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/green_color_select_button"
+            android:background="@color/green"
+            android:text="Green"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--Purple and Black Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/purple_color_select_button"
+            android:background="@color/purple"
+            android:text="Purple"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/black_color_select_button"
+            android:background="@color/black"
+            android:text="Black"
+            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--Yellow and White Buttons-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/yellow_color_select_button"
+            android:background="@color/yellow"
+            android:text="Yellow"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/white_color_select_button"
+            android:background="@color/white"
+            android:text="White"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--Wild Button-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Adding these text views for spacing is pretty hacky but whatever-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"/>
+
+        <Button
+            android:id="@+id/wild_color_select_button"
+            android:background="@color/wild"
+            android:text="Wild"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <!--Adding these text views for spacing is pretty hacky but whatever-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

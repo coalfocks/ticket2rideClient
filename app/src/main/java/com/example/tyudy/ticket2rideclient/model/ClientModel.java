@@ -18,6 +18,8 @@ import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 import java.util.ArrayList;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -536,6 +538,10 @@ public class ClientModel implements iObservable {
         }
         return null;
     }
+
+    public Set<Path> getPathsAsSet(){
+        return new HashSet<>(allPaths);
+    }
   
     public void setCitiesList(TreeMap<String, City> cities) {
         mCities = cities;
@@ -579,13 +585,6 @@ public class ClientModel implements iObservable {
         return null;
     }
 
-    public void changeTurn(int nextPlayerID){
-        if (nextPlayerID == currentUser.getPlayerID())
-            mCurrentState = new MyTurnBeganState(); // Set the state to the NoAction state for player
-
-        setCurrentPlayerTurnID(nextPlayerID);
-        this.notifyObservers();
-    }
 
     // CAN DO METHODS -----------------------------
 
@@ -667,6 +666,7 @@ public class ClientModel implements iObservable {
         // If there are enough normal cards discard those
         if (trainCardsWithPathColor.getNum() >= path.getDistance()) {
             trainCardsWithPathColor.subtractCards(path.getDistance());
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
             return;
         }
 
@@ -676,10 +676,13 @@ public class ClientModel implements iObservable {
 
             int totalDifference = path.getDistance() - trainCardsWithPathColor.getNum(); // The amount of wild cards used
             trainCardsWithPathColor.subtractCards(trainCardsWithPathColor.getNum()); // First subtract all the train cards
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
 
             // Quick check to make sure there are enough wild cards
             if (wildTrainCards.getNum() >= totalDifference) {
                 wildTrainCards.subtractCards(totalDifference); // Subtract the remaining number of cards from the wilds
+                ModelUtils.cleanUpTrainCards(wildTrainCards, ColorENUM.WILD); // Remove the object from users cards if there are 0 left
+
             } else {
                 throw new BadLogicException("You tried to subtract " + totalDifference + " wild cards but only have " +
                         wildTrainCards.getNum() + " wild cards"); // This will show up in the console and make it easy to debug
@@ -696,6 +699,8 @@ public class ClientModel implements iObservable {
 
     }
 
+
+
     /**
      * Simulate "putting the plastic cars on the map", basically by deleting them.
      * @param path - the path that the cars are being "placed" on
@@ -705,6 +710,7 @@ public class ClientModel implements iObservable {
         mUsersTrains.removeTrains(path.getDistance());
 
         if(mUsersTrains.getSize() < 3){
+            //TODO: Send Last Turn Command To Server / Update everyones state on the way back
         }
     }
 

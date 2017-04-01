@@ -67,22 +67,6 @@ public class DecksDialogPresenter  {
         MethodsFacade.SINGLETON.drawTrainCard();
     }
 
-//    public void trainDeckClicked(){
-//        //TREVOR'S TEST STUFF
-//        NextTurnCommand command = new NextTurnCommand();
-//        DataTransferObject dto = new DataTransferObject();
-//        int gameID = ClientModel.SINGLETON.getCurrentTTRGame().getGameID();
-//
-//
-//        dto.setData((Integer.toString(gameID)));
-//        command.setData(dto);
-//
-//        try {
-//            ClientCommunicator.getInstance().sendCommand(Serializer.serialize(command));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * triggered when a card is clicked in the DecksDialogFragment

@@ -149,10 +149,6 @@ public class TTRGame implements Serializable
 
     }
 
-    public void changeTurn() {
-        this.mTurnIndex++;
-        mTurnIndex %= this.players.size();
-    }
 
     public int getWhoTurn() {
         ArrayList<User> arr = new ArrayList<>(players);

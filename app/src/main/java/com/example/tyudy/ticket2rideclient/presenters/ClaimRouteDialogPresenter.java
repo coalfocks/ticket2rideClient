@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Utils.GraphicsUtils;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.fragments.ClaimRouteDialogFragment;
@@ -21,11 +22,12 @@ import java.util.ArrayList;
  */
 
 public class ClaimRouteDialogPresenter {
-    Activity mActivity;
-    ClaimRouteDialogFragment mClaimRouteDialogFragment;
-    City mClickedCity;    // City that the user clicked on
-    City mSelectedCity;   // City that was selected from the popup
-    LinearLayout mSelectedListItem;
+    private Activity mActivity;
+    private ClaimRouteDialogFragment mClaimRouteDialogFragment;
+    private City mClickedCity;    // City that the user clicked on
+    private City mSelectedCity;   // City that was selected from the popup
+    private LinearLayout mSelectedListItem;
+    private ColorENUM mSelectedListItemColor;
 
     public ClaimRouteDialogPresenter(){
         setToBaseValues();
@@ -63,12 +65,20 @@ public class ClaimRouteDialogPresenter {
         }
 
         Path chosenPath = ClientModel.SINGLETON.getPathByCities(mClickedCity, mSelectedCity);
-        MethodsFacade.SINGLETON.claimPath(chosenPath);
+        // If its a colorless path we have to see what color cards the user wants to use
+        if (chosenPath.getPathColor() == ColorENUM.COLORLESS) {
+            PresenterHolder.SINGLETON.getChooseColorDialogPresenter().showDialog(mActivity, chosenPath);
+        } else {
+            MethodsFacade.SINGLETON.claimPath(chosenPath);
+        }
+        // Change path color to the mini popup selected color?
+
 
         setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
 
-        // TODO: make a popup for user to select what color train cards to use if the path is colorless.
+
+
 
     }
 
@@ -92,10 +102,10 @@ public class ClaimRouteDialogPresenter {
         if(oldSelection != null && oldSelection != mSelectedListItem) {   // If a route had previously been selected and the same selected route wasn't re clicked
             oldSelection.setBackgroundColor(0);   // Sets background to transparent
         }
+    }
 
-
-
-
+    public void setSelectedListItemColor(ColorENUM color){
+        mSelectedListItemColor = color;
     }
 
 

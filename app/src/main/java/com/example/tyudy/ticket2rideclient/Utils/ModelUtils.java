@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -60,9 +61,6 @@ public final class ModelUtils {
             }
         }
 
-        //TODO check to see if they have enough train cards with wilds cards
-
-
         // Make sure the user has enough train pieces
         int numberTrainPieces = ClientModel.SINGLETON.getUsersTrains().getSize();
         if (numberTrainPieces < path.getDistance()) {
@@ -108,5 +106,17 @@ public final class ModelUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Remove the trainCardCollection Object from the currentUsers collection of train cards if its number is 0
+     * @param trainCardCollection - reference to the users train cards of the given color
+     * @param color - color of cards to be deleted if they are empty
+     */
+    public static void cleanUpTrainCards(TrainCardCollection trainCardCollection, ColorENUM color){
+        // Remove this TrainCardCollection from the
+        if(trainCardCollection.isEmpty()) {
+            ClientModel.SINGLETON.getCurrentUser().removeTrainCardsWithColor(color);
+        }
     }
 }
