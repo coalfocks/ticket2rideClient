@@ -55,10 +55,7 @@ public class GameBoardPresenter {
         } else {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "That is not a city!", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
 }
 
 //TODO: start turn sends updated game model

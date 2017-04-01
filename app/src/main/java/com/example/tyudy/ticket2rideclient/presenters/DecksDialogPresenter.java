@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.COLORLESS;
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
 
 /**
@@ -113,7 +114,9 @@ public class DecksDialogPresenter  {
             default :
                 card = new TrainCardCollection();
         }
-
+        if (card.getColor() == COLORLESS) {
+            return;
+        }
         ClientModel.SINGLETON.addTrainCard(card);
         MethodsFacade.SINGLETON.selectTrainCard(cardNumber);
 
