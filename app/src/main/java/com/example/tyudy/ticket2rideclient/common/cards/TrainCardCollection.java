@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient.common.cards;
 
 
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 
 import java.io.Serializable;
 
@@ -44,6 +45,16 @@ public class TrainCardCollection implements iCard, Serializable {
 
     public void incNum() {
         this.num += 1;
+    }
+
+    public boolean isEmpty(){
+        if (this.num == 0) {
+            return true;
+        } else if (this.num < 0) {
+            throw new BadLogicException("TrainCardCollection number should never be negative");
+        } else {
+            return false;
+        }
     }
 
     /**

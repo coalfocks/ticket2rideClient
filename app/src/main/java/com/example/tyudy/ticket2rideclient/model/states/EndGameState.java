@@ -28,4 +28,9 @@ public class EndGameState implements IState {
     public IState drawTrainCard() {
         return null;
     }
+
+    @Override
+    public IState changeTurn() {
+        return this;
+    }
 }

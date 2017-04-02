@@ -86,6 +86,7 @@ public class GetDestCardsPresenter
             card2Selected = false;
             card3Selected = false;
             mGetDestCardsFragment.dismiss();
+            MethodsFacade.SINGLETON.changeTurn();
         } catch (Exception e) {
             e.printStackTrace();
         }

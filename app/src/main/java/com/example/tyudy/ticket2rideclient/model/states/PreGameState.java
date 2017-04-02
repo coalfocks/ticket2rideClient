@@ -49,4 +49,9 @@ public class PreGameState implements IState {
     public IState drawTrainCard() {
         return this;
     }
+
+    @Override
+    public IState changeTurn() {
+        return this;
+    }
 }

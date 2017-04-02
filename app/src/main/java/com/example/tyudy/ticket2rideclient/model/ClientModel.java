@@ -18,6 +18,8 @@ import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 import java.util.ArrayList;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -536,6 +538,10 @@ public class ClientModel implements iObservable {
         }
         return null;
     }
+
+    public Set<Path> getPathsAsSet(){
+        return new HashSet<>(allPaths);
+    }
   
     public void setCitiesList(TreeMap<String, City> cities) {
         mCities = cities;
@@ -579,13 +585,6 @@ public class ClientModel implements iObservable {
         return null;
     }
 
-    public void changeTurn(int nextPlayerID){
-        if (nextPlayerID == currentUser.getPlayerID())
-            mCurrentState = new MyTurnBeganState(); // Set the state to the NoAction state for player
-
-        setCurrentPlayerTurnID(nextPlayerID);
-        this.notifyObservers();
-    }
 
     // CAN DO METHODS -----------------------------
 
@@ -608,6 +607,11 @@ public class ClientModel implements iObservable {
     public boolean canEndTurn() {
         return ModelUtils.canEndTurn();
     }
+
+    public boolean canChangeTurn(){
+        return ModelUtils.canChangeTurn();
+    }
+
 
     public IState getCurrentState(){
         return mCurrentState;
@@ -657,16 +661,81 @@ public class ClientModel implements iObservable {
      */
     public void discardCardsForPath(Path path){
 
-        if(currentUser.getTrainCardsOfColor(path.getPathColor()).getNum() < path.getDistance()){ // User doesnt have enough train cards
+        TrainCardCollection trainCardsWithPathColor = currentUser.getTrainCardsOfColor(path.getPathColor());
+        TrainCardCollection wildTrainCards = currentUser.getTrainCardsOfColor(ColorENUM.WILD);
+
+        if((wildTrainCards.getNum() + trainCardsWithPathColor.getNum()) < path.getDistance()){ // User doesnt have enough train cards
             throw new BadLogicException("INVALID: Users " + path.getPathColor() + " train cards went negative."); // This should never execute and should be checked for in the canDo
         }
 
-        // Throw out the number of train cards that we need to claim the path
-        currentUser.getTrainCardsOfColor(path.getPathColor()).subtractCards(path.getDistance());
+        // If there are enough normal cards discard those
+        if (trainCardsWithPathColor.getNum() >= path.getDistance()) {
+            trainCardsWithPathColor.subtractCards(path.getDistance());
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
+            return;
+        }
+
+
+        // If there aren't then discard all the normal cards and the necessary number of wilds
+        if ((trainCardsWithPathColor.getNum() + wildTrainCards.getNum()) >= path.getDistance()) {
+
+            int totalDifference = path.getDistance() - trainCardsWithPathColor.getNum(); // The amount of wild cards used
+            trainCardsWithPathColor.subtractCards(trainCardsWithPathColor.getNum()); // First subtract all the train cards
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
+
+            // Quick check to make sure there are enough wild cards
+            if (wildTrainCards.getNum() >= totalDifference) {
+                wildTrainCards.subtractCards(totalDifference); // Subtract the remaining number of cards from the wilds
+                ModelUtils.cleanUpTrainCards(wildTrainCards, ColorENUM.WILD); // Remove the object from users cards if there are 0 left
+
+            } else {
+                throw new BadLogicException("You tried to subtract " + totalDifference + " wild cards but only have " +
+                        wildTrainCards.getNum() + " wild cards"); // This will show up in the console and make it easy to debug
+            }
+        } else {
+            // Defensive programming at its finest ^_^
+            throw new BadLogicException("The canClaimPath didn't do its job because the number of " + path.getPathColor().toString() +
+                                        " and wild cards is less than the path length" );
+        }
 
         //TODO: Discard cards command
-        // send path.getDistance number of cards of path.getPathColor color back to the server.. basically discard them
+
+        notifyObservers(); // update drawer on the right with the number of cards after they were discarded
+
     }
 
 
+
+    /**
+     * Simulate "putting the plastic cars on the map", basically by deleting them.
+     * @param path - the path that the cars are being "placed" on
+     */
+    public void placePlasticTrainsForPath(Path path) {
+
+        mUsersTrains.removeTrains(path.getDistance());
+
+        if(mUsersTrains.getSize() < 3){
+            //TODO: Send Last Turn Command To Server / Update everyones state on the way back
+        }
+    }
+
+    public IState stateStartGame() {
+        return this.mCurrentState.startGame();
+    }
+
+    public IState stateClaimPath() {
+        return this.mCurrentState.claimPath();
+    }
+
+    public IState stateDrawDestinationCard() {
+        return this.mCurrentState.drawDestinationCard();
+    }
+
+    public IState stateDrawTrainCard() {
+        return this.mCurrentState.drawDestinationCard();
+    }
+
+    public IState stateChangeTurn() {
+        return this.mCurrentState.changeTurn();
+    }
 }

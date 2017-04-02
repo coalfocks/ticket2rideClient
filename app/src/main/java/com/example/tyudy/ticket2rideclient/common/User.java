@@ -27,6 +27,7 @@ public class User implements Serializable, Comparable<User> {
     private int playerID;
     private int inGame;
     private int points = 0;
+    private int longest = 0;
 
     private ColorENUM color;
 
@@ -173,6 +174,13 @@ public class User implements Serializable, Comparable<User> {
         //throw new TrainCardDoesNotExist("User.getTrainCardsOfColor() could not find  a " + color.toString() + " colored card");
     }
 
+    /**
+     * Remove the cards of the given color from the users total collection of cards
+     */
+    public void removeTrainCardsWithColor(ColorENUM color) {
+        colorCards.remove(color);
+    }
+
     public int getNumCards () {
         int total = 0;
         for (TrainCardCollection card : colorCards.values()) {
@@ -210,6 +218,10 @@ public class User implements Serializable, Comparable<User> {
     }
 
     public void claimPath(Path p) { claimedPaths.add(p); }
+
+    public ArrayList<Path> getClaimedPaths () {
+        return claimedPaths;
+    }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
@@ -285,5 +297,15 @@ public class User implements Serializable, Comparable<User> {
 
     public void removeAllDestinationCards(){
         destCards = new ArrayList<>();
+    }
+
+    public int getLongest()
+    {
+        return longest;
+    }
+
+    public void setLongest(int longest)
+    {
+        this.longest = longest;
     }
 }

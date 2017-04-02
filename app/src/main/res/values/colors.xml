@@ -8,6 +8,9 @@
     <color name="yellow">#FFFF00</color>
     <color name="purple">#9403D6</color>
     <color name="black">#000000</color>
+    <color name="green">@android:color/holo_green_light</color>
     <color name="tan">#d2b48c</color>
+    <color name="orange">@android:color/holo_orange_light</color>
+    <color name="wild">#00FFFF</color>
     <color name="white">#ffffff</color>
 </resources>

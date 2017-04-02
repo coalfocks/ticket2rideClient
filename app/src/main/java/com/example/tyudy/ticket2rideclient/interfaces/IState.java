@@ -54,5 +54,7 @@ public interface IState {
      */
     IState drawTrainCard();
 
+    IState changeTurn();
+
 
  }

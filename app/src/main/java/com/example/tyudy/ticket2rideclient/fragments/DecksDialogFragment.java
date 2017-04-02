@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.tyudy.ticket2rideclient.R;
+import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.DecksDialogPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
@@ -78,6 +79,7 @@ public class DecksDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 mDecksDialogPresenter.destDeckClicked();
+                dismiss();
             }
         });
 

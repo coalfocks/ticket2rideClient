@@ -309,7 +309,7 @@ public class GameBoardFragment extends Fragment implements iObserver
                 convertView.setTag(holder);
             } else
                 holder = (ViewHolder) convertView.getTag();
-                holder.mUsername.setText(String.valueOf(myCard.getNum() + 1));
+                holder.mUsername.setText(String.valueOf(myCard.getNum()));
                 switch( myCard.getColor()) {
 
                     case YELLOW:

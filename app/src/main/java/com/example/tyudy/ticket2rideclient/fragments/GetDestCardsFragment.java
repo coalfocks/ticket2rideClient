@@ -71,7 +71,7 @@ public class GetDestCardsFragment extends DialogFragment
         mCard3Pts = (TextView) view.findViewById(R.id.card3_pts);
 
         mExitButton = (Button) view.findViewById(R.id.exit_decks_dialog_button);
-        mExitButton.setText("Send Back Selected");
+        mExitButton.setText("Send Back Selected And Keep Rest");
 
         getDialog().setTitle(R.string.decks_dialog_title);
 

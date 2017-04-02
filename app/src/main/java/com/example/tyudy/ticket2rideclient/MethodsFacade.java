@@ -199,6 +199,8 @@ public class MethodsFacade {
             ServerProxy.SINGLETON.claimPath(dto);
             ClientModel.SINGLETON.getCurrentState().claimPath();
             ClientModel.SINGLETON.discardCardsForPath(path);
+            ClientModel.SINGLETON.placePlasticTrainsForPath(path);
+            MethodsFacade.SINGLETON.changeTurn();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -215,14 +217,23 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
     }
 
-    // Checked can-do before function call
-    public void changeTurn(int nextPlayerID) {
-        ClientModel.SINGLETON.changeTurn(nextPlayerID);
-        ClientModel.SINGLETON.getCurrentTTRGame().changeTurn();
+    /**
+     * Send a next turn command to the server
+     */
+    public void changeTurn() {
+        DataTransferObject dto = new DataTransferObject();
+        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+        dto.setCommand("changeTurn");
+        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+        ServerProxy.SINGLETON.changeTurn(dto);
     }
 
-    // Checked can-do before function call
     public void drawDestCard() {
+
+        if (!ClientModel.SINGLETON.canDrawDestinationCard()) {
+            return;
+        }
+
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("drawDestCard");

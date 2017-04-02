@@ -4,21 +4,37 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.DrewOneTrainCardState;
+import com.example.tyudy.ticket2rideclient.model.states.EndGameState;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
  * Created by tyudy on 3/30/17.
- * This is a class that handles all the logic for the can do methods becuase the clientModel class is getting too big
+ * This is a class that handles all the logic for the can do methods because the clientModel class is getting too big
  */
 
 public final class ModelUtils {
 
+    /**
+     * Checks that:
+     * 1. It is the currentUsers turn
+     * 2. The currentUser hasn't selected a wild card
+     *
+     * @return - true if card can be drawn
+     */
     public static boolean canDrawTrainCard(){
-        return false;
+        if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
+            ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
+            return false;
+        }
+        //TODO: check for wild card
+        return true;
     }
 
     /**
@@ -35,11 +51,11 @@ public final class ModelUtils {
         Class classToCompareTo = MyTurnBeganState.class;
 
         ColorENUM pathColor = path.getPathColor();
-        boolean userHasEnoughColorsWithWilds = (ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum() +
-                ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum())
-                >= path.getDistance();
-        boolean userHasEnoughColorCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum()
-                >= path.getDistance();
+        // No idea wtf we have to add 1 on these next 2 lines but I guess that's what we are going with haha
+        int numberOfColoredTrainCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum();
+        int numberOfWildsCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum();
+        boolean userHasEnoughColorsWithWilds = numberOfWildsCards + numberOfColoredTrainCards >= path.getDistance();
+        boolean userHasEnoughColorCards = numberOfColoredTrainCards >= path.getDistance();
 
 
         IState currentState = ClientModel.SINGLETON.getCurrentState();
@@ -60,15 +76,6 @@ public final class ModelUtils {
             }
         }
 
-        // Make sure the user has enough train cards to claim the route
-        if (!userHasEnoughColorCards) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + " cards!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        //TODO check to see if they have enough train cards with wilds cards
-
-
         // Make sure the user has enough train pieces
         int numberTrainPieces = ClientModel.SINGLETON.getUsersTrains().getSize();
         if (numberTrainPieces < path.getDistance()) {
@@ -76,11 +83,32 @@ public final class ModelUtils {
             return false;
         }
 
-        return true;
+        // Make sure the user has enough train cards (or train cards with wild cards) to claim the route
+        if (userHasEnoughColorCards) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Path claimed with all colored cards", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            if (userHasEnoughColorsWithWilds) {
+                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Path claimed with color and wild cards", Toast.LENGTH_SHORT).show();
+                return true;
+            } else {
+                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + "/WILD cards!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        }
     }
 
     public static boolean canDrawDestinationCard(){
+
+        // Make sure it is the users turn
+        if(ClientModel.SINGLETON.getCurrentState().getClass() == MyTurnBeganState.class) {
+            return true;
+        }
+
+        Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to draw cards!", Toast.LENGTH_SHORT).show();
         return false;
+
     }
 
     public static boolean canEndTurn(){
@@ -102,4 +130,34 @@ public final class ModelUtils {
 
         return false;
     }
+
+    /**
+     * Checks to see if the game is in a state where it can be changed.
+     * @return - false if the currentState is preGameState or EndGameState, otherwise true
+     */
+    public static boolean canChangeTurn() {
+
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        if (currentState.getClass() == PreGameState.class ||
+                currentState.getClass() == EndGameState.class) {
+            return false;
+        }
+
+        return true;  // Game is in progress, so the turn can be changed
+    }
+
+    /**
+     * Remove the trainCardCollection Object from the currentUsers collection of train cards if its number is 0
+     * @param trainCardCollection - reference to the users train cards of the given color
+     * @param color - color of cards to be deleted if they are empty
+     */
+    public static void cleanUpTrainCards(TrainCardCollection trainCardCollection, ColorENUM color){
+        // Remove this TrainCardCollection from the
+        if(trainCardCollection.isEmpty()) {
+            ClientModel.SINGLETON.getCurrentUser().removeTrainCardsWithColor(color);
+        }
+    }
+
+
 }
