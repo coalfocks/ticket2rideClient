@@ -7,6 +7,7 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
@@ -197,10 +198,6 @@ public class MethodsFacade {
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
-            ClientModel.SINGLETON.getCurrentState().claimPath();
-            ClientModel.SINGLETON.discardCardsForPath(path);
-            ClientModel.SINGLETON.placePlasticTrainsForPath(path);
-            MethodsFacade.SINGLETON.changeTurn();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -255,6 +252,11 @@ public class MethodsFacade {
     }
 
     public void drawTrainCard() {
+
+        if(!ClientModel.SINGLETON.canDrawTrainCard()){
+            return;
+        }
+
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("drawTrainCard");
@@ -263,6 +265,7 @@ public class MethodsFacade {
     }
 
     public void selectTrainCard(int cardID) {
+
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
         dto.setCommand("selectTrainCard");

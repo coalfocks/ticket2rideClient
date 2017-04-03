@@ -1,5 +1,6 @@
 package com.example.tyudy.ticket2rideclient.model.states;
 
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 
 /**

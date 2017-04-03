@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
@@ -40,6 +41,8 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
                 if (ClientModel.SINGLETON.canChangeTurn()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().changeTurn();
                     ClientModel.SINGLETON.setCurrentState(newState);
+                } else {
+                    throw new BadLogicException("It appears that a change turn command was sent before user was playing a game");
                 }
             } catch(Exception e){
                 e.printStackTrace();

@@ -9,6 +9,7 @@ import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
+import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
@@ -29,8 +30,19 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
         } else {
             try {
                 Path path = (Path) Serializer.deserialize(data.getData());
-                ClientModel.SINGLETON.updateClaimedPath(path);
-                Toast.makeText(jeffery, "Route Claimed" + Poller.getInstance().getQueueIndex(), Toast.LENGTH_SHORT).show();
+                ClientModel.SINGLETON.updateClaimedPath(path); // Update the ClientModels collection of paths to refelct the new claimed path
+
+                // Only do this if the command came back to the user who claimed the path
+                if (path.getOwner().getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                    Toast.makeText(jeffery, "Route Claimed" + Poller.getInstance().getQueueIndex(), Toast.LENGTH_SHORT).show();
+                    IState newState = ClientModel.SINGLETON.getCurrentState().claimPath();
+                    ClientModel.SINGLETON.setCurrentState(newState);
+                    ClientModel.SINGLETON.discardCardsForPath(path);
+                    ClientModel.SINGLETON.placePlasticTrainsForPath(path);
+                    MethodsFacade.SINGLETON.changeTurn();
+                }
+
+
             } catch(Exception e){
                 e.printStackTrace();
             }

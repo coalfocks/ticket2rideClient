@@ -1,6 +1,9 @@
 package com.example.tyudy.ticket2rideclient.presenters;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothA2dp;
+import android.graphics.Color;
+import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
@@ -9,6 +12,7 @@ import com.example.tyudy.ticket2rideclient.common.cards.FaceUpCards;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
 
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
 
@@ -19,6 +23,7 @@ import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
 public class DecksDialogPresenter  {
     DecksDialogFragment mDecksDialogFragment;
     FaceUpCards mFaceUpCards;
+    int firstDrawCardNumber;
 
     public FaceUpCards getmFaceUpCards()
     {
@@ -32,6 +37,7 @@ public class DecksDialogPresenter  {
 
     public DecksDialogPresenter(){
         mFaceUpCards = new FaceUpCards();
+        firstDrawCardNumber = 0;
 
         TrainCardCollection one = new TrainCardCollection(RED);
         TrainCardCollection two = new TrainCardCollection(RED);
@@ -77,6 +83,11 @@ public class DecksDialogPresenter  {
         //card to server model
         //replace faceups server
         //replace faceups model
+
+        if (!ClientModel.SINGLETON.canDrawTrainCard()) {
+            return;
+        }
+
         TrainCardCollection card;
         switch (cardNumber) {
             case 1 :
@@ -98,8 +109,30 @@ public class DecksDialogPresenter  {
                 card = new TrainCardCollection();
         }
 
+        // This should probably be in the ClientModel.SINGLETON.canDrawTrainCard function but im tired af rn and this will work
+        // Don't allow player to pick the new wild card on their second picked if a wild was turned over from the deck.
+        if (firstDrawCardNumber == cardNumber &&
+                card.getColor() == ColorENUM.WILD) {
+            Toast.makeText(mDecksDialogFragment.getActivity(), "You can't take the new wild card!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Only set this var on your first draw.
+        if (ClientModel.SINGLETON.getCurrentState().getClass() == MyTurnBeganState.class) {
+            firstDrawCardNumber = cardNumber;
+        } else {
+            firstDrawCardNumber = 0;
+        }
+
         ClientModel.SINGLETON.addTrainCard(card);
         MethodsFacade.SINGLETON.selectTrainCard(cardNumber);
+
+        // If a wild was chosen chagne the turn right away
+        if (card.getColor() == ColorENUM.WILD) {
+            MethodsFacade.SINGLETON.changeTurn();
+        }
+
+
 
     }
 
@@ -137,5 +170,9 @@ public class DecksDialogPresenter  {
                 break;
         }
         return 0;
+    }
+
+    public int getFirstDrawCardNumber(){
+        return firstDrawCardNumber;
     }
 }

@@ -5,6 +5,7 @@ import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.decks.DestinationCardDeck;
 import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
+import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
@@ -120,16 +121,32 @@ public class TTRGame implements Serializable
      * @param path - The path the current user claimed
      */
     public void updateClaimedPath(Path path) {
+
+        int pathOwnerID = path.getOwner().getPlayerID();
+        User pathOwner = null;
+
+        // Add points to the corresponding user
+        for(User u: ClientModel.SINGLETON.getCurrentTTRGame().getUsers()){
+            if (u.getPlayerID() == pathOwnerID) {
+                pathOwner = u;
+                u.addPoints(path.getPoints());
+            }
+        }
+
+        // Quick check to make sure owner was set and avoid any null pointer exceptions
+        if (pathOwner == null) {
+            throw new BadLogicException("The owner has to be someone that is currently playing the game");
+        }
+
+        // Update path to have the correct owner
         for (Path p : ClientModel.SINGLETON.getAllPaths())
         {
             if (p.getName().equals(path.getName()))
             {
-                p.setOwner(ClientModel.SINGLETON.getCurrentUser());
-                ClientModel.SINGLETON.getCurrentUser().claimPath(path);
-                ClientModel.SINGLETON.getCurrentUser().addPoints(path.getPoints());
-                return;
+                p.setOwner(pathOwner);
             }
         }
+
     }
 
     // dealTrainCard used by the server

@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.model.states;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -29,7 +30,8 @@ public class DrewOneTrainCardState implements IState {
 
     @Override
     public IState drawTrainCard() {
-        return null;
+
+        return new NotMyTurnState();
     }
 
     /**

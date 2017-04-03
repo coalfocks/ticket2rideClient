@@ -1,10 +1,12 @@
 package com.example.tyudy.ticket2rideclient.views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,8 +26,8 @@ public class MapView extends View {
 
     private final int DRAW_WIDTH = 12;
 
-    float mScreenWidth;
-    float mScreenHeight;
+    int mScreenWidth;
+    int mScreenHeight;
     City mSource;
     City mDestination;
     Canvas mCanvas;
@@ -34,12 +36,19 @@ public class MapView extends View {
     public MapView(Context context){
         super(context);
 
-        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = mWindowManager.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        mScreenWidth = size.x;
-        mScreenHeight = size.y;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        mScreenHeight = displayMetrics.heightPixels;
+        mScreenWidth = displayMetrics.widthPixels;
+
+
+
+//        WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+//        Display display = mWindowManager.getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        mScreenWidth = size.x;
+//        mScreenHeight = size.y;
         mPathsToDraw = new ArrayList<>();
 
         mCanvas = null;

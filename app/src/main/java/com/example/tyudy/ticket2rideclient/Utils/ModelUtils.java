@@ -21,8 +21,24 @@ import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 public final class ModelUtils {
 
+
+    /**
+     * Check to make sure that
+     * 1. It is
+     * @return
+     */
     public static boolean canDrawTrainCard(){
-        return false;
+
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        //Make sure the currentState is either MyTunBegan or DrewOneTrainCard
+        if(currentState.getClass() != MyTurnBeganState.class &&
+                currentState.getClass() != DrewOneTrainCardState.class) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to draw a card!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -36,7 +52,6 @@ public final class ModelUtils {
      */
     public static boolean canClaimPath(Path path) {
 
-        Class classToCompareTo = MyTurnBeganState.class;
 
         ColorENUM pathColor = path.getPathColor();
         // No idea wtf we have to add 1 on these next 2 lines but I guess that's what we are going with haha
@@ -48,8 +63,14 @@ public final class ModelUtils {
 
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
+        // Player has already drew one train card
+        if (currentState.getClass() == DrewOneTrainCardState.class) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must draw a train card again", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         // Make sure it is the currentUsers turn and they haven't done anything yet
-        if (currentState.getClass() != classToCompareTo) {
+        if (currentState.getClass() != MyTurnBeganState.class) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to claim a path!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -89,9 +110,18 @@ public final class ModelUtils {
 
     public static boolean canDrawDestinationCard(){
 
+
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
         // Make sure it is the users turn
-        if(ClientModel.SINGLETON.getCurrentState().getClass() == MyTurnBeganState.class) {
+        if(currentState.getClass() == MyTurnBeganState.class) {
             return true;
+        }
+
+        // Player has already drew one train card
+        if (currentState.getClass() == DrewOneTrainCardState.class) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must draw a train card again", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to draw cards!", Toast.LENGTH_SHORT).show();
