@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name_label"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:id="@+id/player_stats_username"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rpts"
+        android:layout_below="@id/player_stats_username"
+        android:text="Route Points:"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/player_stats_route_points"
+        android:layout_marginLeft="72dp"
+        android:layout_toRightOf="@id/rpts"
+        android:layout_alignBaseline="@id/rpts"
+        android:text="@string/points"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/cpldc"
+        android:layout_below="@id/rpts"
+        android:text="Completed Dest Cards:"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_stats_completed_dest"
+        android:text="@string/points"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/cpldc"
+        android:layout_alignBaseline="@id/cpldc"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ncpldc"
+        android:layout_below="@id/cpldc"
+        android:layout_marginTop="5dp"
+        android:text="Not Completed Cards:"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/points"
+        android:layout_toRightOf="@id/ncpldc"
+        android:layout_alignBaseline="@id/ncpldc"
+        android:id="@+id/player_stats_not_completed_dest"
+        android:layout_marginLeft="21dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lngstrt"
+        android:text="Longest Route:"
+        android:textStyle="italic"
+        android:layout_below="@id/ncpldc"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_stats_longest_route"
+        android:text="@string/points"
+        android:layout_toRightOf="@id/lngstrt"
+        android:layout_alignBaseline="@id/lngstrt"
+        android:layout_marginLeft="64dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lngstrt"
+        android:id="@+id/ttlpts"
+        android:text="Total:"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/player_stats_total_points"
+        android:layout_toRightOf="@id/ttlpts"
+        android:layout_alignBaseline="@id/ttlpts"
+        android:textStyle="bold"
+        android:text="@string/points"
+        android:textSize="25dp"
+        android:layout_marginLeft="74dp"/>
+
+
+
+
+</RelativeLayout>

@@ -27,5 +27,6 @@
     <string name="confirm_claim_route_button">Claim Path</string>
     <string name="exit_claim_route_button">Exit</string>
     <string name="choose_color_title">Select A Card Color To Use</string>
+    <string name="points">[points]</string>
 
 </resources>
