@@ -40,11 +40,11 @@ public class PlayerStatsFragment extends Fragment {
         mTotalPoints = (TextView) v.findViewById(R.id.player_stats_total_points);
 
         mPlayerName.setText(mPlayer.getName());
-        mRoutePoints.setText(mPlayer.getRoutePoints());
-        mCompletedDestPoints.setText(mPlayer.getDestPoints());
-        mNotCompletedDest.setText(mPlayer.getNegDestPoints());
-        mLongestRoutePoints.setText(mPlayer.getLongestRoutePoints());
-        mTotalPoints.setText(mPlayer.getTotalPoints());
+        mRoutePoints.setText(String.valueOf(mPlayer.getRoutePoints()));
+        mCompletedDestPoints.setText(String.valueOf(mPlayer.getDestPoints()));
+        mNotCompletedDest.setText(String.valueOf(mPlayer.getNegDestPoints()));
+        mLongestRoutePoints.setText(String.valueOf(mPlayer.getLongestRoutePoints()));
+        mTotalPoints.setText(String.valueOf(mPlayer.getTotalPoints()));
 
         return v;
     }

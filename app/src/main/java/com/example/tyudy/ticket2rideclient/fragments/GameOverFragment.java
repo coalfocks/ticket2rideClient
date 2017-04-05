@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
@@ -65,12 +66,13 @@ public class GameOverFragment extends Fragment {
     }
 
 
-    private class PlayerInfoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class PlayerInfoHolder extends RecyclerView.ViewHolder {
         private TextView mPlayerName;
         private TextView mPlayerPoints;
         private TextView mPlayerTrainCards;
         private TextView mPlayerDestCards;
         private UserStats mPlayer;
+        private RelativeLayout mLayout;
         private boolean mStatsVisible = false;
 
         public PlayerInfoHolder(View itemView) {
@@ -80,6 +82,7 @@ public class GameOverFragment extends Fragment {
             mPlayerPoints = (TextView) itemView.findViewById(R.id.player_points);
             mPlayerTrainCards = (TextView) itemView.findViewById(R.id.train_cards);
             mPlayerDestCards = (TextView) itemView.findViewById(R.id.dest_cards);
+            mLayout = (RelativeLayout) itemView.findViewById(R.id.points_fragment);
 
             mPlayerTrainCards.setVisibility(View.INVISIBLE);
             mPlayerDestCards.setVisibility(View.INVISIBLE);
@@ -89,25 +92,27 @@ public class GameOverFragment extends Fragment {
             mPlayer = player;
             mPlayerName.setText(player.getName());
             mPlayerPoints.setText(String.valueOf(player.getTotalPoints()));
-        }
 
-        @Override
-        public void onClick(View v) {
-            if (!mStatsVisible)
-            {
-                mStatsVisible = true;
-                PlayerStatsFragment stats = new PlayerStatsFragment();
-                stats.setUserStats(mPlayer);
+            mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    if (!mStatsVisible)
+//                    {
+//                        mStatsVisible = true;
+                        PlayerStatsFragment stats = new PlayerStatsFragment();
+                        stats.setUserStats(mPlayer);
 
-                getChildFragmentManager().beginTransaction().add(R.id.points_fragment_expand,
-                    stats).commit();
-            }
-            else
-            {
-                mStatsVisible = false;
-                getChildFragmentManager().beginTransaction().replace(R.id.points_fragment_expand,
-                        null).commit();
-            }
+                        getChildFragmentManager().beginTransaction().replace(R.id.points_fragment_expand,
+                                stats).commit();
+//                    }
+//                    else
+//                    {
+//                        mStatsVisible = false;
+//                        getChildFragmentManager().beginTransaction().replace(R.id.points_fragment_expand,
+//                                new PointsFragment()).commit();
+//                    }
+                }
+            });
         }
     }
 
@@ -128,7 +133,6 @@ public class GameOverFragment extends Fragment {
         public PlayerInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater.inflate(R.layout.points_fragment, parent, false);
-
             return new PlayerInfoHolder(view);
         }
 

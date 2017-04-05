@@ -17,7 +17,7 @@
         android:id="@+id/game_over_recycler_view"
         android:layout_below="@id/winner_name"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -27,7 +27,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/game_over_recycler_view"
+        android:layout_alignBottom="@id/game_over_recycler_view"
         android:text="@string/ok"
         android:layout_centerHorizontal="true"
         android:id="@+id/done_button"/>
