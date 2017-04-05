@@ -51,4 +51,13 @@ public class NotMyTurnState implements IState {
             return new NotMyTurnState();
         }
     }
+
+    /**
+     * should return this same state, but in last turn form
+     * @return NotMyTurnLastTurnState
+     */
+    @Override
+    public IState lastTurn() {
+        return new NotMyTurnLastTurnState();
+    }
 }

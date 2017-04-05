@@ -55,4 +55,13 @@ public class PreGameState implements IState {
     public IState changeTurn() {
         return this;
     }
+
+    /**
+     * shouldn't ever happen, return this
+     * @return this
+     */
+    @Override
+    public IState lastTurn() {
+        return this;
+    }
 }

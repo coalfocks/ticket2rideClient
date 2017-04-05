@@ -11,27 +11,27 @@ import com.example.tyudy.ticket2rideclient.model.ClientModel;
  * Created by Trevor on 3/15/2017.
  */
 
-public class DrewOneTrainCardState implements IState {
+public class LastTurnDrewOneCardState implements IState {
 
     @Override
     public IState startGame() {
-        return null;
+        return this;
     }
 
     @Override
     public IState claimPath() {
-        return null;
+        return this;
     }
 
     @Override
     public IState drawDestinationCard() {
-        return null;
+        return this;
     }
 
     @Override
     public IState drawTrainCard() {
 
-        return new NotMyTurnState();
+        return new NotMyTurnLastTurnState();
     }
 
     /**
@@ -42,15 +42,15 @@ public class DrewOneTrainCardState implements IState {
     public IState changeTurn() {
         if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Your turn began!", Toast.LENGTH_SHORT).show();
-            return new MyTurnBeganState();
+            return this;
         } else {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Turn Changed!", Toast.LENGTH_SHORT).show();
-            return new NotMyTurnState();
+            return new NotMyTurnLastTurnState();
         }
     }
 
     @Override
     public IState lastTurn() {
-        return new LastTurnDrewOneCardState();
+        return null;
     }
 }
