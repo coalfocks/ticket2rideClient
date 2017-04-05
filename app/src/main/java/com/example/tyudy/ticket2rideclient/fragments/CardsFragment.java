@@ -31,8 +31,8 @@ public class CardsFragment extends Fragment {
         if (canDo) {
             View v = inflater.inflate(R.layout.cards_fragment, container, false);
 //needs to go
-            player_points = (TextView) v.findViewById(R.id.player_points);
-            player_points.setText(user.getPoints());
+            //player_points = (TextView) v.findViewById(R.id.player_points);
+            //player_points.setText(user.getPoints());
 
             return v;
         }

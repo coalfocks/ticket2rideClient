@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.UserStats;
 
 /**
  * Created by Trevor on 4/3/2017.
@@ -21,10 +22,9 @@ public class PlayerStatsFragment extends Fragment {
     private TextView mCompletedDestPoints;
     private TextView mLongestRoutePoints;
     private TextView mNotCompletedDest;
-    private User mPlayer;
+    private UserStats mPlayer;
 
-    // TODO: this should ultimately be not a User object but the end-game object
-    public void setAssociatedPlayer(User player){
+    public void setUserStats(UserStats player){
         mPlayer = player;
     }
 
@@ -39,7 +39,12 @@ public class PlayerStatsFragment extends Fragment {
         mLongestRoutePoints = (TextView) v.findViewById(R.id.player_stats_longest_route);
         mTotalPoints = (TextView) v.findViewById(R.id.player_stats_total_points);
 
-        //
+        mPlayerName.setText(mPlayer.getName());
+        mRoutePoints.setText(mPlayer.getRoutePoints());
+        mCompletedDestPoints.setText(mPlayer.getDestPoints());
+        mNotCompletedDest.setText(mPlayer.getNegDestPoints());
+        mLongestRoutePoints.setText(mPlayer.getLongestRoutePoints());
+        mTotalPoints.setText(mPlayer.getTotalPoints());
 
         return v;
     }

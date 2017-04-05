@@ -8,19 +8,19 @@
         android:layout_height="120dp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:padding="8dp"
-        android:id="@+id/player_username" />
+        android:id="@+id/player_username_cards" />
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:gravity="bottom|right"
+        android:gravity="bottom|end"
         android:layout_height="120dp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:padding="8dp"
-        android:layout_below="@+id/player_username"
-        android:id="@+id/player_points" />
+        android:layout_below="@id/player_username_cards"
+        android:id="@+id/player_points_cards" />
 </RelativeLayout>

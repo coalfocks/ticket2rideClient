@@ -33,7 +33,6 @@ public class MethodsFacade {
      * Function called by the LoginFragment when the Login button is clicked.
      * @param enteredName - name entered to perform login in the login fragment
      * @param enteredPassword - password entered to perform login in the login fragment
-     * @return - a User object reflecting the logged in user
      */
     public void loginUser(String enteredName, String enteredPassword){
         User user = new User();
@@ -139,6 +138,21 @@ public class MethodsFacade {
         dto.setCommand("join");
         ServerProxy.SINGLETON.joinGame(dto);
     }
+
+    /**
+     * Ends the game, or in other words, removes current user from their
+     * current game. This method is called when the "done" button is clicked in the game over screen.
+     * @param //gameToEnd The game the current user is in
+     */
+//    public void endGame(TTRGame gameToEnd){
+//        DataTransferObject dto = new DataTransferObject();
+//
+//        String s = String.valueOf(gameToEnd.getGameID());
+//        dto.setData(s);
+//        dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+//        dto.setCommand("end");
+//        ServerProxy.SINGLETON.endGame(dto);
+//    }
 
     public boolean checkPassword(String pass){
         if(pass == null || pass.equals("")){
