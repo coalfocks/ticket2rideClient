@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
