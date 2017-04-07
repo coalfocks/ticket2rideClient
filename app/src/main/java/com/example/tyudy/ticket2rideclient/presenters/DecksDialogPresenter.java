@@ -127,7 +127,7 @@ public class DecksDialogPresenter  {
         ClientModel.SINGLETON.addTrainCard(card);
         MethodsFacade.SINGLETON.selectTrainCard(cardNumber);
 
-        // If a wild was chosen chagne the turn right away
+        // If a wild was chosen change the turn right away
         if (card.getColor() == ColorENUM.WILD) {
             MethodsFacade.SINGLETON.changeTurn();
         }

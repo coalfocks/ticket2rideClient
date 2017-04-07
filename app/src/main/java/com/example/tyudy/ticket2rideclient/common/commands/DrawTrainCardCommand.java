@@ -12,6 +12,7 @@ import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.DrewOneTrainCardState;
 import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 
 import java.io.Serializable;
@@ -29,7 +30,9 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
     {
         try
         {
+
             TrainCardCollection card = (TrainCardCollection) Serializer.deserialize(data.getData());
+
 
             // This if should ALWAYS execute because we do the same check when the command is sent in the MethodsFacade
             if (ClientModel.SINGLETON.canDrawTrainCard()) {

@@ -37,7 +37,7 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
                 ClientModel.SINGLETON.setCurrentTTRGame(gameAfterTurnChange);
                 ClientModel.SINGLETON.notifyObservers();
 
-                // TODO: Test that this works when the server is impleented to send this command back off of the commandQueue
+                // TODO: Test that this works when the server is implemented to send this command back off of the commandQueue
                 if (ClientModel.SINGLETON.canChangeTurn()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().changeTurn();
                     ClientModel.SINGLETON.setCurrentState(newState);

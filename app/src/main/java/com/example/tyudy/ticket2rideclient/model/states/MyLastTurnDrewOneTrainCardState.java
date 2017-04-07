@@ -3,30 +3,25 @@ package com.example.tyudy.ticket2rideclient.model.states;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
-import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 /**
- * Created by Trevor on 3/15/2017.
- * State of a game just after it becomes the currentUsers turn
+ * Created by colefox on 3/29/17.
  */
 
-public class MyTurnBeganState implements IState {
+public class MyLastTurnDrewOneTrainCardState implements IState {
 
-    /**
-     * This should not be called on this state. If it is just return 'this'
-     * @return - 'this' instance of this class.
-     */
     @Override
     public IState startGame() {
-        return this;
+        // We should do this type of check in more of these functions. If it should be unreachable throw this exception.
+        throw new BadLogicException("You should not start the game from the MyLastTurnDrewOneTrainCard state");
     }
 
     @Override
     public IState claimPath() {
-
-        return new NotMyTurnState();
+        throw new BadLogicException("Claiming a route cannot be done after drawing a card!");
     }
 
     @Override
@@ -36,21 +31,17 @@ public class MyTurnBeganState implements IState {
 
     @Override
     public IState drawTrainCard() {
-        return new DrewOneTrainCardState();
+        return new LastTurnNotMyTurnState();
     }
 
-    /**
-     * WARNING: The client model currentTTRGame must be updated with the new turn order before this will function properly
-     * @return MyTurnBeganState if according to the currentTTRGame it is currentUsers turn. Else NotMyTurnState
-     */
     @Override
     public IState changeTurn() {
-        return new NotMyTurnState();
+        return new LastTurnNotMyTurnState();
     }
 
     @Override
     public IState lastTurn() {
-        if (ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
+        if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It is your last turn!", Toast.LENGTH_SHORT).show();
             return new MyLastTurnBeganState();
         } else {

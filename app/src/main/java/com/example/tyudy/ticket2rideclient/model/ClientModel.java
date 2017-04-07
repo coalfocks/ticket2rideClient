@@ -612,12 +612,19 @@ public class ClientModel implements iObservable {
         return ModelUtils.canChangeTurn();
     }
 
+    public boolean canChangeToLastTurn(){
+        return ModelUtils.canChangeToLastTurn();
+    }
+
 
     public IState getCurrentState(){
         return mCurrentState;
     }
 
     public void setCurrentState(IState state) {
+        if (state == null) {
+            throw new BadLogicException("State should never be null under the correct logic");
+        }
         this.mCurrentState = state;
     }
 

@@ -37,4 +37,6 @@ public interface iTTRServer
     DataTransferObject drawDestCard(DataTransferObject data);
 
     DataTransferObject sendBackDestCards(DataTransferObject data);
+
+    DataTransferObject changeToLastTurn(DataTransferObject data);
 }

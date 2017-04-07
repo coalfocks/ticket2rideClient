@@ -12,6 +12,7 @@ import com.example.tyudy.ticket2rideclient.common.commands.GetCommandsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetDestCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.GetFaceUpCardsCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.JoinGameCommand;
+import com.example.tyudy.ticket2rideclient.common.commands.LastTurnCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.ListGamesCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.LoginCommand;
 import com.example.tyudy.ticket2rideclient.common.commands.RegisterCommand;
@@ -227,8 +228,22 @@ public class ServerProxy implements iTTRServer {
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public DataTransferObject changeToLastTurn(DataTransferObject data) {
+        try {
+            LastTurnCommand command = new LastTurnCommand();
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
+        }
     }
 
     public DataTransferObject drawTrainCard (DataTransferObject data) {
@@ -239,6 +254,7 @@ public class ServerProxy implements iTTRServer {
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
         }
         return null;
     }
@@ -251,6 +267,7 @@ public class ServerProxy implements iTTRServer {
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
         }
         return null;
     }
@@ -263,6 +280,7 @@ public class ServerProxy implements iTTRServer {
             ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("ServerProxy", e.getMessage());
         }
         return null;
     }

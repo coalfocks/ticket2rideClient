@@ -215,14 +215,26 @@ public class MethodsFacade {
     }
 
     /**
-     * Send a next turn command to the server
+     * Send a next turn command to the server unless the
      */
     public void changeTurn() {
+
         DataTransferObject dto = new DataTransferObject();
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
-        dto.setCommand("changeTurn");
-        dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
-        ServerProxy.SINGLETON.changeTurn(dto);
+
+        // Send a lastTurnCommand to the server to change to last turn if necessary , otherwise change turn normally
+        if (ClientModel.SINGLETON.canChangeToLastTurn()){
+            dto.setCommand("lastTurn");
+            dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+            ServerProxy.SINGLETON.changeToLastTurn(dto);
+        } else {
+            dto.setCommand("changeTurn");
+            dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
+            ServerProxy.SINGLETON.changeTurn(dto);
+        }
+
+
+
     }
 
     public void drawDestCard() {

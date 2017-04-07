@@ -58,5 +58,7 @@ public interface IState {
 
     IState changeTurn();
 
+    IState lastTurn();
+
 
  }

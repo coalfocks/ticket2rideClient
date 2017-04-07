@@ -10,8 +10,9 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.states.DrewOneTrainCardState;
 import com.example.tyudy.ticket2rideclient.model.states.EndGameState;
+import com.example.tyudy.ticket2rideclient.model.states.MyLastTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.MyLastTurnDrewOneTrainCardState;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
-import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
@@ -21,7 +22,7 @@ import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 public final class ModelUtils {
 
-
+    //TODO: Account for the last turn states in all of these functions
     /**
      * Check to make sure that
      * 1. It is
@@ -166,6 +167,32 @@ public final class ModelUtils {
     }
 
     /**
+     * Checks to see if the user should send a lastTurnCommand.. basically checks to see...
+     * 1. It is the currentUsers turn
+     * 2. The currentUser is not already in a last turn state
+     * 3. The current user has less than 3 train cars
+     * @return - true if the last turn command should be send to the server, false otherwise
+     */
+    public static boolean canChangeToLastTurn(){
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        // Make sure the user is not already in their last turn
+        // Make sure that it is the current users turn
+        if (currentState.getClass() != MyTurnBeganState.class &&
+                currentState.getClass() != DrewOneTrainCardState.class) {
+            return false;
+        }
+
+        // The User has less than 3 train cards so the last turn command should be sent to the server
+        if (ClientModel.SINGLETON.getUsersTrains().getSize() < 3) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * Remove the trainCardCollection Object from the currentUsers collection of train cards if its number is 0
      * @param trainCardCollection - reference to the users train cards of the given color
      * @param color - color of cards to be deleted if they are empty
@@ -176,6 +203,8 @@ public final class ModelUtils {
             ClientModel.SINGLETON.getCurrentUser().removeTrainCardsWithColor(color);
         }
     }
+
+
 
 
 }

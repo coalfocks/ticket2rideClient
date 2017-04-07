@@ -26,14 +26,10 @@ public class SelectTrainCardCommand extends Command implements iCommand, Seriali
     {
         try
         {
-            boolean turnShouldChange = false; // This variable is hacky but im tired af rn
 
             FaceUpCards fu = (FaceUpCards) Serializer.deserialize(data.getData());
             PresenterHolder.SINGLETON.getDecksDialogPresenter().setmFaceUpCards(fu);
 
-            if (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class){
-                turnShouldChange = true;
-            }
 
             // Change the state only for the currentPlayer that just drew the cards
             if(ClientModel.SINGLETON.canDrawTrainCard()) {
@@ -42,8 +38,9 @@ public class SelectTrainCardCommand extends Command implements iCommand, Seriali
                 ClientModel.SINGLETON.setCurrentState(newState);
                 Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Selected a card!", Toast.LENGTH_SHORT).show();
 
+
                 // Player just drew their second card
-                if (turnShouldChange) {
+                if (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class){
                     MethodsFacade.SINGLETON.changeTurn();
                 }
             }

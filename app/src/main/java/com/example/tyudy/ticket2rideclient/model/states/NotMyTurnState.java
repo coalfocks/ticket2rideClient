@@ -51,4 +51,15 @@ public class NotMyTurnState implements IState {
             return new NotMyTurnState();
         }
     }
+
+    @Override
+    public IState lastTurn() {
+        if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It is your last turn!", Toast.LENGTH_SHORT).show();
+            return new MyLastTurnBeganState();
+        } else {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Turn Changed!", Toast.LENGTH_SHORT).show();
+            return new LastTurnNotMyTurnState();
+        }
+    }
 }
