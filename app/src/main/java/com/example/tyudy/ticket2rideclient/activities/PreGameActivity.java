@@ -34,8 +34,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if(fragment == null){
-            //fragment = new LoginFragment();
-            fragment = new GameOverFragment();
+            fragment = new LoginFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
@@ -51,17 +50,6 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
         }
         else {
             Intent i = new Intent(this, GameLobbyActivity.class);
-            startActivity(i);
-        }
-    }
-
-    public void onLoginAndGame(int inProgress) {
-        if (inProgress == 0) {
-            Intent i = new Intent(this, GameLobbyActivity.class);
-            startActivity(i);
-        } else
-        {
-            Intent i = new Intent(this, GameBoardActivity.class);
             startActivity(i);
         }
     }

@@ -244,6 +244,7 @@ public class ServerProxy implements iTTRServer {
             e.printStackTrace();
             Log.d("ServerProxy", e.getMessage());
         }
+        return null;
     }
 
     public DataTransferObject drawTrainCard (DataTransferObject data) {
