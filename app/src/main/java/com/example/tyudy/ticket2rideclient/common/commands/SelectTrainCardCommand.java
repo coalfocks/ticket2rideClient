@@ -10,6 +10,7 @@ import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.states.DrewOneTrainCardState;
+import com.example.tyudy.ticket2rideclient.model.states.LastTurnNotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
@@ -34,15 +35,16 @@ public class SelectTrainCardCommand extends Command implements iCommand, Seriali
             // Change the state only for the currentPlayer that just drew the cards
             if(ClientModel.SINGLETON.canDrawTrainCard()) {
                 PresenterHolder.SINGLETON.getDecksDialogPresenter().exitClicked();
+                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Selected a card!", Toast.LENGTH_SHORT).show();
                 IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
                 ClientModel.SINGLETON.setCurrentState(newState);
-                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Selected a card!", Toast.LENGTH_SHORT).show();
 
-
-                // Player just drew their second card
-                if (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class){
+                // This executes when the user has already drawn two cards (not exactly sticking to the pattern)
+                if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class ||
+                        ClientModel.SINGLETON.getCurrentState().getClass() == LastTurnNotMyTurnState.class) {
                     MethodsFacade.SINGLETON.changeTurn();
                 }
+
             }
 
         } catch (Exception e) {
