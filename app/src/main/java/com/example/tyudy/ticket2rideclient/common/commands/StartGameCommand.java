@@ -15,6 +15,7 @@ import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.PlasticTrainCollection;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.io.Serializable;
 
@@ -36,7 +37,9 @@ public class StartGameCommand extends Command implements iCommand, Serializable
         else{
             try {
                 TTRGame game = (TTRGame) Serializer.deserialize(data.getData());
+                //TODO: cards not correct
                 ClientModel.SINGLETON.setCurrentTTRGame(game);
+                ClientModel.SINGLETON.setCurrentPlayerTurnID(game.getWhoTurn());
                 for (User u : game.getUsers()) {
                     if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                         ClientModel.SINGLETON.setCurrentUser(u);
@@ -44,7 +47,12 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                         ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
+
                 if (ClientModel.SINGLETON.canStartGame()) {
+                    IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
+                    ClientModel.SINGLETON.setCurrentState(newState);
+                    //TODO: only set to turn if it is your turn
+                } else {
                     IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
                     ClientModel.SINGLETON.setCurrentState(newState);
                 }

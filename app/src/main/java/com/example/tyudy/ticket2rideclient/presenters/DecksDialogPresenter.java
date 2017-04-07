@@ -14,6 +14,7 @@ import com.example.tyudy.ticket2rideclient.fragments.DecksDialogFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
 
+import static com.example.tyudy.ticket2rideclient.common.ColorENUM.COLORLESS;
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
 
 /**
@@ -123,6 +124,7 @@ public class DecksDialogPresenter  {
         } else {
             firstDrawCardNumber = 0;
         }
+
 
         ClientModel.SINGLETON.addTrainCard(card);
         MethodsFacade.SINGLETON.selectTrainCard(cardNumber);

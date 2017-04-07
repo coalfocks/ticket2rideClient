@@ -17,6 +17,8 @@ public class DestinationCardDeck implements iDeck, Serializable {
        cards = new ArrayList<iCard>();
     }
 
+    public List<iCard> getDeck() { return cards; }
+
     public void shuffle(){
         Collections.shuffle(this.cards);
     };

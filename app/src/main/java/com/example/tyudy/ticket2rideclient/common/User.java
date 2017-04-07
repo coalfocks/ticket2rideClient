@@ -27,6 +27,7 @@ public class User implements Serializable, Comparable<User> {
     private int playerID;
     private int inGame;
     private int points = 0;
+    private int longest = 0;
 
     private ColorENUM color;
 
@@ -43,7 +44,7 @@ public class User implements Serializable, Comparable<User> {
         inGame = 0;
         points = 0;
         destCards = new ArrayList<>();
-        colorCards = new HashMap<>();
+        colorCards = new HashMap<ColorENUM, TrainCardCollection>();
         claimedPaths = new ArrayList<>();
         this.color = BLACK;
     }
@@ -135,6 +136,10 @@ public class User implements Serializable, Comparable<User> {
 
     public ArrayList<DestinationCard> getDestCards() { return destCards; }
 
+    public void setDestCards(ArrayList<DestinationCard> cards) {
+        this.destCards = cards;
+    }
+
     //Cards stuff
     public void addTrainCard(TrainCardCollection card){
         TrainCardCollection c = colorCards.get(card.getColor());
@@ -143,6 +148,7 @@ public class User implements Serializable, Comparable<User> {
             colorCards.put(card.getColor(), c);
         }
         else{
+            card.incNum();
             colorCards.put(card.getColor(), card);
         }
     }
@@ -212,6 +218,10 @@ public class User implements Serializable, Comparable<User> {
     }
 
     public void claimPath(Path p) { claimedPaths.add(p); }
+
+    public ArrayList<Path> getClaimedPaths () {
+        return claimedPaths;
+    }
 
     public boolean haveCompletedRoute(DestinationCard card) {
         // Make sure the given card is a card the player has
@@ -287,5 +297,15 @@ public class User implements Serializable, Comparable<User> {
 
     public void removeAllDestinationCards(){
         destCards = new ArrayList<>();
+    }
+
+    public int getLongest()
+    {
+        return longest;
+    }
+
+    public void setLongest(int longest)
+    {
+        this.longest = longest;
     }
 }

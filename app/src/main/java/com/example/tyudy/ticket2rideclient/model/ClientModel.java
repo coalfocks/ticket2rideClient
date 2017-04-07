@@ -726,5 +726,23 @@ public class ClientModel implements iObservable {
         }
     }
 
+    public IState stateStartGame() {
+        return this.mCurrentState.startGame();
+    }
 
+    public IState stateClaimPath() {
+        return this.mCurrentState.claimPath();
+    }
+
+    public IState stateDrawDestinationCard() {
+        return this.mCurrentState.drawDestinationCard();
+    }
+
+    public IState stateDrawTrainCard() {
+        return this.mCurrentState.drawDestinationCard();
+    }
+
+    public IState stateChangeTurn() {
+        return this.mCurrentState.changeTurn();
+    }
 }

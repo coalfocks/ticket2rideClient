@@ -53,15 +53,15 @@ public class GameBoardPresenter {
 //            Toast.makeText(MethodsFacade.SINGLETON.getContext(), clickedCity.getCityName(), Toast.LENGTH_SHORT).show();
             PresenterHolder.SINGLETON.getClaimRouteDialogPresenter().showDialog(mGameBoardFragment.getActivity(), clickedCity);
         } else {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "That is not a city!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MethodsFacade.SINGLETON.getContext(), "That is not a city!", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
 }
 
-//Todo: tap dest card to remove at init
 //TODO: start turn sends updated game model
 //Todo: handle db exceptions gracefully
-//TODO: initialize train cards correctly-
+//TODO: lines not drawing
+//TODO: verify destination completed algorithm
+//TODO: change turn command on server
+//TODO: longest path
+//TODO: game reinitializing

@@ -264,6 +264,18 @@ public class MethodsFacade {
         }
     }
 
+    public void sendBackInitDestCards(ArrayList<ArrayList<DestinationCard>> cards) {
+        try
+        {
+            DataTransferObject dto = new DataTransferObject();
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setCommand("sendBackInitDestCards");
+            dto.setData(Serializer.serialize(cards));
+            ServerProxy.SINGLETON.sendBackDestCards(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void drawTrainCard() {
 
         if(!ClientModel.SINGLETON.canDrawTrainCard()){

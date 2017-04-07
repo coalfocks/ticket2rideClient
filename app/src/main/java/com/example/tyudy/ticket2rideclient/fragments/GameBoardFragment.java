@@ -16,8 +16,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.User;
+
+import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.R;
@@ -51,6 +54,7 @@ public class GameBoardFragment extends Fragment implements iObserver
     private ArrayList<TrainCardCollection> mCards;
    
     private GameBoardPresenter mGameBoardPresenter;
+    private Boolean startNew;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -136,10 +140,23 @@ public class GameBoardFragment extends Fragment implements iObserver
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(),
                 R.layout.points_fragment, mUsers));
 
+        startNew = getArguments().getBoolean("start");
+
         //observe function to make it change with updated info
         this.observe();
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (startNew) {
+            ArrayList<DestinationCard> cards = PresenterHolder.SINGLETON.getInitDestCardsPresenter().fetchCards();
+            PresenterHolder.SINGLETON.getInitDestCardsPresenter().setmDestCards(cards);
+            PresenterHolder.SINGLETON.getInitDestCardsPresenter().showDialog(MethodsFacade.SINGLETON.getContext());
+        }
+        //TODO: don't reinit game through server if in progress
     }
 
     public MapView getMapView(){

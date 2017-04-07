@@ -1,5 +1,7 @@
 package com.example.tyudy.ticket2rideclient.common.commands;
 
+import android.widget.Toast;
+
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
@@ -20,6 +22,10 @@ public class GetDestCardsCommand extends Command implements iCommand, Serializab
     @Override
     public DataTransferObject execute()
     {
+        if (!data.getErrorMsg().equals("")) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(),data.getErrorMsg(), Toast.LENGTH_SHORT).show();
+            return null;
+        }
         try
         {
             ArrayList<DestinationCard> cards = (ArrayList<DestinationCard>) Serializer.deserialize(data.getData());

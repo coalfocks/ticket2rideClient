@@ -1,6 +1,7 @@
 package com.example.tyudy.ticket2rideclient.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -55,9 +56,12 @@ public class GameBoardActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.activity_game_board);
 
+        Intent i = getIntent();
+        Bundle b = i.getBundleExtra("info");
         if(fragment == null)
         {
             fragment = new GameBoardFragment();
+            fragment.setArguments(b);
             fm.beginTransaction()
                     .add(R.id.activity_game_board, fragment)
                     .add(R.id.chat_container, new ChatFragment())

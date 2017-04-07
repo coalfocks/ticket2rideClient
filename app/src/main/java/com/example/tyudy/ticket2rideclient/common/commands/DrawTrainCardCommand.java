@@ -28,6 +28,10 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
     @Override
     public DataTransferObject execute()
     {
+        if (!data.getErrorMsg().equals("")) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(),data.getErrorMsg(), Toast.LENGTH_SHORT).show();
+            return null;
+        }
         try
         {
 

@@ -17,28 +17,25 @@ import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
  * Created by tyudy on 3/30/17.
- * This is a class that handles all the logic for the can do methods becuase the clientModel class is getting too big
+ * This is a class that handles all the logic for the can do methods because the clientModel class is getting too big
  */
 
 public final class ModelUtils {
 
-    //TODO: Account for the last turn states in all of these functions
+    //TODO: Make the canDoFunctions account for the last turn states as well
     /**
-     * Check to make sure that
-     * 1. It is
-     * @return
+     * Checks that:
+     * 1. It is the currentUsers turn
+     * 2. The currentUser hasn't selected a wild card
+     *
+     * @return - true if card can be drawn
      */
     public static boolean canDrawTrainCard(){
-
-        IState currentState = ClientModel.SINGLETON.getCurrentState();
-
-        //Make sure the currentState is either MyTunBegan or DrewOneTrainCard
-        if(currentState.getClass() != MyTurnBeganState.class &&
-                currentState.getClass() != DrewOneTrainCardState.class) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to draw a card!", Toast.LENGTH_SHORT).show();
+        if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
+            ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
             return false;
         }
-
+        //TODO: check for wild card
         return true;
     }
 
