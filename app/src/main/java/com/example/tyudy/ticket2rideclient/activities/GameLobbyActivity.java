@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -55,7 +56,11 @@ public class GameLobbyActivity extends AppCompatActivity {
         ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(1);
         Intent i = new Intent(this, GameBoardActivity.class);
         Bundle b = new Bundle();
-        b.putBoolean("start", true);
+        if (mGameLobbyPresenter.gameInProgress() == 0) {
+            b.putBoolean("start", true);
+        } else {
+            b.putBoolean("start", false);
+        }
         i.putExtra("info", b);
         startActivity(i);
     }

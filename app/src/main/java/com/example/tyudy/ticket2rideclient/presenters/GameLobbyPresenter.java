@@ -48,4 +48,8 @@ public class GameLobbyPresenter {
         }
     }
 
+    public int gameInProgress () {
+        return ClientModel.SINGLETON.getCurrentTTRGame().getInProgress();
+    }
+
 }

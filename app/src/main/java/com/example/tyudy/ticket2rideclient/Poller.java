@@ -2,6 +2,7 @@ package com.example.tyudy.ticket2rideclient;
 
 import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.activities.GameLobbyActivity;
+import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Trevor on 2/11/2017.
  */
-public class Poller  implements Runnable
+public class Poller implements Runnable
 {
 
 
@@ -61,6 +62,10 @@ public class Poller  implements Runnable
 
     public void stop() { stop = true; }
 
+    public boolean isStopped() {
+        return stop;
+    }
+
     public void setWait(int seconds)
     {
         wait = seconds;
@@ -78,7 +83,8 @@ public class Poller  implements Runnable
      * Poll method, called every [amount of time] by ClientCommunicator
      */
     public void poll() {
-        if (ClientModel.SINGLETON.getIpAddress() == null) {
+        if (ClientModel.SINGLETON.getIpAddress() == null ||
+                MethodsFacade.SINGLETON.getContext().getClass() == PreGameActivity.class) {
             return;
         }
 

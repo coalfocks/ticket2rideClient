@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.UserStats;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -288,5 +289,35 @@ public class MethodsFacade {
         dto.setCommand("faceUps");
         dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
         ServerProxy.SINGLETON.getFaceUpCards(dto);
+    }
+
+    public void sendGameOverStats() {
+        DataTransferObject dto = new DataTransferObject();
+        UserStats stats = new UserStats(ClientModel.SINGLETON.getCurrentUser().getUsername());
+        //TODO: populate stats
+        User me = ClientModel.SINGLETON.getCurrentUser();
+        stats.setRoutePoints(me.getPoints());
+        int complete = 0;
+        int incomplete = 0;
+        for (DestinationCard card : me.getDestCards()) {
+            if (me.haveCompletedRoute(card)) {
+                complete += card.getPointValue();
+            } else {
+                incomplete += card.getPointValue();
+            }
+        }
+        stats.setDestPoints(complete);
+        stats.setNegPoints(incomplete);
+        stats.setGameID(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
+        try {
+            String statstring = Serializer.serialize(stats);
+            dto.setData(statstring);
+            dto.setCommand("sendGameOverStats");
+            dto.setPlayerID(me.getPlayerID());
+            ServerProxy.SINGLETON.sendGameOverStats(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
