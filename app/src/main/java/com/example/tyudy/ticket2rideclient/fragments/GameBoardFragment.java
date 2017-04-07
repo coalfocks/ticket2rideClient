@@ -151,11 +151,11 @@ public class GameBoardFragment extends Fragment implements iObserver
     @Override
     public void onStart() {
         super.onStart();
-//        if (startNew) {
-//            ArrayList<DestinationCard> cards = PresenterHolder.SINGLETON.getInitDestCardsPresenter().fetchCards();
-//            PresenterHolder.SINGLETON.getInitDestCardsPresenter().setmDestCards(cards);
-//            PresenterHolder.SINGLETON.getInitDestCardsPresenter().showDialog(MethodsFacade.SINGLETON.getContext());
-//        }
+        if (startNew) {
+            ArrayList<DestinationCard> cards = PresenterHolder.SINGLETON.getInitDestCardsPresenter().fetchCards();
+            PresenterHolder.SINGLETON.getInitDestCardsPresenter().setmDestCards(cards);
+            PresenterHolder.SINGLETON.getInitDestCardsPresenter().showDialog(MethodsFacade.SINGLETON.getContext());
+        }
         //TODO: don't reinit game through server if in progress
     }
 
