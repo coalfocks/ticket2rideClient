@@ -33,8 +33,8 @@ public class DestinationCard implements iCard, Serializable {
 
     @Override
     public String toString() {
-        return destination.toString() + " Point Value: " + pointValue;
-        //return "THIS DESTCARD";
+        //return destination.toString() + " Point Value: " + pointValue;
+        return "THIS DESTCARD";
     }
 }
 

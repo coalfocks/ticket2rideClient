@@ -64,8 +64,8 @@ public class InitDestCardsPresenter {
         } else {
             toUpdate.add(mDestCards.get(2));        }
 
-        if (toReturn.size() > 2) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must keep at LEAST one card!", Toast.LENGTH_SHORT).show();
+        if (toReturn.size() > 1) {
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must keep at LEAST two cards!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -85,6 +85,7 @@ public class InitDestCardsPresenter {
             card1Selected = false;
             card2Selected = false;
             card3Selected = false;
+            ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(1);
             mInitDestCardsFragment.dismiss();
         } catch (Exception e) {
             e.printStackTrace();

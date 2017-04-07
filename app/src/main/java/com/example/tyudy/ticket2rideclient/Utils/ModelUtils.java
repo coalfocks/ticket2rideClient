@@ -30,12 +30,31 @@ public final class ModelUtils {
      *
      * @return - true if card can be drawn
      */
-    public static boolean canDrawTrainCard(){
+    public static boolean canDrawTrainCard(TrainCardCollection card){
         if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
             ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
+
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to get a card!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        //TODO: check for wild card
+        if (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class &&
+                card.getColor() == ColorENUM.WILD) {
+
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You can't pick a wild NOW!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean canDrawTrainCard(){
+        if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
+                ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
+
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to get a card!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -63,7 +82,7 @@ public final class ModelUtils {
 
         // Player has already drew one train card
         if (currentState.getClass() == DrewOneTrainCardState.class) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must draw a train card again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must pick/draw a train card again", Toast.LENGTH_SHORT).show();
             return false;
         }
 

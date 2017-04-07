@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
+import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameOverFragment;
@@ -35,6 +36,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
 
         if(fragment == null){
             fragment = new LoginFragment();
+            //fragment = new GameOverFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
@@ -65,6 +67,7 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
     public void observe() {
 
     }
+
     @Override
     public void onStop() {
         super.onStop();

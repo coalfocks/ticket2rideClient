@@ -311,6 +311,29 @@ public class MethodsFacade {
         DataTransferObject dto = new DataTransferObject();
         UserStats stats = new UserStats(ClientModel.SINGLETON.getCurrentUser().getUsername());
         //TODO: populate stats
+        User me = ClientModel.SINGLETON.getCurrentUser();
+        stats.setRoutePoints(me.getPoints());
+        int complete = 0;
+        int incomplete = 0;
+        for (DestinationCard card : me.getDestCards()) {
+            if (me.haveCompletedRoute(card)) {
+                complete += card.getPointValue();
+            } else {
+                incomplete += card.getPointValue();
+            }
+        }
+        stats.setDestPoints(complete);
+        stats.setNegPoints(incomplete);
+        stats.setGameID(ClientModel.SINGLETON.getCurrentTTRGame().getGameID());
+        try {
+            String statstring = Serializer.serialize(stats);
+            dto.setData(statstring);
+            dto.setCommand("sendGameOverStats");
+            dto.setPlayerID(me.getPlayerID());
+            ServerProxy.SINGLETON.sendGameOverStats(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

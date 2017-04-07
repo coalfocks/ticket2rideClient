@@ -176,7 +176,11 @@ public class GameBoardFragment extends Fragment implements iObserver
         mUsers = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
         mPlayerScores.setAdapter(new PlayerAdapter(this.getContext(), R.layout.points_fragment, mUsers));
         mMyInfo.invalidate();
-        mCards = ClientModel.SINGLETON.getCurrentUser().getTrainCards();
+        for (User u : ClientModel.SINGLETON.getCurrentTTRGame().getUsers()) {
+            if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                mCards = u.getTrainCards();
+            }
+        }
         mMyInfo.setAdapter(new CardsAdapter(this.getContext(),
                 R.layout.points_fragment, mCards));
 

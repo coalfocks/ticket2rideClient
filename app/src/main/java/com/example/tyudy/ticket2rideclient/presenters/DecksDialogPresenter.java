@@ -85,9 +85,7 @@ public class DecksDialogPresenter  {
         //replace faceups server
         //replace faceups model
 
-        if (!ClientModel.SINGLETON.canDrawTrainCard()) {
-            return;
-        }
+
 
         TrainCardCollection card;
         switch (cardNumber) {
@@ -108,6 +106,10 @@ public class DecksDialogPresenter  {
                 break;
             default :
                 card = new TrainCardCollection();
+        }
+
+        if (!ClientModel.SINGLETON.canDrawTrainCard(card)) {
+            return;
         }
 
         // This should probably be in the ClientModel.SINGLETON.canDrawTrainCard function but im tired af rn and this will work

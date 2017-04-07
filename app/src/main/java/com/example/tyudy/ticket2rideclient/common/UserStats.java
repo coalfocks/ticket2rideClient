@@ -1,7 +1,8 @@
 package com.example.tyudy.ticket2rideclient.common;
 
-import com.example.tyudy.ticket2rideclient.Serializer;
+import java.io.Serializable;
 
+import com.example.tyudy.ticket2rideclient.Serializer;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,8 @@ import java.io.Serializable;
 public class UserStats implements Serializable {
 
     private String mUsername;
+
+    private int gameID;
     private int mRoutePoints;
     private int mDestPoints;
     private int mNegDestPoints;
@@ -55,5 +58,15 @@ public class UserStats implements Serializable {
     public int getTotalPoints() {
         return mRoutePoints + mDestPoints +
                 mNegDestPoints + mLongestRoutePoints;
+    }
+
+    public int getGameID()
+    {
+        return gameID;
+    }
+
+    public void setGameID(int gameID)
+    {
+        this.gameID = gameID;
     }
 }

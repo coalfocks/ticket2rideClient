@@ -15,9 +15,8 @@ public class EndGameCommand extends Command implements iCommand, Serializable
     @Override
     public DataTransferObject execute()
     {
-//        TTRServerFacade facade = new TTRServerFacade();
-//        data = facade.endGame(data);
-//        return data;
+        // playerid is winner
+        // data is serialized arralylist of userstats
         return null;
     }
 }

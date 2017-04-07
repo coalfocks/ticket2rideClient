@@ -58,10 +58,5 @@ public class GameBoardPresenter {
     }
 }
 
-//TODO: start turn sends updated game model
-//Todo: handle db exceptions gracefully
 //TODO: lines not drawing
 //TODO: verify destination completed algorithm
-//TODO: change turn command on server
-//TODO: longest path
-//TODO: game reinitializing

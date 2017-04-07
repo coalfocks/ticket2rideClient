@@ -37,7 +37,9 @@ public class StartGameCommand extends Command implements iCommand, Serializable
         else{
             try {
                 TTRGame game = (TTRGame) Serializer.deserialize(data.getData());
-                //TODO: cards not correct
+                if (game.getGameID() != ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) {
+                    return null;
+                }
                 ClientModel.SINGLETON.setCurrentTTRGame(game);
                 ClientModel.SINGLETON.setCurrentPlayerTurnID(game.getWhoTurn());
                 for (User u : game.getUsers()) {
@@ -47,6 +49,7 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                         ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
+                ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(0);
 
                 if (ClientModel.SINGLETON.canStartGame()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().startGame();

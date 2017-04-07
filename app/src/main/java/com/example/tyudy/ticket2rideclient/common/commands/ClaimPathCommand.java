@@ -34,7 +34,6 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
 
                 // Only do this if the command came back to the user who claimed the path
                 if (path.getOwner().getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-                    Toast.makeText(jeffery, "Route Claimed" + Poller.getInstance().getQueueIndex(), Toast.LENGTH_SHORT).show();
                     IState newState = ClientModel.SINGLETON.getCurrentState().claimPath();
                     ClientModel.SINGLETON.setCurrentState(newState);
                     ClientModel.SINGLETON.discardCardsForPath(path);

@@ -18,9 +18,10 @@ import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 public class GameLobbyPresenter {
     private GameLobbyActivity mGameLobbyActivity;
+    private int gameWasInProgress;
 
     public GameLobbyPresenter(){
-
+        gameWasInProgress = 0;
     }
 
     // Called in the onCreate function in the GameLobbyActivity Class in the activities folder so that it can be updated.
@@ -32,8 +33,10 @@ public class GameLobbyPresenter {
         if (ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
             if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
                 if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0) {
+
                     MethodsFacade.SINGLETON.startGame();
                 } else {
+                    gameWasInProgress = 1;
                     FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
                     ((GameLobbyActivity) jeffery).onResumeGame();
                 }
@@ -48,5 +51,9 @@ public class GameLobbyPresenter {
         } else {
             Toast.makeText(mGameLobbyActivity, "Who do you think you are to start someone else's game?!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public int gameInProgress () {
+        return this.gameWasInProgress;
     }
 }
