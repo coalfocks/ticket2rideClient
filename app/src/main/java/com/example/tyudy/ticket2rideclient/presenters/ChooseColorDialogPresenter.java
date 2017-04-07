@@ -84,8 +84,7 @@ public class ChooseColorDialogPresenter {
      * Continues in the claimingPath process and closes the popup.
      */
     private void executeButtonClick(ColorENUM selectedColor){
-        mAssociatedPath.setPathColor(selectedColor);
-        MethodsFacade.SINGLETON.claimPath(mAssociatedPath);
+        MethodsFacade.SINGLETON.claimPath(mAssociatedPath, selectedColor);
         mChooseColorDialogFragment.dismiss();
     }
 }

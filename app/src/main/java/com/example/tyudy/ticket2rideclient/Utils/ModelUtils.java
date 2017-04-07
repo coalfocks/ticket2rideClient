@@ -46,12 +46,12 @@ public final class ModelUtils {
      * 3. The currentUser has enough train cards to claim the route
      * 4. The currentUser has enough train pieces to claim the route
      * @param path - the path that we are checking if the user can claim
+     * @param pathColor - this is actualy the card color that was used to select the path from the GUI
      * @return - true if the path can be claimed. False otherwise.
      */
-    public static boolean canClaimPath(Path path) {
+    public static boolean canClaimPath(Path path, ColorENUM pathColor) {
 
 
-        ColorENUM pathColor = path.getPathColor();
         // No idea wtf we have to add 1 on these next 2 lines but I guess that's what we are going with haha
         int numberOfColoredTrainCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum();
         int numberOfWildsCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum();

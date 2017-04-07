@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
+import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.UserStats;
@@ -186,9 +187,9 @@ public class MethodsFacade {
      * Send a path to the server and tell it its ready to go
      * @param path - path to be claimed
      */
-    public void claimPath(Path path){
+    public void claimPath(Path path, ColorENUM selectedColor){
 
-        if (!ClientModel.SINGLETON.canClaimPath(path)) {
+        if (!ClientModel.SINGLETON.canClaimPath(path, selectedColor)) {
             return;
         }
 

@@ -69,9 +69,9 @@ public class ClaimRouteDialogPresenter {
         if (chosenPath.getPathColor() == ColorENUM.COLORLESS) {
             PresenterHolder.SINGLETON.getChooseColorDialogPresenter().showDialog(mActivity, chosenPath);
         } else {
-            MethodsFacade.SINGLETON.claimPath(chosenPath);
+            MethodsFacade.SINGLETON.claimPath(chosenPath, chosenPath.getPathColor());
         }
-        // Change path color to the mini popup selected color?
+        // Change path color to the mini popup selected color? NO!
 
 
         setToBaseValues();

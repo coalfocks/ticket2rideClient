@@ -592,8 +592,8 @@ public class ClientModel implements iObservable {
         return ModelUtils.canStartGame();
     }
 
-    public boolean canClaimPath(Path path) {
-        return ModelUtils.canClaimPath(path);
+    public boolean canClaimPath(Path path, ColorENUM cardColor) {
+        return ModelUtils.canClaimPath(path, cardColor);
     }
 
     public boolean canDrawTrainCard() {
@@ -721,9 +721,6 @@ public class ClientModel implements iObservable {
 
         mUsersTrains.removeTrains(path.getDistance());
 
-        if(mUsersTrains.getSize() < 3){
-            //TODO: Send Last Turn Command To Server / Update everyones state on the way back
-        }
     }
 
     public IState stateStartGame() {
