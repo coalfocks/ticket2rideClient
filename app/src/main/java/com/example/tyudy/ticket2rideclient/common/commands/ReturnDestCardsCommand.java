@@ -34,7 +34,7 @@ public class ReturnDestCardsCommand extends Command implements iCommand, Seriali
                         u.addDestinationCard(new DestinationCard("","",0));
                     }
                     if (init) {
-                        for (int i = 0; i < Integer.parseInt(cards[1]); i++) {
+                        for (int i = 0; i < 3; i++) {
                             u.removeDestinationCard(u.getDestCards().get(u.getDestCards().size() - 1));
                         }
                     }

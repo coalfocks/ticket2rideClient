@@ -6,12 +6,20 @@
                 android:orientation="vertical"
                 android:id="@+id/chat_frag"
                 android:background="#000">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/tan"
+        android:gravity="top|center_horizontal"
+        android:text="Swipe up to chat!"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/chat_recycler"
-        android:layout_margin="2dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:animateLayoutChanges="true"
         android:background="@color/tan"
         android:layout_above="@+id/chat_box"/>

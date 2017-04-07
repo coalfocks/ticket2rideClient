@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
-import com.example.tyudy.ticket2rideclient.common.commands.TestinationCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.LoginPresenter;
 import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
@@ -43,9 +42,6 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mLoginPresenter = PresenterHolder.SINGLETON.getLoginPresenter();
         mLoginPresenter.setLoginFragment(this); // Presenter needs to know this instance
-
-        TestinationCommand.testit();
-
     }
 
     @Override

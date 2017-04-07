@@ -12,7 +12,7 @@ import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.common.User;
 
 /**
- * Created by Trevor on 2/26/2017.
+ * Created by Colefox on 2/26/2017.
  */
 
 public class PointsFragment extends Fragment {
