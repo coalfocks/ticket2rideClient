@@ -38,7 +38,6 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
                     ClientModel.SINGLETON.setCurrentState(newState);
                     ClientModel.SINGLETON.discardCardsForPath(path);
                     ClientModel.SINGLETON.placePlasticTrainsForPath(path);
-                    MethodsFacade.SINGLETON.changeTurn();
                 }
 
 

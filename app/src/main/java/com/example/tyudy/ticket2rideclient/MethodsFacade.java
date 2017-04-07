@@ -200,6 +200,7 @@ public class MethodsFacade {
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
+            MethodsFacade.SINGLETON.changeTurn();
         } catch (Exception e){
             e.printStackTrace();
         }
