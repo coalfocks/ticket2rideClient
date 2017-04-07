@@ -45,6 +45,7 @@ public class MyTurnBeganState implements IState {
      */
     @Override
     public IState changeTurn() {
+        Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Turn Changed!", Toast.LENGTH_SHORT).show();
         return new NotMyTurnState();
     }
 

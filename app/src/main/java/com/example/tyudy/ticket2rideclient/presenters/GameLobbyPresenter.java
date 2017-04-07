@@ -28,24 +28,25 @@ public class GameLobbyPresenter {
         mGameLobbyActivity = gameLobbyActivity;
     }
 
-    public void startGameClicked(){
-        if(ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+    public void startGameClicked() {
+        if (ClientModel.SINGLETON.getCurrentTTRGame().getOwnerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
             if (ClientModel.SINGLETON.getCurrentTTRGame().getNumPlayers() >= 2) {
-                if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0)
-                {
+                if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0) {
                     MethodsFacade.SINGLETON.startGame();
                 } else {
                     FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
                     ((GameLobbyActivity) jeffery).onResumeGame();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(mGameLobbyActivity, "You can't play by yourself!", Toast.LENGTH_LONG).show();
 
             }
+        } else if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+            FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
+            ((GameLobbyActivity) jeffery).onResumeGame();
+
         } else {
             Toast.makeText(mGameLobbyActivity, "Who do you think you are to start someone else's game?!", Toast.LENGTH_LONG).show();
         }
     }
-
 }
