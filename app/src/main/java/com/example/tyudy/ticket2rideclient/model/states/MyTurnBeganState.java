@@ -58,4 +58,9 @@ public class MyTurnBeganState implements IState {
             return new LastTurnNotMyTurnState();
         }
     }
+
+    @Override
+    public IState lastTurn() {
+        return new MyTurnLastTurnState();
+    }
 }

@@ -14,6 +14,7 @@ import com.example.tyudy.ticket2rideclient.ClientCommunicator;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
+import com.example.tyudy.ticket2rideclient.fragments.GameOverFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameSelectionFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
 import com.example.tyudy.ticket2rideclient.common.User;
@@ -33,7 +34,8 @@ public class PreGameActivity extends AppCompatActivity implements iObserver {
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
         if(fragment == null){
-            fragment = new LoginFragment();
+            //fragment = new LoginFragment();
+            fragment = new GameOverFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
