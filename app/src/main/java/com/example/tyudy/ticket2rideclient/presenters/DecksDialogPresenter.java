@@ -179,4 +179,8 @@ public class DecksDialogPresenter  {
     public int getFirstDrawCardNumber(){
         return firstDrawCardNumber;
     }
+
+    public int trainPiecesRemaining() {
+        return ClientModel.SINGLETON.getUsersTrains().getSize();
+    }
 }

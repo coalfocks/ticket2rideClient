@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -25,6 +26,7 @@ public class DecksDialogFragment extends DialogFragment {
 
     private ImageButton mTrainDeckButton;
     private ImageButton mDestDeckButton;
+    private TextView mTrainPiecesRemaining;
 
     private ImageButton mCardButton1;
     private ImageButton mCardButton2;
@@ -51,6 +53,10 @@ public class DecksDialogFragment extends DialogFragment {
 
         mDestDeckButton = (ImageButton) view.findViewById(R.id.dest_cards_deck);
         mTrainDeckButton = (ImageButton) view.findViewById(R.id.train_card_deck);
+
+        mTrainPiecesRemaining = (TextView) view.findViewById(R.id.train_piece_count);
+        String trains = "Train Pieces Remaining: " + String.valueOf(mDecksDialogPresenter.trainPiecesRemaining());
+        mTrainPiecesRemaining.setText(trains);
 
         mCardButton1 = (ImageButton) view.findViewById(R.id.face_up_card_1);
         mCardButton1.setImageResource(mDecksDialogPresenter.getCardImage(mDecksDialogPresenter.getmFaceUpCards().getCard1()));

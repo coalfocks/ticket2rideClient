@@ -24,6 +24,11 @@ public class InitDestCardsPresenter {
     Boolean card2Selected;
     Boolean card3Selected;
 
+    /**
+     * Creates a new InitDestCardsPresenter
+     * sets all cards to unselected
+     * @return the new InitDestCardsPresenter
+     */
     public InitDestCardsPresenter(){
         mDestCards = new ArrayList<>();
 //        mDestCards.add(new DestinationCard("Los Angeles", "New York", 21));
@@ -35,15 +40,41 @@ public class InitDestCardsPresenter {
         card3Selected = false;
     }
 
+    /**
+     * sets the mInitDestCardsFragment
+     * fragment passes itself in upon its construction
+     * @param initDestCardsFragment
+     * @pre fragment isn't null
+     * @post fragment is set and connected
+     */
     public void setInitDestCardsFragment(InitDestCardsFragment initDestCardsFragment){
         mInitDestCardsFragment = initDestCardsFragment;
     }
 
+    /**
+     * Make Dialog appear on the screen
+     * @param gameBoardActivity
+     * @pre activity is correct
+     * @post dialog will correctly display
+     */
     public void showDialog(Activity gameBoardActivity){
         mInitDestCardsFragment = new InitDestCardsFragment();
         mInitDestCardsFragment.show(gameBoardActivity.getFragmentManager(), "get_dest_cards_fragment");
     }
 
+    /**
+     * Upon exiting the dialog, this will:
+     * 1) add selected cards to a return array, and
+     *    add unselected cards to the players hand
+     * 2) send selected cards back to discard pile on server
+     * 3) sets game to in progress on client
+     * 4) set cards to unset and close dialog
+     * 5) if more than one is sent back, send error toast
+     *
+     * @pre cards, game are not null
+     * @pre game is not already in progress
+     * @post player will begin game with only selected cards
+     */
     public void exitClicked(){
         ArrayList<DestinationCard> toReturn = new ArrayList<>();
         ArrayList<DestinationCard> toUpdate = new ArrayList<>();
@@ -93,8 +124,11 @@ public class InitDestCardsPresenter {
     }
 
     /**
-     * triggered when a card is clicked in the DecksDialogFragment
+     * Toggles the background color when card is selected to give back
      * @param cardNumber - IMPORTANT, this param is not an index, its just the order on the screen from left to right
+     * @pre card is not null
+     * @pre there are enough cards in deck
+     * @post card will toggle colors when pressed
      */
     public void cardClicked(int cardNumber) {
         Boolean select = false;
@@ -115,16 +149,32 @@ public class InitDestCardsPresenter {
         mInitDestCardsFragment.selectCard(cardNumber, select);
     }
 
+    /**
+     * @pre none
+     * @post returns the correct cards
+     * @return the set of Destination Cards to pick from
+     */
     public ArrayList<DestinationCard> getmDestCards()
     {
         return mDestCards;
     }
 
+    /**
+     * @pre the new set of Dest cards is not null
+     * @post the current set of cards will be set to the new one
+     * @param mDestCards set of Destination Cards
+     */
     public void setmDestCards(ArrayList<DestinationCard> mDestCards)
     {
         this.mDestCards = mDestCards;
     }
 
+    /**
+     * @pre ClientModel current user is set
+     * @pre game has started and been initialized
+     * @post cards returned will be the users Dest cards
+     * @return Current User's Destination Cards
+     */
     public ArrayList<DestinationCard> fetchCards() {
         return ClientModel.SINGLETON.getCurrentUser().getDestCards();
     }

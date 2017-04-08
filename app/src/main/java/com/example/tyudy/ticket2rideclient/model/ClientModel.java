@@ -1,11 +1,13 @@
 package com.example.tyudy.ticket2rideclient.model;
 
+import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Utils.ModelUtils;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
 import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.iObservable;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
@@ -674,6 +676,7 @@ public class ClientModel implements iObservable {
 
         TrainCardCollection trainCardsWithPathColor = currentUser.getTrainCardsOfColor(path.getPathColor());
         TrainCardCollection wildTrainCards = currentUser.getTrainCardsOfColor(ColorENUM.WILD);
+        TrainCardDeck discardDeck = new TrainCardDeck();
 
         if((wildTrainCards.getNum() + trainCardsWithPathColor.getNum()) < path.getDistance()){ // User doesnt have enough train cards
             throw new BadLogicException("INVALID: Users " + path.getPathColor() + " train cards went negative."); // This should never execute and should be checked for in the canDo
@@ -683,20 +686,28 @@ public class ClientModel implements iObservable {
         if (trainCardsWithPathColor.getNum() >= path.getDistance()) {
             trainCardsWithPathColor.subtractCards(path.getDistance());
             ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
-            return;
+            for (int i = 0; i < path.getDistance();i++) {
+                discardDeck.addCard(new TrainCardCollection(path.getPathColor()));
+            }
         }
 
 
         // If there aren't then discard all the normal cards and the necessary number of wilds
-        if ((trainCardsWithPathColor.getNum() + wildTrainCards.getNum()) >= path.getDistance()) {
+        else if ((trainCardsWithPathColor.getNum() + wildTrainCards.getNum()) >= path.getDistance()) {
 
             int totalDifference = path.getDistance() - trainCardsWithPathColor.getNum(); // The amount of wild cards used
+            for (int i = 0; i < trainCardsWithPathColor.getNum();i++) {
+                discardDeck.addCard(new TrainCardCollection(path.getPathColor()));
+            }
             trainCardsWithPathColor.subtractCards(trainCardsWithPathColor.getNum()); // First subtract all the train cards
             ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
 
             // Quick check to make sure there are enough wild cards
             if (wildTrainCards.getNum() >= totalDifference) {
                 wildTrainCards.subtractCards(totalDifference); // Subtract the remaining number of cards from the wilds
+                for (int i = 0; i < totalDifference;i++) {
+                    discardDeck.addCard(new TrainCardCollection(ColorENUM.WILD));
+                }
                 ModelUtils.cleanUpTrainCards(wildTrainCards, ColorENUM.WILD); // Remove the object from users cards if there are 0 left
 
             } else {
@@ -709,9 +720,9 @@ public class ClientModel implements iObservable {
                                         " and wild cards is less than the path length" );
         }
 
-        //TODO: Discard cards command
-
-        notifyObservers(); // update drawer on the right with the number of cards after they were discarded
+        //send command
+        MethodsFacade.SINGLETON.discardTrainCards(discardDeck);
+        notifyObservers(); // update drawers with the number of cards after they were discarded
 
     }
 

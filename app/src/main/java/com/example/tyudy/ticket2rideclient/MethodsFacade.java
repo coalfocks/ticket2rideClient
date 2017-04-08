@@ -9,6 +9,7 @@ import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.UserStats;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
+import com.example.tyudy.ticket2rideclient.common.decks.TrainCardDeck;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -311,7 +312,6 @@ public class MethodsFacade {
     public void sendGameOverStats() {
         DataTransferObject dto = new DataTransferObject();
         UserStats stats = new UserStats(ClientModel.SINGLETON.getCurrentUser().getUsername());
-        //TODO: populate stats
         User me = ClientModel.SINGLETON.getCurrentUser();
         stats.setRoutePoints(me.getPoints());
         int complete = 0;
@@ -335,6 +335,17 @@ public class MethodsFacade {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void discardTrainCards(TrainCardDeck toDiscard) {
+        try {
+            DataTransferObject dto = new DataTransferObject();
+            dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
+            dto.setCommand("discardTrainCards");
+            dto.setData(Serializer.serialize(toDiscard));
+            ServerProxy.SINGLETON.discardTrainCards(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

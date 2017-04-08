@@ -76,10 +76,6 @@ public class ClaimRouteDialogPresenter {
 
         setToBaseValues();
         mClaimRouteDialogFragment.dismiss();
-
-
-
-
     }
 
     public void routeClicked(int index) {
