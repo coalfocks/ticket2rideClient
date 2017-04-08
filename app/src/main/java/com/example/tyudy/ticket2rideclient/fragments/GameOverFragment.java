@@ -1,6 +1,5 @@
 package com.example.tyudy.ticket2rideclient.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.tyudy.ticket2rideclient.R;
-import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
-import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.UserStats;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -32,9 +29,6 @@ public class GameOverFragment extends Fragment {
     private TextView mWinnerName;
     private RecyclerView mPlayerList;
     private GameOverPresenter mGameOverPresenter;
-    private Activity mActivity;
-
-    public void setActivity(Activity a) { mActivity = a; }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +65,57 @@ public class GameOverFragment extends Fragment {
         return v;
     }
 
+
+    private class PlayerInfoHolder extends RecyclerView.ViewHolder {
+        private TextView mPlayerName;
+        private TextView mPlayerPoints;
+        private TextView mPlayerTrainCards;
+        private TextView mPlayerDestCards;
+        private UserStats mPlayer;
+        private RelativeLayout mLayout;
+        private boolean mStatsVisible = false;
+
+        public PlayerInfoHolder(View itemView) {
+            super(itemView);
+
+            mPlayerName = (TextView) itemView.findViewById(R.id.player_username);
+            mPlayerPoints = (TextView) itemView.findViewById(R.id.player_points);
+            mPlayerTrainCards = (TextView) itemView.findViewById(R.id.train_cards);
+            mPlayerDestCards = (TextView) itemView.findViewById(R.id.dest_cards);
+            mLayout = (RelativeLayout) itemView.findViewById(R.id.points_fragment);
+
+            mPlayerTrainCards.setVisibility(View.INVISIBLE);
+            mPlayerDestCards.setVisibility(View.INVISIBLE);
+        }
+
+        public void bindHolder(UserStats player) {
+            mPlayer = player;
+            mPlayerName.setText(player.getName());
+            mPlayerPoints.setText(String.valueOf(player.getTotalPoints()));
+
+            mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    if (!mStatsVisible)
+//                    {
+//                        mStatsVisible = true;
+                    PlayerStatsFragment stats = new PlayerStatsFragment();
+                    stats.setUserStats(mPlayer);
+
+                    getChildFragmentManager().beginTransaction().replace(R.id.points_fragment,
+                            stats).commit();
+//                    }
+//                    else
+//                    {
+//                        mStatsVisible = false;
+//                        getChildFragmentManager().beginTransaction().replace(R.id.points_fragment_expand,
+//                                new PointsFragment()).commit();
+//                    }
+                }
+            });
+        }
+    }
+
     private class PlayerInfoAdapter extends RecyclerView.Adapter<PlayerInfoHolder> {
         private ArrayList<UserStats> mPlayers;
 
@@ -87,7 +132,7 @@ public class GameOverFragment extends Fragment {
         @Override
         public PlayerInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.endgame_points_fragment, parent, false);
+            View view = layoutInflater.inflate(R.layout.points_fragment, parent, false);
             return new PlayerInfoHolder(view);
         }
 
@@ -96,36 +141,5 @@ public class GameOverFragment extends Fragment {
             return mPlayers.size();
         }
 
-    }
-
-    private class PlayerInfoHolder extends RecyclerView.ViewHolder {
-        private TextView mPlayerName;
-        private TextView mPlayerPoints;
-        private UserStats mPlayer;
-        private RelativeLayout mLayout;
-
-        public PlayerInfoHolder(View itemView) {
-            super(itemView);
-
-            mPlayerName = (TextView) itemView.findViewById(R.id.endgame_player_username);
-            mPlayerPoints = (TextView) itemView.findViewById(R.id.endgame_player_points);
-            mLayout = (RelativeLayout) itemView.findViewById(R.id.endgame_points_fragment);
-        }
-
-        public void bindHolder(final UserStats player) {
-            mPlayer = player;
-            mPlayerName.setText(player.getName());
-            mPlayerPoints.setText(String.valueOf(player.getTotalPoints()));
-
-            mLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PlayerStatsDialog playerStats = new PlayerStatsDialog();
-                    playerStats.setUserStats(mPlayer);
-                    playerStats.setActivity(getActivity());
-                    playerStats.show(getFragmentManager(), "Stats");
-                }
-            });
-        }
     }
 }
