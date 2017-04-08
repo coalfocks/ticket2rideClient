@@ -2,22 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="@string/user_name_label"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:id="@+id/player_stats_username"/>
+                android:layout_height="wrap_content"
+                android:paddingLeft="35dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:id="@+id/rpts"
-        android:layout_below="@id/player_stats_username"
         android:text="Route Points:"
         android:textStyle="italic"/>
 
