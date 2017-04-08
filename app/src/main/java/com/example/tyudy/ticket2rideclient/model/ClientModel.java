@@ -564,7 +564,6 @@ public class ClientModel implements iObservable {
      */
     public void updateClaimedPath(Path path) {
         this.getCurrentTTRGame().updateClaimedPath(path);
-        notifyObservers();
     }
 
     public ArrayList<Path> getAllPaths() {

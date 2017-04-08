@@ -175,7 +175,7 @@ public final class ModelUtils {
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
         if (currentState.getClass() == PreGameState.class ||
-                currentState.getClass() == EndGameState.class) {
+            currentState.getClass() == EndGameState.class) {
             return false;
         }
 
@@ -195,7 +195,7 @@ public final class ModelUtils {
         // Make sure the user is not already in their last turn
         // Make sure that it is the current users turn
         if (currentState.getClass() != MyTurnBeganState.class &&
-                currentState.getClass() != DrewOneTrainCardState.class) {
+            currentState.getClass() != DrewOneTrainCardState.class) {
             return false;
         }
 
