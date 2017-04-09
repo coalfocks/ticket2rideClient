@@ -184,23 +184,19 @@ public final class ModelUtils {
 
     /**
      * Checks to see if the user should send a lastTurnCommand.. basically checks to see...
-     * 1. It is the currentUsers turn
-     * 2. The currentUser is not already in a last turn state
+     * 1. It is the currentUsers turn (not last turn)
      * 3. The current user has less than 3 train cars
      * @return - true if the last turn command should be send to the server, false otherwise
      */
     public static boolean canChangeToLastTurn(){
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
-        // Make sure the user is not already in their last turn
-        // Make sure that it is the current users turn
-        if (currentState.getClass() != MyTurnBeganState.class &&
-            currentState.getClass() != DrewOneTrainCardState.class) {
-            return false;
-        }
+        boolean isCurrentUsersTurn = (currentState.getClass() == MyTurnBeganState.class ||
+            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class);
 
+        // Make sure it is the current users turn (not last turn)
         // The User has less than 3 train cards so the last turn command should be sent to the server
-        if (ClientModel.SINGLETON.getUsersTrains().getSize() < 3) {
+        if ((ClientModel.SINGLETON.getUsersTrains().getSize() < 3) && isCurrentUsersTurn) {
             return true;
         } else {
             return false;
