@@ -303,7 +303,9 @@ public class ServerProxy implements iTTRServer {
     public DataTransferObject discardTrainCards (DataTransferObject data) {
         try {
             DiscardTrainCardsCommand command = new DiscardTrainCardsCommand();
-
+            command.setData(data);
+            String commandString = Serializer.serialize(command);
+            ClientCommunicator.getInstance().sendCommand(commandString);
         } catch (Exception e) {
             e.printStackTrace();
         }

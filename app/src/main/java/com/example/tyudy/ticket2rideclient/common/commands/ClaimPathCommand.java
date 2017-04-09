@@ -13,6 +13,7 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by tyudy on 3/9/17.
@@ -29,7 +30,8 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
             Toast.makeText(jeffery, data.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else {
             try {
-                Path path = (Path) Serializer.deserialize(data.getData());
+                ArrayList<String> pathData = (ArrayList<String>) Serializer.deserialize(data.getData());
+                Path path = (Path) Serializer.deserialize(pathData.get(0));
                 ClientModel.SINGLETON.updateClaimedPath(path); // Update the ClientModels collection of paths to refelct the new claimed path
                 ClientModel.SINGLETON.notifyObservers();
                 
@@ -37,7 +39,7 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
                 if (path.getOwner().getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().claimPath();
                     ClientModel.SINGLETON.setCurrentState(newState);
-                    ClientModel.SINGLETON.discardCardsForPath(path);
+                    ClientModel.SINGLETON.discardCardsForPath(path, pathData.get(1));
                     ClientModel.SINGLETON.placePlasticTrainsForPath(path);
                 }
 
