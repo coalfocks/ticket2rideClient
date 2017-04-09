@@ -35,6 +35,7 @@ public class LastTurnCommand extends Command implements iCommand, Serializable {
                 if (ClientModel.SINGLETON.canChangeTurn()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().lastTurn();
                     ClientModel.SINGLETON.setCurrentState(newState);
+                    Toast.makeText(jeffery, "Everyone has 1 more turn...", Toast.LENGTH_SHORT).show();
                 } else {
                     throw new BadLogicException("It appears that a change turn command was sent before user was playing a game");
                 }

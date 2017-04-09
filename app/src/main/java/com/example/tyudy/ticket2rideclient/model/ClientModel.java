@@ -597,8 +597,8 @@ public class ClientModel implements iObservable {
         return ModelUtils.canClaimPath(path, cardColor);
     }
 
-    public boolean canDrawTrainCard(TrainCardCollection card) {
-        return ModelUtils.canDrawTrainCard(card);
+    public boolean canDrawTrainCardOfColor(ColorENUM cardColor) {
+        return ModelUtils.canDrawTrainCardOfColor(cardColor);
     }
 
     public boolean canDrawTrainCard() {

@@ -34,10 +34,6 @@ public class DrewOneTrainCardState implements IState {
         return new NotMyTurnState();
     }
 
-    /**
-     * WARNING: The client model currentTTRGame must be updated with the new turn order before this will function properly
-     * @return MyTurnBeganState if according to the currentTTRGame it is currentUsers turn. Else NotMyTurnState
-     */
     @Override
     public IState changeTurn() {
         return new NotMyTurnState();
@@ -45,16 +41,6 @@ public class DrewOneTrainCardState implements IState {
 
     @Override
     public IState lastTurn() {
-        if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It is your last turn!", Toast.LENGTH_SHORT).show();
-            return new MyLastTurnBeganState();
-        } else {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Turn Changed!", Toast.LENGTH_SHORT).show();
-            return new LastTurnNotMyTurnState();
-        }
+        return new LastTurnNotMyTurnState();
     }
-    //@Override
-    //public IState lastTurn() {
-    //    return new LastTurnDrewOneTrainCardState();
-    //}
 }

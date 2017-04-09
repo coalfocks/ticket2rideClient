@@ -37,8 +37,6 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
                 if (path.getOwner().getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().claimPath();
                     ClientModel.SINGLETON.setCurrentState(newState);
-                    ClientModel.SINGLETON.discardCardsForPath(path);
-                    ClientModel.SINGLETON.placePlasticTrainsForPath(path);
                 }
 
 

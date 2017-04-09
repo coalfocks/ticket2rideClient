@@ -41,12 +41,6 @@ public class MyLastTurnDrewOneTrainCardState implements IState {
 
     @Override
     public IState lastTurn() {
-        if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It is your last turn!", Toast.LENGTH_SHORT).show();
-            return new MyLastTurnBeganState();
-        } else {
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Turn Changed!", Toast.LENGTH_SHORT).show();
-            return new LastTurnNotMyTurnState();
-        }
+        throw new BadLogicException("Last turn shouldn't be called if we are already in the last turn state");
     }
 }
