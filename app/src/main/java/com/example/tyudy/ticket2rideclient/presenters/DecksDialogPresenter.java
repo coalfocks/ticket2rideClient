@@ -22,9 +22,9 @@ import static com.example.tyudy.ticket2rideclient.common.ColorENUM.RED;
  */
 
 public class DecksDialogPresenter  {
-    DecksDialogFragment mDecksDialogFragment;
-    FaceUpCards mFaceUpCards;
-    int firstDrawCardNumber;
+    private DecksDialogFragment mDecksDialogFragment;
+    private FaceUpCards mFaceUpCards;
+    private int firstDrawCardNumber;
 
     public FaceUpCards getmFaceUpCards()
     {
@@ -36,6 +36,11 @@ public class DecksDialogPresenter  {
         this.mFaceUpCards = mFaceUpCards;
     }
 
+    /**
+     * @pre - none
+     * @post - creates a new instance of DecksDialogPresenter with all the fields initialized.
+     * Creates a
+     */
     public DecksDialogPresenter(){
         mFaceUpCards = new FaceUpCards();
         firstDrawCardNumber = 0;
@@ -57,26 +62,51 @@ public class DecksDialogPresenter  {
         mDecksDialogFragment = decksDialogFragment;
     }
 
+    /**
+     * Makes the card selection dialog appear where users can draw cards (destination and train)
+     * @pre - The gameBoardActivity is on screen and is the activity where the dialog is to be presented
+     * @post - The dialog will come on screen
+     * @param gameBoardActivity - the activity that the dialog will appear in
+     */
     public void showDialog(Activity gameBoardActivity){
         mDecksDialogFragment = new DecksDialogFragment();
         mDecksDialogFragment.show(gameBoardActivity.getFragmentManager(), "decks_dialog_fragment");
     }
 
+    /**
+     * @pre - The fragment must already be on screen
+     * @post -  The fragemtn is removed from the screen.
+     */
     public void exitClicked(){
         mDecksDialogFragment.dismiss();
     }
 
+    /**
+     * Simulate drawing a destination card
+     * @pre - the dialog must have already been inflated onto the screen
+     * @post - If it is the users turn and they haven't done anything to change their turn state,
+     * then they draw a destination card and their turn will be changed.
+     */
     public void destDeckClicked() {
         MethodsFacade.SINGLETON.drawDestCard();
     }
 
+    /**
+     * Simulate drawing a train card
+     * @pre - the dialog must have already been inflated onto the screen
+     * @post - If it is the users turn and they haven't done anything to change their turn state or drewTrainCardState,
+     * then they draw a train card and their turn will be changed if necessary.
+     */
     public void trainDeckClicked() {
         MethodsFacade.SINGLETON.drawTrainCard();
     }
 
 
     /**
-     * triggered when a card is clicked in the DecksDialogFragment
+     * Triggered when a card is clicked in the DecksDialogFragment and does the appropriate action.
+     * If it is not the persons turn that clicked it will just notyify them that it is not their turn.
+     * @pre - This fragment is on screen.
+     * @post - If the user is allowed (depending on the canDrawCard canDo function), they will gain the card they clicked
      * @param cardNumber - IMPORTANT, this param is not an index, its just the order on the screen from left to right
      */
     public void cardClicked(int cardNumber){
@@ -140,6 +170,13 @@ public class DecksDialogPresenter  {
 
     }
 
+    /**
+     * Returns the R.drawable int that can be referenced to draw a card on screen.
+     * @pre - none
+     * @post - receive an int referencing a drawable card that can be used to draw a card on screen.
+     * @param card - used for its color to match to the drawable reference
+     * @return - an int that can be used to reference the drawable card image
+     */
     public int getCardImage(TrainCardCollection card) {
         ColorENUM color = card.getColor();
         switch(color) {
@@ -183,4 +220,5 @@ public class DecksDialogPresenter  {
     public int trainPiecesRemaining() {
         return ClientModel.SINGLETON.getUsersTrains().getSize();
     }
+
 }

@@ -232,6 +232,7 @@ public class MethodsFacade {
         dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
 
         // Send a lastTurnCommand to the server to change to last turn if necessary , otherwise change turn normally
+        // This should only be triggered one time and the server will return a lastTurnCommand, changing states to last turn states
         if (ClientModel.SINGLETON.canChangeToLastTurn()){
             dto.setCommand("lastTurn");
             dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
