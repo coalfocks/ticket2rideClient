@@ -196,12 +196,17 @@ public class MethodsFacade {
 
         DataTransferObject dto = new DataTransferObject();
         try {
-            String pathData = Serializer.serialize(path);
-            dto.setData(pathData);
+            String color = selectedColor.toString();
+            String pathString = Serializer.serialize(path);
+            ArrayList<String> pathData = new ArrayList<>();
+            pathData.add(pathString);
+            pathData.add(color);
+            String pathDataString = Serializer.serialize(pathData);
+            dto.setData(pathDataString);
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
             ServerProxy.SINGLETON.claimPath(dto);
-            ClientModel.SINGLETON.discardCardsForPath(path);
+            ClientModel.SINGLETON.discardCardsForPath(path, color);
             ClientModel.SINGLETON.placePlasticTrainsForPath(path);
             MethodsFacade.SINGLETON.changeTurn();
         } catch (Exception e){

@@ -7,6 +7,7 @@ import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
@@ -34,7 +35,13 @@ public class DiscardTrainCardsCommand extends Command implements iCommand, Seria
         }
         try
         {
+            if (data.getPlayerID() != ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                for (User u : ClientModel.SINGLETON.getCurrentTTRGame().getUsers()) {
+                    if (u.getPlayerID() == data.getPlayerID()) {
 
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -671,22 +671,23 @@ public class ClientModel implements iObservable {
      * Removes the amount of cards from the players hand
      * @param path - path that we are using the cards to claim
      */
-    public void discardCardsForPath(Path path){
+    public void discardCardsForPath(Path path, String pathColor){
 
+        ColorENUM color = ColorENUM.valueOf(pathColor);
         TrainCardCollection trainCardsWithPathColor = currentUser.getTrainCardsOfColor(path.getPathColor());
         TrainCardCollection wildTrainCards = currentUser.getTrainCardsOfColor(ColorENUM.WILD);
         TrainCardDeck discardDeck = new TrainCardDeck();
 
         if((wildTrainCards.getNum() + trainCardsWithPathColor.getNum()) < path.getDistance()){ // User doesnt have enough train cards
-            throw new BadLogicException("INVALID: Users " + path.getPathColor() + " train cards went negative."); // This should never execute and should be checked for in the canDo
+            throw new BadLogicException("INVALID: Users " + color + " train cards went negative."); // This should never execute and should be checked for in the canDo
         }
 
         // If there are enough normal cards discard those
         if (trainCardsWithPathColor.getNum() >= path.getDistance()) {
             trainCardsWithPathColor.subtractCards(path.getDistance());
-            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, color); // Remove the object from users cards if there are 0 left
             for (int i = 0; i < path.getDistance();i++) {
-                discardDeck.addCard(new TrainCardCollection(path.getPathColor()));
+                discardDeck.addCard(new TrainCardCollection(color));
             }
         }
 
@@ -696,10 +697,10 @@ public class ClientModel implements iObservable {
 
             int totalDifference = path.getDistance() - trainCardsWithPathColor.getNum(); // The amount of wild cards used
             for (int i = 0; i < trainCardsWithPathColor.getNum();i++) {
-                discardDeck.addCard(new TrainCardCollection(path.getPathColor()));
+                discardDeck.addCard(new TrainCardCollection(color));
             }
             trainCardsWithPathColor.subtractCards(trainCardsWithPathColor.getNum()); // First subtract all the train cards
-            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, path.getPathColor()); // Remove the object from users cards if there are 0 left
+            ModelUtils.cleanUpTrainCards(trainCardsWithPathColor, color); // Remove the object from users cards if there are 0 left
 
             // Quick check to make sure there are enough wild cards
             if (wildTrainCards.getNum() >= totalDifference) {
@@ -715,7 +716,7 @@ public class ClientModel implements iObservable {
             }
         } else {
             // Defensive programming at its finest ^_^
-            throw new BadLogicException("The canClaimPath didn't do its job because the number of " + path.getPathColor().toString() +
+            throw new BadLogicException("The canClaimPath didn't do its job because the number of " + color.toString() +
                                         " and wild cards is less than the path length" );
         }
 
