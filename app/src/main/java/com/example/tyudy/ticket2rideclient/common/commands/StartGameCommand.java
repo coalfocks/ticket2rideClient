@@ -11,11 +11,9 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
-import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
-import com.example.tyudy.ticket2rideclient.model.PlasticTrainCollection;
-import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
+import com.example.tyudy.ticket2rideclient.common.PlasticTrainCollection;
 
 import java.io.Serializable;
 

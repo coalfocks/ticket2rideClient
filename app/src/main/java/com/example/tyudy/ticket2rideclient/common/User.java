@@ -9,10 +9,8 @@ import com.example.tyudy.ticket2rideclient.common.cities.Path;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Stack;
 
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.BLACK;
 import static com.example.tyudy.ticket2rideclient.common.ColorENUM.WHITE;
@@ -34,6 +32,8 @@ public class User implements Serializable, Comparable<User> {
     private ArrayList<Path> claimedPaths;
     private Map<ColorENUM, TrainCardCollection> colorCards;
     private ArrayList<DestinationCard> destCards;
+
+    private PlasticTrainCollection mTrains;
 
 
     public User()
@@ -283,5 +283,13 @@ public class User implements Serializable, Comparable<User> {
             }
         }
         return false;
+    }
+
+    public PlasticTrainCollection getmTrains() {
+        return mTrains;
+    }
+
+    public void setmTrains(PlasticTrainCollection mTrains) {
+        this.mTrains = mTrains;
     }
 }

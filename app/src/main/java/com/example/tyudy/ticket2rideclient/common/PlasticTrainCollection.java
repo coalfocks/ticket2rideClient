@@ -1,4 +1,4 @@
-package com.example.tyudy.ticket2rideclient.model;
+package com.example.tyudy.ticket2rideclient.common;
 
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 

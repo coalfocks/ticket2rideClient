@@ -3,6 +3,7 @@ package com.example.tyudy.ticket2rideclient.model;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Utils.ModelUtils;
 import com.example.tyudy.ticket2rideclient.common.ColorENUM;
+import com.example.tyudy.ticket2rideclient.common.PlasticTrainCollection;
 import com.example.tyudy.ticket2rideclient.common.cards.TrainCardCollection;
 import com.example.tyudy.ticket2rideclient.common.cards.DestinationCard;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
@@ -14,7 +15,6 @@ import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.interfaces.IState;
-import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
 import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
@@ -42,7 +42,6 @@ public class ClientModel implements iObservable {
     private ArrayList<City> allCities;
     private ArrayList<Path> allPaths;
     private IState mCurrentState;
-    private PlasticTrainCollection mUsersTrains;
 
 
     private ClientModel(){
@@ -54,7 +53,6 @@ public class ClientModel implements iObservable {
         currentPlayerTurnID = 0;
         mCurrentTTRGame = null;
         mCurrentState = new NotMyTurnState();
-        mUsersTrains = null;
         mCurrentState = new PreGameState();
         initCitiesAndPaths();
     }
@@ -635,11 +633,11 @@ public class ClientModel implements iObservable {
     }
 
     public void setUsersTrains(PlasticTrainCollection trains){
-        mUsersTrains = trains;
+        currentUser.setmTrains(trains);
     }
 
     public PlasticTrainCollection getUsersTrains(){
-        return mUsersTrains;
+        return currentUser.getmTrains();
     }
 
     public void addTrainCard (TrainCardCollection card) {
@@ -735,7 +733,7 @@ public class ClientModel implements iObservable {
      */
     public void placePlasticTrainsForPath(Path path) {
 
-        mUsersTrains.removeTrains(path.getDistance());
+        currentUser.getmTrains().removeTrains(path.getDistance());
 
     }
 
