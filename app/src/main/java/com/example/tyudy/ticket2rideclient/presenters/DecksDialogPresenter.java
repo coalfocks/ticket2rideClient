@@ -138,7 +138,7 @@ public class DecksDialogPresenter  {
                 card = new TrainCardCollection();
         }
 
-        if (!ClientModel.SINGLETON.canDrawTrainCard(card)) {
+        if (!ClientModel.SINGLETON.canDrawTrainCardOfColor(card.getColor())) {
             return;
         }
 

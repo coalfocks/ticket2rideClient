@@ -30,16 +30,16 @@ public final class ModelUtils {
      *
      * @return - true if card can be drawn
      */
-    public static boolean canDrawTrainCard(TrainCardCollection card){
-        if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
-            ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
+    public static boolean canDrawTrainCardOfColor(ColorENUM cardColor){
 
-            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to get a card!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class &&
-                card.getColor() == ColorENUM.WILD) {
+        boolean userDrewTrainCard = (ClientModel.SINGLETON.getCurrentState().getClass() == DrewOneTrainCardState.class ||
+                                     ClientModel.SINGLETON.getCurrentState().getClass() == MyLastTurnDrewOneTrainCardState.class);
 
+        // Do the regular draw train card check
+        canDrawTrainCard();
+
+        // Make sure user doesn't pick a wild on their second draw
+        if (userDrewTrainCard && cardColor == ColorENUM.WILD) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You can't pick a wild NOW!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -48,9 +48,13 @@ public final class ModelUtils {
     }
 
     public static boolean canDrawTrainCard(){
-        if (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
-                ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class) {
 
+        boolean isNotCurrentPlayersTurn = (ClientModel.SINGLETON.getCurrentState().getClass() != MyTurnBeganState.class &&
+                                           ClientModel.SINGLETON.getCurrentState().getClass() != DrewOneTrainCardState.class);
+        boolean isNotCurrentPlayersLastTurn = (ClientModel.SINGLETON.getCurrentState().getClass() != MyLastTurnBeganState.class &&
+                                               ClientModel.SINGLETON.getCurrentState().getClass() != MyLastTurnDrewOneTrainCardState.class);
+
+        if (isNotCurrentPlayersTurn && isNotCurrentPlayersLastTurn) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to get a card!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -71,7 +75,6 @@ public final class ModelUtils {
     public static boolean canClaimPath(Path path, ColorENUM pathColor) {
 
 
-        // No idea wtf we have to add 1 on these next 2 lines but I guess that's what we are going with haha
         int numberOfColoredTrainCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(pathColor).getNum();
         int numberOfWildsCards = ClientModel.SINGLETON.getCurrentUser().getTrainCardsOfColor(ColorENUM.WILD).getNum();
         boolean userHasEnoughColorsWithWilds = numberOfWildsCards + numberOfColoredTrainCards >= path.getDistance();
@@ -81,13 +84,15 @@ public final class ModelUtils {
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
         // Player has already drew one train card
-        if (currentState.getClass() == DrewOneTrainCardState.class) {
+        if (currentState.getClass() == DrewOneTrainCardState.class ||
+            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must pick/draw a train card again", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // Make sure it is the currentUsers turn and they haven't done anything yet
-        if (currentState.getClass() != MyTurnBeganState.class) {
+        if (currentState.getClass() != MyTurnBeganState.class &&
+            currentState.getClass() != MyLastTurnBeganState.class) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "It has to be your turn to claim a path!", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -121,7 +126,6 @@ public final class ModelUtils {
                 Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You don't have enough " + pathColor.toString() + "/WILD cards!", Toast.LENGTH_SHORT).show();
                 return false;
             }
-
         }
     }
 
@@ -131,12 +135,14 @@ public final class ModelUtils {
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
         // Make sure it is the users turn
-        if(currentState.getClass() == MyTurnBeganState.class) {
+        if(currentState.getClass() == MyTurnBeganState.class ||
+           currentState.getClass() == MyLastTurnBeganState.class) {
             return true;
         }
 
         // Player has already drew one train card
-        if (currentState.getClass() == DrewOneTrainCardState.class) {
+        if (currentState.getClass() == DrewOneTrainCardState.class ||
+            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "You must draw a train card again", Toast.LENGTH_SHORT).show();
             return false;
         }
