@@ -44,8 +44,6 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                 for (User u : game.getUsers()) {
                     if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
                         ClientModel.SINGLETON.setCurrentUser(u);
-                        int usersColor = GraphicsUtils.getRealColorFromEnum(ClientModel.SINGLETON.getCurrentUser().getColor());
-                        ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(usersColor));
                     }
                 }
                 ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(0);
