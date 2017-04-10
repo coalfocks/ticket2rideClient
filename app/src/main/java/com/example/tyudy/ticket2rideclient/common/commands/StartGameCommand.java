@@ -41,6 +41,7 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                     return null;
                 }
                 ClientModel.SINGLETON.setCurrentTTRGame(game);
+                //TODO: game coming back not in progress
                 ClientModel.SINGLETON.setCurrentPlayerTurnID(game.getWhoTurn());
                 for (User u : game.getUsers()) {
                     if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {

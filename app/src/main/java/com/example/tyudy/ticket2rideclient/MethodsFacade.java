@@ -221,6 +221,7 @@ public class MethodsFacade {
         ClientModel.SINGLETON.setCurrentTTRGame(new TTRGame());
         ClientModel.SINGLETON.setCurrentUser(new User());
         ClientModel.SINGLETON.setObsList(new ArrayList<iObserver>());
+        ClientModel.SINGLETON.initCitiesAndPaths();
     }
 
     /**

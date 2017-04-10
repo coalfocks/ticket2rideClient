@@ -53,8 +53,6 @@ public class ClientModel implements iObservable {
         currentUser = null;
         currentPlayerTurnID = 0;
         mCurrentTTRGame = null;
-        allCities = new ArrayList<>();
-        allPaths = new ArrayList<>();
         mCurrentState = new NotMyTurnState();
         mUsersTrains = null;
         mCurrentState = new PreGameState();
@@ -180,7 +178,10 @@ public class ClientModel implements iObservable {
     /**
      * Initialize all cities in the map with a name and location
      */
-    private void initCitiesAndPaths(){
+    public void initCitiesAndPaths(){
+
+        allCities = new ArrayList<>();
+        allPaths = new ArrayList<>();
         /*
          * List of cities:
          * Atlanta
@@ -674,7 +675,7 @@ public class ClientModel implements iObservable {
     public void discardCardsForPath(Path path, String pathColor){
 
         ColorENUM color = ColorENUM.valueOf(pathColor);
-        TrainCardCollection trainCardsWithPathColor = currentUser.getTrainCardsOfColor(path.getPathColor());
+        TrainCardCollection trainCardsWithPathColor = currentUser.getTrainCardsOfColor(color);
         TrainCardCollection wildTrainCards = currentUser.getTrainCardsOfColor(ColorENUM.WILD);
         TrainCardDeck discardDeck = new TrainCardDeck();
 
