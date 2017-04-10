@@ -69,9 +69,12 @@ public class Path implements Serializable {
      * @return True if path is connected to city, false otherwise
      */
     public boolean containsCity(City city) {
-
-        HashSet<City> cities = new HashSet<>(connectedCities);
-        return cities.contains(city);
+        for (City c : connectedCities) {
+            if (c.getCityName().equals(city.getCityName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

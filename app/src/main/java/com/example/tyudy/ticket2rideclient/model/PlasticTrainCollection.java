@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PlasticTrainCollection {
 
-    final int TRAIN_COLLECTION_MAX_SIZE = 3;
+    final int TRAIN_COLLECTION_MAX_SIZE = 45;
     ArrayList<PlasticTrain> mMyTrains;
     int mCollectionColor;
 

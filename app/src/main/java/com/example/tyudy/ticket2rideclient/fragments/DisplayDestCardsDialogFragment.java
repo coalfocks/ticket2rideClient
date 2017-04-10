@@ -125,15 +125,15 @@ public class DisplayDestCardsDialogFragment extends DialogFragment {
 
                     //holder.returnBox = (CheckBox) convertView.findViewById(R.id.return_checkbox);
 
-                    if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
-                        holder.checkBox.setChecked(true);
-                    else
-                        holder.checkBox.setChecked(false);
 
                     convertView.setTag(holder);
                 } else
                     holder = (ViewHolder) convertView.getTag();
 
+                if (ClientModel.SINGLETON.getCurrentUser().haveCompletedRoute(card))
+                    holder.checkBox.setChecked(true);
+                else
+                    holder.checkBox.setChecked(false);
 
                 holder.source.setText(src);
                 holder.dest.setText(dst);

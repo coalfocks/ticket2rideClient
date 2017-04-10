@@ -8,6 +8,7 @@ import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.exceptions.BadLogicException;
@@ -35,6 +36,11 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
             try {
                 TTRGame gameAfterTurnChange = (TTRGame) Serializer.deserialize(data.getData());
                 ClientModel.SINGLETON.setCurrentTTRGame(gameAfterTurnChange);
+                for (User u : ClientModel.SINGLETON.getCurrentTTRGame().getUsers()) {
+                    if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                        ClientModel.SINGLETON.setCurrentUser(u);
+                    }
+                }
                 ClientModel.SINGLETON.notifyObservers();
 
                 // TODO: Test that this works when the server is implemented to send this command back off of the commandQueue
