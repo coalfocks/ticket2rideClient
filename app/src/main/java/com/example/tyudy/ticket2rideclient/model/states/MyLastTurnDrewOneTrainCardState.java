@@ -36,7 +36,12 @@ public class MyLastTurnDrewOneTrainCardState implements IState {
 
     @Override
     public IState changeTurn() {
-        return new LastTurnNotMyTurnState();
+        if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0){
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Game Over", Toast.LENGTH_SHORT).show();
+            return new EndGameState();
+        } else {
+            return new LastTurnNotMyTurnState();
+        }
     }
 
     @Override

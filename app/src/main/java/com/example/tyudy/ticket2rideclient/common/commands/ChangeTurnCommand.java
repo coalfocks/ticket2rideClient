@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Poller;
 import com.example.tyudy.ticket2rideclient.Serializer;
+import com.example.tyudy.ticket2rideclient.activities.GameBoardActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.User;
@@ -43,12 +44,16 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
                 }
                 ClientModel.SINGLETON.notifyObservers();
 
-                // TODO: Test that this works when the server is implemented to send this command back off of the commandQueue
                 if (ClientModel.SINGLETON.canChangeTurn()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().changeTurn();
                     ClientModel.SINGLETON.setCurrentState(newState);
                 } else {
                     throw new BadLogicException("It appears that a change turn command was sent before user was playing a game");
+                }
+
+                if (ClientModel.SINGLETON.canEndGame()) {
+                    // Launch the end game activity
+                    ((GameBoardActivity) jeffery).onEndGame();
                 }
             } catch(Exception e){
                 e.printStackTrace();

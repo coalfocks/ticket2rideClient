@@ -616,8 +616,16 @@ public class ClientModel implements iObservable {
         return ModelUtils.canChangeTurn();
     }
 
+    public boolean canEndGame(){
+        return ModelUtils.canEndGame();
+    }
+
     public boolean canChangeToLastTurn(){
         return ModelUtils.canChangeToLastTurn();
+    }
+
+    public boolean canSubmitGameStats(){
+        return ModelUtils.canSubmitGameStats();
     }
 
 

@@ -12,22 +12,22 @@ public class EndGameState implements IState {
 
     @Override
     public IState startGame() {
-        return null;
+        return this;
     }
 
     @Override
     public IState claimPath() {
-        return null;
+        return this;
     }
 
     @Override
     public IState drawDestinationCard() {
-        return null;
+        return this;
     }
 
     @Override
     public IState drawTrainCard() {
-        return null;
+        return this;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class EndGameState implements IState {
 
     @Override
     public IState lastTurn() {
-        return null;
+        return this;
     }
 }

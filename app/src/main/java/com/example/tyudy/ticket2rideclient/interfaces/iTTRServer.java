@@ -39,4 +39,6 @@ public interface iTTRServer
     DataTransferObject sendBackDestCards(DataTransferObject data);
 
     DataTransferObject changeToLastTurn(DataTransferObject data);
+
+    DataTransferObject submitGameStats(DataTransferObject data);
 }

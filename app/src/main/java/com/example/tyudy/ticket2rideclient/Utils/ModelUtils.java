@@ -188,6 +188,16 @@ public final class ModelUtils {
         return true;  // Game is in progress, so the turn can be changed
     }
 
+    public static boolean canEndGame(){
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        if(currentState.getClass() == EndGameState.class) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Checks to see if the user should send a lastTurnCommand.. basically checks to see...
      * 1. It is the currentUsers turn (not last turn)
@@ -207,7 +217,17 @@ public final class ModelUtils {
         } else {
             return false;
         }
+    }
 
+    public static boolean canSubmitGameStats(){
+        IState currentState = ClientModel.SINGLETON.getCurrentState();
+
+        if (currentState.getClass() == MyLastTurnBeganState.class ||
+            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

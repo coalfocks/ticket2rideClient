@@ -43,7 +43,10 @@ public class NotMyTurnState implements IState {
      */
     @Override
     public IState changeTurn() {
-        if(ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
+        if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 0){
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Game Over", Toast.LENGTH_SHORT).show();
+            return new EndGameState();
+        } else if (ClientModel.SINGLETON.getCurrentUser().getPlayerID() == ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn()) {
             Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Your turn began!", Toast.LENGTH_SHORT).show();
             return new MyTurnBeganState();
         } else {

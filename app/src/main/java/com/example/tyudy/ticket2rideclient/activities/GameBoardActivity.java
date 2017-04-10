@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import com.example.tyudy.ticket2rideclient.drawing.DrawingHelper;
 import com.example.tyudy.ticket2rideclient.common.cities.City;
 import com.example.tyudy.ticket2rideclient.fragments.ChatFragment;
 import com.example.tyudy.ticket2rideclient.fragments.GameBoardFragment;
+import com.example.tyudy.ticket2rideclient.fragments.GameOverFragment;
+import com.example.tyudy.ticket2rideclient.fragments.GameSelectionFragment;
 import com.example.tyudy.ticket2rideclient.fragments.LoginFragment;
 import com.example.tyudy.ticket2rideclient.fragments.PointsFragment;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
@@ -73,6 +76,12 @@ public class GameBoardActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         MethodsFacade.SINGLETON.setContext(this);
+    }
+
+    public void onEndGame(){
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        ft.replace(R.id.activity_game_board, new GameOverFragment()).commit(); // Go to the GameOverFragment
     }
 
     /**

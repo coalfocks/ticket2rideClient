@@ -53,7 +53,6 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                 if (ClientModel.SINGLETON.canStartGame()) {
                     IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
                     ClientModel.SINGLETON.setCurrentState(newState);
-                    //TODO: only set to turn if it is your turn
                 } else {
                     IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
                     ClientModel.SINGLETON.setCurrentState(newState);

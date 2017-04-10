@@ -226,9 +226,7 @@ public class MethodsFacade {
         ClientModel.SINGLETON.initCitiesAndPaths();
     }
 
-    /**
-     * Send a next turn command to the server unless the
-     */
+
     public void changeTurn() {
 
         DataTransferObject dto = new DataTransferObject();
@@ -241,14 +239,20 @@ public class MethodsFacade {
             dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
             ServerProxy.SINGLETON.changeToLastTurn(dto);
         } else {
+
+            if(ClientModel.SINGLETON.canSubmitGameStats()){
+                submitGameStats();
+            }
+
+            //FYI: On the last turn of the game, the inProgress variable in the game will be set to zero on the server after the stats are sent
+            //     and when the changeTurnCommand.execute() is called, since that variable is 0, the client will know to launch the GameOverFragment
+
             dto.setCommand("changeTurn");
             dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
             ServerProxy.SINGLETON.changeTurn(dto);
         }
-
-
-
     }
+
 
     public void drawDestCard() {
 
@@ -318,7 +322,8 @@ public class MethodsFacade {
         ServerProxy.SINGLETON.getFaceUpCards(dto);
     }
 
-    public void sendGameOverStats() {
+
+    public void submitGameStats() {
         DataTransferObject dto = new DataTransferObject();
         UserStats stats = new UserStats(ClientModel.SINGLETON.getCurrentUser().getUsername());
         User me = ClientModel.SINGLETON.getCurrentUser();
@@ -340,7 +345,7 @@ public class MethodsFacade {
             dto.setData(statstring);
             dto.setCommand("sendGameOverStats");
             dto.setPlayerID(me.getPlayerID());
-            ServerProxy.SINGLETON.sendGameOverStats(dto);
+            ServerProxy.SINGLETON.submitGameStats(dto);
         } catch (Exception e) {
             e.printStackTrace();
         }
