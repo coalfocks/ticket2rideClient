@@ -42,14 +42,6 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
             if (ClientModel.SINGLETON.canDrawTrainCard()) {
                 ClientModel.SINGLETON.addTrainCard(card);
                 Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + " card!", Toast.LENGTH_SHORT).show();
-                IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
-                ClientModel.SINGLETON.setCurrentState(newState);
-
-                // This executes when the user has already drawn two cards (not exactly sticking to the pattern here but im tired af)
-                if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class) {
-                    MethodsFacade.SINGLETON.changeTurn();
-                }
-
             } else {
                 throw new BadLogicException("DrawTrainCard command returned from the server and user canDrawTrainCards returned false");
             }

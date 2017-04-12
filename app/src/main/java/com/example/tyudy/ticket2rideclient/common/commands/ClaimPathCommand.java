@@ -35,13 +35,6 @@ public class ClaimPathCommand extends Command implements iCommand, Serializable 
                 ClientModel.SINGLETON.updateClaimedPath(path); // Update the ClientModels collection of paths to refelct the new claimed path
                 ClientModel.SINGLETON.notifyObservers();
 
-                // Only do this if the command came back to the user who claimed the path
-                if (path.getOwner().getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
-                    IState newState = ClientModel.SINGLETON.getCurrentState().claimPath();
-                    ClientModel.SINGLETON.setCurrentState(newState);
-                }
-
-
             } catch(Exception e){
                 e.printStackTrace();
             }

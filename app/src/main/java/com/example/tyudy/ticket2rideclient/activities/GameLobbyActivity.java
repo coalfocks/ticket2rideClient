@@ -56,7 +56,9 @@ public class GameLobbyActivity extends AppCompatActivity {
         Intent i = new Intent(this, GameBoardActivity.class);
         Bundle b = new Bundle();
         if (mGameLobbyPresenter.gameInProgress() == 0) {
+            ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(1);
             b.putBoolean("start", true);
+
         } else {
             b.putBoolean("start", false);
         }

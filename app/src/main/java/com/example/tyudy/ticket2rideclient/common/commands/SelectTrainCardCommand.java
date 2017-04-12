@@ -36,14 +36,6 @@ public class SelectTrainCardCommand extends Command implements iCommand, Seriali
             if(ClientModel.SINGLETON.canDrawTrainCard()) {
                 PresenterHolder.SINGLETON.getDecksDialogPresenter().exitClicked();
                 Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Selected a card!", Toast.LENGTH_SHORT).show();
-                IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
-                ClientModel.SINGLETON.setCurrentState(newState);
-
-                // This executes when the user has already drawn two cards (not exactly sticking to the pattern)
-                if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class ||
-                        ClientModel.SINGLETON.getCurrentState().getClass() == LastTurnNotMyTurnState.class) {
-                    MethodsFacade.SINGLETON.changeTurn();
-                }
 
             }
 

@@ -14,6 +14,8 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.model.states.LastTurnNotMyTurnState;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -303,6 +305,14 @@ public class MethodsFacade {
         dto.setCommand("drawTrainCard");
         dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()));
         ServerProxy.SINGLETON.drawTrainCard(dto);
+
+        // Change state of only client
+        IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
+        ClientModel.SINGLETON.setCurrentState(newState);
+
+        if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class) {
+            MethodsFacade.SINGLETON.changeTurn();
+        }
     }
 
     public void selectTrainCard(int cardID) {
@@ -312,6 +322,16 @@ public class MethodsFacade {
         dto.setCommand("selectTrainCard");
         dto.setData(String.valueOf(ClientModel.SINGLETON.getCurrentTTRGame().getGameID()) + "," + String.valueOf(cardID));
         ServerProxy.SINGLETON.selectTrainCard(dto);
+
+        // Change state of only client
+        IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
+        ClientModel.SINGLETON.setCurrentState(newState);
+
+        // This executes when the user has already drawn two cards
+        if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class ||
+                ClientModel.SINGLETON.getCurrentState().getClass() == LastTurnNotMyTurnState.class) {
+            MethodsFacade.SINGLETON.changeTurn();
+        }
     }
 
     public void getFaceUpCards() {
