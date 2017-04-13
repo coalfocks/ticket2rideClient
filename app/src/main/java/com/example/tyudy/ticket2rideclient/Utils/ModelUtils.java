@@ -188,7 +188,7 @@ public final class ModelUtils {
         return true;  // Game is in progress, so the turn can be changed
     }
 
-    public static boolean canEndGame(){
+    public static boolean canEndGame() {
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
         if(currentState.getClass() == EndGameState.class) {
