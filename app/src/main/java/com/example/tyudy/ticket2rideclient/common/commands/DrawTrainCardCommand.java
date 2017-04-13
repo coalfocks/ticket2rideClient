@@ -39,13 +39,8 @@ public class DrawTrainCardCommand extends Command implements iCommand, Serializa
 
 
             // This if should ALWAYS execute because we do the same check when the command is sent in the MethodsFacade
-            if (ClientModel.SINGLETON.canDrawTrainCard()) {
-                ClientModel.SINGLETON.addTrainCard(card);
-                Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + " card!", Toast.LENGTH_SHORT).show();
-            } else {
-                throw new BadLogicException("DrawTrainCard command returned from the server and user canDrawTrainCards returned false");
-            }
-
+            ClientModel.SINGLETON.addTrainCard(card);
+            Toast.makeText(MethodsFacade.SINGLETON.getContext(), "Drew a " + card.getColor().name() + " card!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

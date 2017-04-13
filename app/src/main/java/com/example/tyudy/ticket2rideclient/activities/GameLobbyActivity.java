@@ -58,7 +58,6 @@ public class GameLobbyActivity extends AppCompatActivity {
         if (mGameLobbyPresenter.gameInProgress() == 0) {
             ClientModel.SINGLETON.getCurrentTTRGame().setInProgress(1);
             b.putBoolean("start", true);
-
         } else {
             b.putBoolean("start", false);
         }

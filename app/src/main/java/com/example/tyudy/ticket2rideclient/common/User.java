@@ -147,8 +147,7 @@ public class User implements Serializable, Comparable<User> {
             c.incNum();
             colorCards.put(card.getColor(), c);
         }
-        else{
-            card.incNum();
+        else {
             colorCards.put(card.getColor(), card);
         }
     }
