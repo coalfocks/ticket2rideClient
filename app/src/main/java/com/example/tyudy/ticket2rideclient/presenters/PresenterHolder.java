@@ -23,6 +23,7 @@ public class PresenterHolder {
     private ClaimRouteDialogPresenter mClaimRouteDialogPresenter;
     private InitDestCardsPresenter mInitDestCardsPresenter;
     private ChooseColorDialogPresenter mChooseColorDialogPresenter;
+    private GameOverPresenter mGameOverPresenter;
 
     private PresenterHolder(){
         mLoginPresenter = new LoginPresenter();
@@ -37,6 +38,7 @@ public class PresenterHolder {
         mClaimRouteDialogPresenter = new ClaimRouteDialogPresenter();
         mInitDestCardsPresenter = new InitDestCardsPresenter();
         mChooseColorDialogPresenter = new ChooseColorDialogPresenter();
+        mGameOverPresenter = new GameOverPresenter();
     }
 
     /*
@@ -89,4 +91,7 @@ public class PresenterHolder {
         return mChooseColorDialogPresenter;
     }
 
+    public GameOverPresenter getmGameOverPresenter() {
+        return mGameOverPresenter;
+    }
 }

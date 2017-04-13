@@ -20,6 +20,7 @@ import com.example.tyudy.ticket2rideclient.common.User;
 import com.example.tyudy.ticket2rideclient.common.UserStats;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.presenters.GameOverPresenter;
+import com.example.tyudy.ticket2rideclient.presenters.PresenterHolder;
 
 import java.util.ArrayList;
 
@@ -43,8 +44,7 @@ public class GameOverFragment extends Fragment {
         mWinnerName = (TextView) v.findViewById(R.id.winner_name);
         mPlayerList = (RecyclerView) v.findViewById(R.id.game_over_recycler_view);
         mDoneButton = (Button) v.findViewById(R.id.done_button);
-        mGameOverPresenter = new GameOverPresenter(this);
-
+        PresenterHolder.SINGLETON.getmGameOverPresenter().setGameOverFragment(this);
         // TEST ----------
         ArrayList<UserStats> stats = new ArrayList<>();
         UserStats p1 = new UserStats("Bob", 50, 14, -12, 0);
@@ -57,7 +57,7 @@ public class GameOverFragment extends Fragment {
 
         // TODO: get user stats from server here
         //ArrayList<User> players = new ArrayList<>(ClientModel.SINGLETON.getCurrentTTRGame().getUsers());
-        PlayerInfoAdapter adapter = new PlayerInfoAdapter(stats);
+        PlayerInfoAdapter adapter = new PlayerInfoAdapter(mGameOverPresenter.getGameStats());
         mPlayerList.setAdapter(adapter);
         mPlayerList.setLayoutManager(new LinearLayoutManager(getActivity()));
 

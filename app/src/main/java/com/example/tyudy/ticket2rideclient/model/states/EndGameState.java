@@ -39,4 +39,8 @@ public class EndGameState implements IState {
     public IState lastTurn() {
         return this;
     }
+
+    public void endGame() {
+
+    }
 }

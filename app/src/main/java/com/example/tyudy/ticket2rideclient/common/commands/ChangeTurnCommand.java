@@ -51,10 +51,10 @@ public class ChangeTurnCommand extends Command implements iCommand, Serializable
                     throw new BadLogicException("It appears that a change turn command was sent before user was playing a game");
                 }
 
-                if (ClientModel.SINGLETON.canEndGame()) {
-                    // Launch the end game activity
-                    ((GameBoardActivity) jeffery).onEndGame();
-                }
+//                if (ClientModel.SINGLETON.canEndGame()) {
+//                    // Launch the end game activity
+//                    ((GameBoardActivity) jeffery).onEndGame();
+//                }
             } catch(Exception e){
                 e.printStackTrace();
             }
