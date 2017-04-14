@@ -13,6 +13,7 @@ import com.example.tyudy.ticket2rideclient.model.states.EndGameState;
 import com.example.tyudy.ticket2rideclient.model.states.MyLastTurnBeganState;
 import com.example.tyudy.ticket2rideclient.model.states.MyLastTurnDrewOneTrainCardState;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.PreGameState;
 
 /**
@@ -209,12 +210,12 @@ public final class ModelUtils {
     public static boolean canChangeToLastTurn(){
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
-        boolean isCurrentUsersTurn = (currentState.getClass() == MyTurnBeganState.class ||
-            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class);
+        boolean currentUsersTurnEnded = currentState.getClass() == NotMyTurnState.class;
 
         // Make sure it is the current users turn (not last turn)
+        // This function is called in the Methods Facade changeTurn and will only ever be called by someone ending their turn.
         // The User has less than 3 train cards so the last turn command should be sent to the server
-        if ((ClientModel.SINGLETON.getUsersTrains().getSize() < 3) && isCurrentUsersTurn) {
+        if ((ClientModel.SINGLETON.getUsersTrains().getSize() < 3) && currentUsersTurnEnded) {
             return true;
         } else {
             return false;
