@@ -278,7 +278,9 @@ public class User implements Serializable, Comparable<User> {
         for (Path p : newPaths) {
             if (p.containsCity(path.getCities().get(0)) ||
                     p.containsCity(path.getCities().get(1))) {
-                return followPath(p, newPaths, dest);
+                if (followPath(p, newPaths, dest)) {
+                    return true;
+                }
             }
         }
         return false;
