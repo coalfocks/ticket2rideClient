@@ -36,7 +36,9 @@ public final class ModelUtils {
                                      ClientModel.SINGLETON.getCurrentState().getClass() == MyLastTurnDrewOneTrainCardState.class);
 
         // Do the regular draw train card check
-        canDrawTrainCard();
+        if (canDrawTrainCard() == false ) {
+            return false;
+        }
 
         // Make sure user doesn't pick a wild on their second draw
         if (userDrewTrainCard && cardColor == ColorENUM.WILD) {
