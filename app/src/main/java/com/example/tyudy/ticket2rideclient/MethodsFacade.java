@@ -208,6 +208,7 @@ public class MethodsFacade {
             dto.setData(pathDataString);
             dto.setPlayerID(ClientModel.SINGLETON.getCurrentUser().getPlayerID());
             dto.setCommand("claimPath");
+            ClientModel.SINGLETON.setCurrentState(ClientModel.SINGLETON.getCurrentState().claimPath());
             ServerProxy.SINGLETON.claimPath(dto);
             ClientModel.SINGLETON.discardCardsForPath(path, color);
             ClientModel.SINGLETON.placePlasticTrainsForPath(path);
