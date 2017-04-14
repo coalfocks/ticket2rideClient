@@ -21,10 +21,10 @@ public class GetCommandsCommand extends Command implements iCommand, Serializabl
         try {
             ArrayList<Command> commands = (ArrayList<Command>) Serializer.deserialize(data.getData());
             for (Command c : commands) {
-                if (c.getClass() == StartGameCommand.class &&
-                        ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
-                    continue;
-                }
+//                if (c.getClass() == StartGameCommand.class &&
+//                        ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+//                    continue;
+//                }
                 c.execute();
             }
             Poller.getInstance().incIndex(commands.size());
