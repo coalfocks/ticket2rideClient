@@ -10,6 +10,8 @@ import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
+import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
+import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +34,13 @@ public class ListGamesCommand extends Command implements iCommand, Serializable
                     gList.size() != 0) {
 
                 ClientModel.SINGLETON.setCurrentTTRGame(ClientModel.SINGLETON.getTTRGameWithID(ClientModel.SINGLETON.getCurrentUser().getInGame()));
+                if (ClientModel.SINGLETON.getCurrentTTRGame().getInProgress() == 1) {
+                    if (ClientModel.SINGLETON.getCurrentTTRGame().getWhoTurn() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                        ClientModel.SINGLETON.setCurrentState(new MyTurnBeganState());
+                    } else {
+                        ClientModel.SINGLETON.setCurrentState(new NotMyTurnState());
+                    }
+                }
                 FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();
                 ((PreGameActivity) jeffery).onLogin(ClientModel.SINGLETON.getCurrentUser().getInGame());
 

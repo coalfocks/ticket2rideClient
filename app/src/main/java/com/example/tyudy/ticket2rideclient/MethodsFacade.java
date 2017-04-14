@@ -14,6 +14,7 @@ import com.example.tyudy.ticket2rideclient.interfaces.IState;
 import com.example.tyudy.ticket2rideclient.interfaces.iObserver;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.model.states.EndGameState;
 import com.example.tyudy.ticket2rideclient.model.states.LastTurnNotMyTurnState;
 import com.example.tyudy.ticket2rideclient.model.states.NotMyTurnState;
 import com.google.gson.Gson;
@@ -310,7 +311,8 @@ public class MethodsFacade {
         IState newState = ClientModel.SINGLETON.getCurrentState().drawTrainCard();
         ClientModel.SINGLETON.setCurrentState(newState);
 
-        if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class) {
+        if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class ||
+                ClientModel.SINGLETON.getCurrentState().getClass() == EndGameState.class) {
             MethodsFacade.SINGLETON.changeTurn();
         }
     }
@@ -329,7 +331,7 @@ public class MethodsFacade {
 
         // This executes when the user has already drawn two cards
         if (ClientModel.SINGLETON.getCurrentState().getClass() == NotMyTurnState.class ||
-                ClientModel.SINGLETON.getCurrentState().getClass() == LastTurnNotMyTurnState.class) {
+                ClientModel.SINGLETON.getCurrentState().getClass() == EndGameState.class) {
             MethodsFacade.SINGLETON.changeTurn();
         }
     }

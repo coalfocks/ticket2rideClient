@@ -18,8 +18,10 @@ public class PreGameState implements IState {
     @Override
     public IState startGame() {
         if (ClientModel.SINGLETON.isCurrentUsersTurn()){
+            //return new MyLastTurnBeganState();
             return new MyTurnBeganState();
         } else {
+            //return new LastTurnNotMyTurnState();
             return new NotMyTurnState();
         }
     }

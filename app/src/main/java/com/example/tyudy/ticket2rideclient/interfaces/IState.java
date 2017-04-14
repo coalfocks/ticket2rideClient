@@ -60,5 +60,7 @@ public interface IState {
 
     IState lastTurn();
 
+    //TODO: select wild end game
+
 
  }

@@ -45,6 +45,7 @@ public class GameOverFragment extends Fragment {
         mPlayerList = (RecyclerView) v.findViewById(R.id.game_over_recycler_view);
         mDoneButton = (Button) v.findViewById(R.id.done_button);
         PresenterHolder.SINGLETON.getmGameOverPresenter().setGameOverFragment(this);
+        mGameOverPresenter = PresenterHolder.SINGLETON.getmGameOverPresenter();
         // TEST ----------
         ArrayList<UserStats> stats = new ArrayList<>();
         UserStats p1 = new UserStats("Bob", 50, 14, -12, 0);

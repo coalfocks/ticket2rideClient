@@ -31,7 +31,8 @@ public class MyLastTurnDrewOneTrainCardState implements IState {
 
     @Override
     public IState drawTrainCard() {
-        return new LastTurnNotMyTurnState();
+        return new EndGameState();
+        //LastTurnNotMyTurnState();
     }
 
     @Override

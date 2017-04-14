@@ -20,12 +20,13 @@ public class MyLastTurnBeganState implements IState {
 
     @Override
     public IState claimPath() {
-        return new LastTurnNotMyTurnState();
+        return new EndGameState();
+        //LastTurnNotMyTurnState();
     }
 
     @Override
     public IState drawDestinationCard() {
-        return null;
+        return new EndGameState();
     }
 
     @Override

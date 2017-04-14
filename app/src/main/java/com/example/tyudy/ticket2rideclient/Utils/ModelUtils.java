@@ -224,8 +224,7 @@ public final class ModelUtils {
     public static boolean canSubmitGameStats(){
         IState currentState = ClientModel.SINGLETON.getCurrentState();
 
-        if (currentState.getClass() == MyLastTurnBeganState.class ||
-            currentState.getClass() == MyLastTurnDrewOneTrainCardState.class) {
+        if (currentState.getClass() == EndGameState.class) {
             return true;
         } else {
             return false;

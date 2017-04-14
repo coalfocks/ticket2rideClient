@@ -39,7 +39,6 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                     return null;
                 }
                 ClientModel.SINGLETON.setCurrentTTRGame(game);
-                //TODO: game coming back not in progress
                 ClientModel.SINGLETON.setCurrentPlayerTurnID(game.getWhoTurn());
                 for (User u : game.getUsers()) {
                     if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
@@ -55,12 +54,11 @@ public class StartGameCommand extends Command implements iCommand, Serializable
                     IState newState = ClientModel.SINGLETON.getCurrentState().startGame();
                     ClientModel.SINGLETON.setCurrentState(newState);
                 }
+                Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
+                ((GameLobbyActivity) jeffery).onStartGame();
             } catch (Exception e) {
                 e.printStackTrace();
-                System.console().printf(e.getMessage());
             }
-            Toast.makeText(jeffery, "Game Started!", Toast.LENGTH_SHORT).show();
-            ((GameLobbyActivity) jeffery).onStartGame();
         }
         return null;
     }
