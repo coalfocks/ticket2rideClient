@@ -7,7 +7,10 @@ import com.example.tyudy.ticket2rideclient.MethodsFacade;
 import com.example.tyudy.ticket2rideclient.Serializer;
 import com.example.tyudy.ticket2rideclient.activities.PreGameActivity;
 import com.example.tyudy.ticket2rideclient.common.DataTransferObject;
+import com.example.tyudy.ticket2rideclient.common.PlasticTrainCollection;
 import com.example.tyudy.ticket2rideclient.common.TTRGame;
+import com.example.tyudy.ticket2rideclient.common.User;
+import com.example.tyudy.ticket2rideclient.common.cities.Path;
 import com.example.tyudy.ticket2rideclient.common.iCommand;
 import com.example.tyudy.ticket2rideclient.model.ClientModel;
 import com.example.tyudy.ticket2rideclient.model.states.MyTurnBeganState;
@@ -39,6 +42,18 @@ public class ListGamesCommand extends Command implements iCommand, Serializable
                         ClientModel.SINGLETON.setCurrentState(new MyTurnBeganState());
                     } else {
                         ClientModel.SINGLETON.setCurrentState(new NotMyTurnState());
+                    }
+
+                    for (User u : ClientModel.SINGLETON.getCurrentTTRGame().getUsers()) {
+                        int piecesPlaced = 0;
+                        for (Path p : u.getClaimedPaths()) {
+                            ClientModel.SINGLETON.updateClaimedPath(p);
+                            piecesPlaced += p.getDistance();
+                        }
+                        if (u.getPlayerID() == ClientModel.SINGLETON.getCurrentUser().getPlayerID()) {
+                            int num = 45 - piecesPlaced;
+                            ClientModel.SINGLETON.setUsersTrains(new PlasticTrainCollection(num));
+                        }
                     }
                 }
                 FragmentActivity jeffery = MethodsFacade.SINGLETON.getContext();

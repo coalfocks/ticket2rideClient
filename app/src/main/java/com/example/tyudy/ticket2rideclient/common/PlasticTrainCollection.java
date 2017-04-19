@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class PlasticTrainCollection implements Serializable {
 
-    final int TRAIN_COLLECTION_MAX_SIZE = 7;
+    final int TRAIN_COLLECTION_MAX_SIZE = 45;
     ArrayList<PlasticTrain> mMyTrains;
 
     /**
@@ -20,6 +20,13 @@ public class PlasticTrainCollection implements Serializable {
     public PlasticTrainCollection(){
         mMyTrains = new ArrayList<>();
         for(int i = 0; i < TRAIN_COLLECTION_MAX_SIZE; i++) { //Initialize with 45 train pieces
+            mMyTrains.add(new PlasticTrain());
+        }
+    }
+
+    public PlasticTrainCollection(int num){
+        mMyTrains = new ArrayList<>();
+        for(int i = 0; i < num; i++) { //Initialize with 45 train pieces
             mMyTrains.add(new PlasticTrain());
         }
     }
